@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 
 import Navigation from './containers/Navigation/Navigation';
-import Home from './containers/Home/Home';
 
 class App extends Component{
   state = {
@@ -14,7 +13,6 @@ class App extends Component{
     return(
       <div>
           <Navigation role={this.state.role} />
-          <Route path = "/ads" component={Home} />
       </div>
     );
   }

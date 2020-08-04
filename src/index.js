@@ -6,13 +6,23 @@ import * as serviceWorker from './serviceWorker';
 
 // imported from developer
 import { BrowserRouter } from 'react-router-dom';
+import {createStore, compose, applyMiddleware} from 'redux';
+import reducer from './store/reducer';  
+import { Provider } from 'react-redux';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducer,composeEnhancers(applyMiddleware())); 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+  
+    <React.StrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
