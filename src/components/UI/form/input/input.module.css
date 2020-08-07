@@ -15,12 +15,16 @@
     box-sizing: border-box;
 }
 
+.Invalid {
+    border: 2px solid red;
+}
+
 .Input:focus{
     outline: none;    
     box-shadow: 1px 1px 3px rgb(189, 176, 0)
 }
 
-.InputTextArea {
+textarea {
     display: block;
     padding: 1rem 0.5rem;
     border-width: 2px ;
@@ -37,9 +41,8 @@
 }
 
 .Label {
-    display: block;
-    font-size: 1.4rem;
-    text-shadow: 2px 1px rgb(161, 161, 161);
+    display: inline-block;
+    font-size: 1.2rem;
     padding: 1rem 0px;
 }
 

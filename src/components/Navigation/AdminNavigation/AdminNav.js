@@ -11,7 +11,7 @@ const AdminNav = (props) => {
     return (
         <nav className={classes.Navbar}>
             <AdminNavItems link="/admin/orders">Orders</AdminNavItems>
-            <AdminNavItems link="/admin/books">Books</AdminNavItems>
+            <AdminNavItems link="/admin/book/add">Books</AdminNavItems>
             <AdminNavItems link="/admin/authors">Authors</AdminNavItems>
             <AdminNavItems link="/admin/publishers">Publishers</AdminNavItems>
             <AdminNavItems link="/admin/stocks">Stocks</AdminNavItems>

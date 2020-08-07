@@ -31,3 +31,14 @@
 .Link {
     color: #099bf0;
 }
+
+.Error {
+    box-sizing: border-box;
+    background-color: #ffa9a9;
+    border: red;
+    border-radius: 5px;
+    color: #222;
+    margin: 0.2rem auto 0rem auto;
+    max-width: 300px;
+    font-size: 1rem !important;
+}

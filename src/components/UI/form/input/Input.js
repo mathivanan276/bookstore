@@ -5,11 +5,18 @@ import classes from './input.module.css';
 const Input = (props) => {
 
     let inputElement = null;
+
+    const inputClasses = [classes.Input];
+
+    if(!props.isvalid){
+        inputClasses.push(classes.Invalid);
+        // console.log('Invalid')
+    }
     
     switch(props.elementType){
         case ('input') : 
             inputElement = <input 
-                            className={classes.Input} 
+                            className={inputClasses.join(' ')} 
                             {...props.elementConfig}
                             value={props.value}
                             onChange={props.changed}
@@ -18,7 +25,7 @@ const Input = (props) => {
         case ('textarea') : 
         inputElement = <textarea
                         rows='3'
-                        className={classes.InputTextArea}
+                        className={inputClasses.join(' ')}
                         {...props.elementConfig}
                         value={props.value}
                         onChange={props.changed}></textarea>;
@@ -26,11 +33,11 @@ const Input = (props) => {
 
         case ('select') : 
         inputElement = <select
-                className={classes.Input}
+                className={inputClasses.join(' ')}
                 onChange={props.changed}>
                     {
                         props.elementConfig.options.map(options =>{
-                            return <option value={options.value}>{options.dispVal}</option>
+                            return <option key={options.value} value={options.value}>{options.dispVal}</option>
                         })
                     }
                 </select>
@@ -38,6 +45,7 @@ const Input = (props) => {
 
         case ('radio') :
             inputElement = <input 
+                className={inputClasses.join(' ')}
                 type={props.elementType}
                 {...props.elementConfig}
                 value={props.value}
@@ -49,7 +57,7 @@ const Input = (props) => {
 
     return (
         <div className={classes.FormControl}>
-            <label className={classes.Label}></label>
+            <label className={classes.Label}>{props.label}</label>
             {inputElement}
         </div>
     );

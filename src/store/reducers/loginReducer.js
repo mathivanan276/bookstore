@@ -1,10 +1,11 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/loginActions';
 
 let initialState = {
     loggedIn : false,
+    validated: false,
     userDetails : {
         username: '',
-        role: 'user',
+        role: 'admin',
         email:'',
         userId: ''
     }
@@ -46,7 +47,7 @@ const reducer = ( state = initialState, action ) => {
             loggedIn: !state.loggedIn,
             userDetails : {
                 username: '',
-                role: 'user',
+                role: 'admin',
                 email:'',
                 userId: ''
             }

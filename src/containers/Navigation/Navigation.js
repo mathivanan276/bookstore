@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actionType from '../../store/actions';
+import * as actionType from '../../store/actions/loginActions';
 import UserNavigation from '../../components/Navigation/UserNavigation/UserNav';
 import AdminNavigation from '../../components/Navigation/AdminNavigation/AdminNav';
 
@@ -31,7 +31,6 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: () => dispatch({type : actionType.LOGIN}),
         logout: () => dispatch({type : actionType.LOGOUT})
     }
 }
