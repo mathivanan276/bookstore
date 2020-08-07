@@ -3,14 +3,19 @@ import React from 'react';
 import classes from './AdminNav.module.css';
 import AdminNavItems from './AdminNavItems/AdminNavItems';
 
-const AdminNav = () => {
+const AdminNav = (props) => {
+    let login = <AdminNavItems link='/login'>LogIn</AdminNavItems>
+    if(props.isLogged === true){
+        login = <p onClick={props.logout}>LogOut</p>
+    }
     return (
         <nav className={classes.Navbar}>
-            <AdminNavItems>Orders</AdminNavItems>
-            <AdminNavItems>Books</AdminNavItems>
-            <AdminNavItems>Authors</AdminNavItems>
-            <AdminNavItems>Publishers</AdminNavItems>
-            <AdminNavItems>Stocks</AdminNavItems>
+            <AdminNavItems link="/admin/orders">Orders</AdminNavItems>
+            <AdminNavItems link="/admin/books">Books</AdminNavItems>
+            <AdminNavItems link="/admin/authors">Authors</AdminNavItems>
+            <AdminNavItems link="/admin/publishers">Publishers</AdminNavItems>
+            <AdminNavItems link="/admin/stocks">Stocks</AdminNavItems>
+            {login}
         </nav>
     );
 }

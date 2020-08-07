@@ -6,3 +6,7 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.Navbar p {
+    cursor: pointer;
+}

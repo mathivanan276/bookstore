@@ -5,7 +5,7 @@ import classes from './UserNavItems.module.css';
 
 const UserNavItems = (props) => {
     return (
-        <Link href={'/'+props.link} className={classes.UserNavItems}>{props.children}</Link>
+        <Link to={props.link} className={classes.UserNavItems}>{props.children}</Link>
     )
 }
 

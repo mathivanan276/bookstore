@@ -5,15 +5,17 @@ import * as actionType from '../../store/actions';
 import UserNavigation from '../../components/Navigation/UserNavigation/UserNav';
 import AdminNavigation from '../../components/Navigation/AdminNavigation/AdminNav';
 
+import classes from './Navigation.module.css';
+
 class Navigation extends Component {
 
     render(){
-        let navbar = <AdminNavigation />
+        let navbar = <AdminNavigation isLogged={this.props.isLoggedIn} login={this.props.login} logout={this.props.logout}/>
         if(this.props.role === 'user'){
             navbar = <UserNavigation isLogged={this.props.isLoggedIn} login={this.props.login} logout={this.props.logout}/>
         }
         return(
-            <div>
+            <div className={classes.Nav}>
                 {navbar}
             </div>
         );
@@ -22,8 +24,8 @@ class Navigation extends Component {
 
 const mapStateToProps = state =>{
     return{
-        isLoggedIn : state.loggedIn,
-        role : state.userDetails.role
+        isLoggedIn : state.loginReducer.loggedIn,
+        role : state.loginReducer.userDetails.role
     };
 };
 

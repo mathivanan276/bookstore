@@ -1,8 +1,13 @@
 .Navbar {
     margin: 0px;
     display: block;
-    background-color: rgb(236, 197, 69);
+    background-color: var(--primary-yellow);
     padding: 10px;
     display: flex;
     justify-content: space-evenly;
+    position: sticky;
+}
+
+.Navbar p {
+    cursor: pointer;
 }

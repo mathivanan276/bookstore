@@ -6,13 +6,22 @@ import * as serviceWorker from './serviceWorker';
 
 // imported from developer
 import { BrowserRouter } from 'react-router-dom';
-import {createStore, compose, applyMiddleware} from 'redux';
-import reducer from './store/reducer';  
+import {createStore, compose, applyMiddleware , combineReducers} from 'redux';
+import LoginReducer from './store/reducers/loginReducer';  
 import { Provider } from 'react-redux';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
+
+const rootReducer = combineReducers(
+  {
+    loginReducer : LoginReducer
+  }
+)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer,composeEnhancers(applyMiddleware())); 
+const store = createStore(rootReducer,composeEnhancers(applyMiddleware())); 
 
 ReactDOM.render(
   

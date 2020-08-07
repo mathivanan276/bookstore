@@ -1,0 +1,64 @@
+.FormControl {
+    margin: auto;
+    text-align: left;
+    max-width: 300px;
+}
+.Input {
+    display: block;
+    padding: 0.6rem 0.5rem;
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 3px;
+    min-width: 300px;
+    margin: auto;
+    font-size: 1rem;
+    font-family: monospace;
+    box-sizing: border-box;
+}
+
+.Input:focus{
+    outline: none;    
+    box-shadow: 1px 1px 3px rgb(189, 176, 0)
+}
+
+.InputTextArea {
+    display: block;
+    padding: 1rem 0.5rem;
+    border-width: 2px ;
+    border-radius: 3px;
+    min-width: 300px;
+    margin: auto;
+    font-size: 1.4rem;
+    font-family: monospace;
+    box-sizing: border-box;
+}
+
+.CheckBox{
+    padding: 3px;
+}
+
+.Label {
+    display: block;
+    font-size: 1.4rem;
+    text-shadow: 2px 1px rgb(161, 161, 161);
+    padding: 1rem 0px;
+}
+
+@media only screen and (max-width: 500px){
+    .FormControl {
+        margin: auto;
+        text-align: left;
+        max-width: 300px;
+    }
+    .Input {
+        padding: 0.25rem 0.25;
+        font-size: 1rem;
+    }
+    .InputTextArea {
+        display: block;
+        padding: 0.5rem 0.5rem;
+        border-width: 2px ;
+        border-radius: 3px;
+        min-width: 300px;
+        font-size: 1.2rem;
+    }
+}

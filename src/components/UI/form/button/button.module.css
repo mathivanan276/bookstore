@@ -1,0 +1,14 @@
+.Button {
+    display: inline-block;
+    margin: 1rem 0rem;
+    min-width: 300px;
+    padding: 0.6rem 0.5rem;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--primary-yellow);
+    box-sizing: border-box;
+}
+.Button:focus{
+    outline: none;
+    box-shadow: 1px 1px 3px rgb(189, 176, 0);
+}
