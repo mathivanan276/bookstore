@@ -33,7 +33,7 @@ const Input = (props) => {
 
         case ('select') : 
         inputElement = <select
-                className={inputClasses.join(' ')}
+                className={classes.Input}
                 onChange={props.changed}>
                     {
                         props.elementConfig.options.map(options =>{
@@ -44,12 +44,15 @@ const Input = (props) => {
         break;
 
         case ('radio') :
-            inputElement = <input 
-                className={inputClasses.join(' ')}
+            inputElement = <div>
+                <label className={classes.Label}>{props.label}</label>
+                <input 
+                className={classes.Radio}
                 type={props.elementType}
                 {...props.elementConfig}
                 value={props.value}
-                onChange={props.changed} />;
+                onChange={props.changed} />
+                </div>;
                 break;
         default: 
         inputElement = <input />
@@ -57,7 +60,6 @@ const Input = (props) => {
 
     return (
         <div className={classes.FormControl}>
-            <label className={classes.Label}>{props.label}</label>
             {inputElement}
         </div>
     );

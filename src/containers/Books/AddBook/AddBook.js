@@ -86,6 +86,45 @@ class AddBook extends Component {
                 validation:false,
                 touched: false,
                 isvalid: true
+            },
+            returnableYes :{
+                elementType: "radio",
+                elementConfig:{
+                    value:true,
+                    name:'returnOption'
+                },
+                value:'',
+                label:'Returnable:',
+                validation:false,
+                touched:false,
+                isvalid:true
+            },
+            returnableNo :{
+                elementType: "radio",
+                elementConfig:{
+                    value:false,
+                    name:'returnOption'
+                },
+                value:'',
+                label:'Non-Returnable:',
+                validation:false,
+                touched:false,
+                isvalid:true
+            },
+            description :{
+                elementType: "textarea",
+                elementConfig:{
+                    placeholder:"Enter Book Discription",
+                    type:"text",
+                    rows:5
+                },
+                value:'',
+                validation:{
+                    required: true,
+                    comments: true
+                },
+                touched:false,
+                isvalid:true
             }
         },
         authorUpdating:true
@@ -135,7 +174,7 @@ class AddBook extends Component {
                     elementConfig = {formElement.config.elementConfig}
                     value = {formElement.config.value}
                     isvalid = {formElement.config.isvalid}
-                    // label = {formElement.id}
+                    label = {formElement.config.label}
                     changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
               ))
         );
