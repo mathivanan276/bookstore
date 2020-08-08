@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-import classes from './AddBook.module.css';
+import classes from './EditBook.module.css';
+import Axios from 'axios';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
-
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
-import { Link, withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import Axios from 'axios';
+import * as bookActionTypes from '../../../store/actions/bookAction';
 
-class AddBook extends Component {
 
+class EditBook extends Component {
     state = {
         addform : {
             title : {
@@ -212,6 +213,15 @@ class AddBook extends Component {
         })
     }
 
+    handleSearch = (event) => {
+        let data = this.state.search.value;
+        if(this.state.search.touched){
+            this.props.getBookTitle(data);
+        } else {
+            alert('Enter Book Title');
+        }
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const data = this.state.addform;
@@ -314,17 +324,18 @@ class AddBook extends Component {
         if(this.props.authors[0].id !== 1 && this.state.authorUpdating && this.props.publisher[0].id !== 1 && this.props.genre[0].id !== 1){
             this.updatingTheAuthors();
         }
+        let editform = (<form>
+                        <div className={classes.Form}>
+                        {form}
+                        </div>
+                        <Button type="submit" clicked={this.handleSubmit}>Register</Button> 
+                    </form>);
         return (
             <div className={classes.Section}>
-                <h1>Add Book</h1>
+                <h1>Edit Book</h1>
                 {error}
-                <form >
-                    <div className={classes.Form}>
-                    {form}
-                    </div>
-                    <Button type="submit" clicked={this.handleSubmit}>Register</Button> 
-                </form>
-                <p>Edit Existing Book | <Link to='/admin/book/edit'><span className={classes.Link}>Click Here</span></Link></p>
+                {editform}
+                <p>Add A Book | <Link to='/admin/book/add'><span className={classes.Link}>Click Here</span></Link></p>
             </div>
         )
     }
@@ -342,8 +353,10 @@ const mapDispatchToProps = (dispatch) =>{
     return{
         getAuthors : () => dispatch(authorActionTypes.getAuthors()),
         getPublisher : () =>dispatch(publisherActionTypes.getPublisher()),
-        getGenre : () => dispatch(genreActionTypes.getGenre())
+        getGenre : () => dispatch(genreActionTypes.getGenre()),
+        // getBookTitle : (title) => dispatch(bookActionTypes.getTitles(title))
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(AddBook));
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(EditBook));

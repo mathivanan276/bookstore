@@ -14,6 +14,8 @@ import thunk from 'redux-thunk';
 import LoginReducer from './store/reducers/loginReducer'; 
 import AuthorReducer from './store/reducers/authorReducer'; 
 import PublisherReducer from './store/reducers/publicherReducer';
+import GenreReducer from './store/reducers/genreReducer';
+import BookReducer from './store/reducers/bookReducer';
 
 axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
 
@@ -21,7 +23,9 @@ const rootReducer = combineReducers(
   {
     loginReducer : LoginReducer,
     authorReducer : AuthorReducer,
-    publisherReducer : PublisherReducer
+    publisherReducer : PublisherReducer,
+    genreReducer : GenreReducer,
+    bookReducer : BookReducer
   }
 )
 

@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-export const GET_PUBLISHER = 'GET_PUBLISHER';
+export const GET_GENRE = 'GET_GENRE';
 
-const storePublisher = (data) => {
+const storeGenre = (data) => {
     return {
-        type:GET_PUBLISHER,
+        type:GET_GENRE,
         data:data
     }
 }
 
-export const getPublisher = () => {
+export const getGenre = () => {
     return (dispatch) => {
-        axios.get('publishers/read')
+        axios.get('genres/read')
         .then(res => {
             // console.log(res.data);
-            dispatch(storePublisher(res.data))
+            dispatch(storeGenre(res.data))
         })
         .catch(err => {
             console.log(err);

@@ -1,7 +1,7 @@
 .FormControl {
     margin: auto;
     text-align: left;
-    max-width: 300px;
+    /* max-width: 300px; */
 }
 .Input {
     display: block;

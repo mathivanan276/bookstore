@@ -1,12 +1,23 @@
 .Navbar {
     margin: 0px;
     display: block;
-    background-color: rgb(236, 197, 69);
-    padding: 10px;
+    background-color: var(--primary-background);
     display: flex;
     justify-content: space-evenly;
 }
 
 .Navbar p {
     cursor: pointer;
+}
+.Logout {
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
+}
+
+.Logout:hover {
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
+    background-color: rgb(255, 235, 205);
 }

@@ -117,13 +117,14 @@ class UserRegister extends Component {
     }  
 
     inputChangeHandeler = (event,identifier) =>{
+        // console.log(identifier);
         const updatedregisterForm = {...this.state.registerForm};
         const updatedregisterFormElement = {...updatedregisterForm[identifier]};
         updatedregisterFormElement.value = event.target.value;
         updatedregisterFormElement.touched = true;
         updatedregisterFormElement.isvalid = this.checkValidation(updatedregisterFormElement.value , updatedregisterFormElement.validation);
         updatedregisterForm[identifier] = updatedregisterFormElement;
-        // console.log(updatedregisterFormElement)
+        // console.log(updatedregisterFormElement);
         this.setState({
             registerForm:updatedregisterForm
         })

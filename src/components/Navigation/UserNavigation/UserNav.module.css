@@ -1,13 +1,17 @@
 .Navbar {
     margin: 0px;
     display: block;
-    background-color: var(--primary-yellow);
-    padding: 10px;
+    background-color: var(--primary-background);
     display: flex;
     justify-content: space-evenly;
-    position: sticky;
 }
 
 .Navbar p {
     cursor: pointer;
+}
+
+.Logout {
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
 }

@@ -7,7 +7,7 @@ const UserNav = (props) => {
     let login = <UserNavItems link='/login'>LogIn</UserNavItems>
     let register = <UserNavItems link='/register'>Register</UserNavItems>
     if(props.isLogged === true){
-        login = <p onClick={props.logout}>LogOut</p>;
+        login = <p onClick={props.logout} className={classes.Logout}>LogOut</p>;
         register = null;
     }
 

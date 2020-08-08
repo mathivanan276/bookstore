@@ -15,12 +15,14 @@ const Input = (props) => {
     
     switch(props.elementType){
         case ('input') : 
-            inputElement = <input 
+            inputElement = /*<div className={classes.FormControl}>*/
+                            <input 
                             className={inputClasses.join(' ')} 
                             {...props.elementConfig}
                             value={props.value}
                             onChange={props.changed}
-                            />;
+                            />
+                            //</div>;
             break;
         case ('textarea') : 
         inputElement = <textarea
@@ -32,36 +34,44 @@ const Input = (props) => {
         break;
 
         case ('select') : 
-        inputElement = <select
-                className={classes.Input}
-                onChange={props.changed}>
-                    {
-                        props.elementConfig.options.map(options =>{
-                            return <option key={options.value} value={options.value}>{options.dispVal}</option>
-                        })
-                    }
-                </select>
+        inputElement = <div className={classes.FormControl}>
+                    <label>{props.label}</label>
+                    <select
+                    className={classes.Input}
+                    onChange={props.changed}>
+                        <option key=" " value="--null--">--null--</option>
+                        {
+                            props.elementConfig.options.map((options,index) =>{
+                                if(props.value === options.value){
+                                    return <option key={index} value={options.value} selected>{options.dispVal}</option>
+                                }
+                                return <option key={index} value={options.value}>{options.dispVal}</option>
+                            })
+                        }
+                    </select>
+                </div>
         break;
 
         case ('radio') :
-            inputElement = <div>
-                <label className={classes.Label}>{props.label}</label>
-                <input 
-                className={classes.Radio}
-                type={props.elementType}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />
-                </div>;
+            inputElement = <>
+                    {
+                        props.elementConfig.buttons.map( (option,index) => {
+                            return <React.Fragment key={index}>
+                                <label key={option.label} className={classes.Label}>{option.label}</label>
+                                <input key={index} type='radio' value={option.value} name={option.name} className={classes.Input} onChange={props.changed}/>
+                            </React.Fragment>
+                        })
+                    }
+                </>;
                 break;
         default: 
-        inputElement = <input />
+        inputElement = null;
     }
 
     return (
-        <div className={classes.FormControl}>
+        <>
             {inputElement}
-        </div>
+        </>
     );
 
 }

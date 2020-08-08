@@ -1,5 +1,7 @@
 html{
-  --primary-yellow : #ffcc41;
+  --primary-background : #ffd000;
+  --secondary-background : #ffffff;
+  --footer-background: #fdd06d;
 }
 
 * {

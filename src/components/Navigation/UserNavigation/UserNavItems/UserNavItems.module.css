@@ -1,4 +1,9 @@
 .UserNavItems{
     text-decoration: none;
     color: black;
+    padding: 1rem;
+}
+
+.UserNavItems:hover,.active{
+    background-color: var(--secondary-background);
 }

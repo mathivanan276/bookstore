@@ -5,7 +5,7 @@ import classes from './AdminNavItems.module.css';
 
 const AdminNavItems = (props) => {
     return (
-        <NavLink to={props.link} activeLink={classes.active} className={classes.AdminNavItems}>{props.children}</NavLink>
+        <NavLink to={props.link} activeClassName={classes.active} className={classes.AdminNavItems}>{props.children}</NavLink>
     )
 }
 

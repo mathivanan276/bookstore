@@ -5,7 +5,7 @@
     padding: 0.6rem 0.5rem;
     border: none;
     border-radius: 3px;
-    background-color: var(--primary-yellow);
+    background-color: var(--primary-background);
     box-sizing: border-box;
 }
 .Button:focus{

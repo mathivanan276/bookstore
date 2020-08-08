@@ -1,8 +1,9 @@
 .AdminNavItems{
     text-decoration: none;
     color: black;
+    padding: 1rem;
 }
 
-.active{
-    background-color: blanchedalmond;
+.AdminNavItems:hover,.active{
+    background-color: var(--secondary-background);;
 }
