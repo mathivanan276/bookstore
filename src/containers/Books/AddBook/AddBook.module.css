@@ -37,6 +37,10 @@
     width: 87%;
     grid-column: 1/ span 2;
 }
+.Form input[type='file']{
+    width: 87%;
+    grid-column: 1/ span 2;
+}
 .Error {
     box-sizing: border-box;
     background-color: #ffa9a9;
@@ -53,6 +57,10 @@
         display: block;
     }
     .Form textarea{
+        width: 71%;
+        grid-column: 1/ span 2;
+    }
+    .Form input[type='file']{
         width: 71%;
         grid-column: 1/ span 2;
     }

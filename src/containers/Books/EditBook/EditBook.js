@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 
 import classes from './EditBook.module.css';
 import Axios from 'axios';
@@ -10,25 +10,23 @@ import { withRouter } from 'react-router-dom';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
-import * as bookActionTypes from '../../../store/actions/bookAction';
+import * as bookActionsType from '../../../store/actions/bookAction';
 
 
 class EditBook extends Component {
     state = {
-        addform : {
+        editform : {
             title : {
                 elementType: "input",
                 elementConfig:{
                     placeholder: "TITLE",
                     type:"text"
                 },
-                value : "",
+                value : this.props.book.title,
                 validation:{
                     required: true
                 },
-                touched: false,
-                isvalid: true,
-                name:"title"
+                isvalid: true
             },
             isbn : {
                 elementType: "input",
@@ -36,11 +34,10 @@ class EditBook extends Component {
                     placeholder: "ISBN",
                     type:"text"
                 },
-                value : "",
+                value : this.props.book.isbn,
                 validation:{
                     required: true
                 },
-                touched: false,
                 isvalid: true,
                 name:"isbn"
             },
@@ -50,13 +47,12 @@ class EditBook extends Component {
                     placeholder: "PRICE",
                     type:"number"
                 },
-                value : "",
+                value : this.props.book.price,
                 validation:{
                     isNumeric: true,
                     required: true,
                     maxLength:5
                 },
-                touched: false,
                 isvalid: true,
                 name:"isbn"
             },
@@ -66,11 +62,10 @@ class EditBook extends Component {
                     placeholder: "DATE",
                     type:"date"
                 },
-                value : "",
+                value : this.props.book.publishedOn,
                 validation:{
                     required: true,
                 },
-                touched: false,
                 isvalid: true,
                 name:"publishedOn"
             },
@@ -80,11 +75,10 @@ class EditBook extends Component {
                     placeholder: "LANGUAGE",
                     type:"text"
                 },
-                value : "",
+                value : this.props.book.language,
                 validation:{
                     required: true
                 },
-                touched: false,
                 isvalid: true,
                 name:"language"
             },
@@ -93,9 +87,8 @@ class EditBook extends Component {
                 elementConfig:{
                     options: this.props.authors
                 },
-                value : "--null--",
+                value : this.props.book.authorId,
                 validation:false,
-                touched: false,
                 isvalid: true,
                 name:"author"
             },
@@ -104,9 +97,8 @@ class EditBook extends Component {
                 elementConfig:{
                     options: this.props.publisher
                 },
-                value : "--null--",
+                value : this.props.book.publisherId,
                 validation:false,
-                touched: false,
                 isvalid: true,
                 name:"publisher"
             },
@@ -115,17 +107,16 @@ class EditBook extends Component {
                 elementConfig:{
                     options: this.props.genre
                 },
-                value : "--null--",
+                value : this.props.book.genreId,
                 validation:false,
-                touched: false,
                 isvalid: true,
                 name:"genre"
             },
             returnOption:{
-                value:false,
+                value:this.props.book.returnable,
                 elementType:"radio",
                 elementConfig:{
-                    buttons: [{id:1,value:true,label:'returnable',name:'returnOption'},{id:2,value:false,label:'non-returnable',name:'returnOption'}]
+                    buttons: [{id:1,value:'true',label:'returnable',name:'returnOption'},{id:2,value:'false',label:'non-returnable',name:'returnOption'}]
                 },
                 touched:false,
                 validation:false
@@ -137,7 +128,7 @@ class EditBook extends Component {
                     type:"text",
                     rows:5
                 },
-                value:'',
+                value:this.props.book.description,
                 validation:{
                     required: true,
                     comments: true
@@ -185,31 +176,31 @@ class EditBook extends Component {
     formValidation = () => {
         let validating = false;
         let formElement = [];
-        for(let key in this.state.addform){
+        for(let key in this.state.editform){
             formElement.push({
                 id : key,
-                config : this.state.addform[key]
+                config : this.state.editform[key]
             })
         }
         validating = formElement.map( element => {
-            if(element.config.touched && element.config.isvalid){
+            if(element.config.isvalid){
                 return true;
             }else{
                 return false;
             }
         })
+        console.log(validating);
         return validating.pop();
     }  
     inputChangeHandeler = (event,identifier,check) =>{        
-        const updatedAddForm = {...this.state.addform};
-        const updatedAddFormElement = {...updatedAddForm[identifier]};
-        updatedAddFormElement.value = event.target.value;
-        updatedAddFormElement.touched = true;
-        updatedAddFormElement.isvalid = this.checkValidation(updatedAddFormElement.value , updatedAddFormElement.validation);
-        updatedAddForm[identifier] = updatedAddFormElement;
-        // console.log(updatedAddForm)
+        const updatededitform = {...this.state.editform};
+        const updatededitformElement = {...updatededitform[identifier]};
+        updatededitformElement.value = event.target.value;
+        updatededitformElement.isvalid = this.checkValidation(updatededitformElement.value , updatededitformElement.validation);
+        updatededitform[identifier] = updatededitformElement;
+        // console.log(updatededitform)
         this.setState({
-            addform:updatedAddForm
+            editform:updatededitform
         })
     }
 
@@ -224,9 +215,10 @@ class EditBook extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const data = this.state.addform;
+        const data = this.state.editform;
         if(this.formValidation()){
             const bookData = {
+                bookId: this.props.match.params.bookId,
                 title : data.title.value,
                 isbn :  data.isbn.value,
                 publishedOn : data.publishedOn.value,
@@ -238,11 +230,12 @@ class EditBook extends Component {
                 genreId : data.genre.value,
                 description : data.description.value
             }
-            Axios.post('/books/add',bookData)
+            Axios.post('/books/edit',bookData)
             .then(res => {
+                console.log(res);
                 if(res.data.response === true){
-                    alert('Book Created Successfully');
-                    window.location.reload(false);
+                    alert('Edited Successfully');
+                    this.props.history.push('/admin/home')
                 }
             })
             .catch(err => {
@@ -259,13 +252,14 @@ class EditBook extends Component {
         this.props.getAuthors();
         this.props.getPublisher();
         this.props.getGenre();
+        this.props.getBooks(this.props.match.params.bookId);
     }
 
-    updatingTheAuthors=()=>{
-        let updatedAddformElement = {...this.state.addform};
-        let updatedPublisherElement = {...updatedAddformElement['publisher']}
-        let updatedGenreElement = {...updatedAddformElement['genre']}
-        let updatedAuthorElement = {...updatedAddformElement['author']};
+    updating=()=>{
+        let updatededitformElement = {...this.state.editform};
+        let updatedPublisherElement = {...updatededitformElement['publisher']}
+        let updatedGenreElement = {...updatededitformElement['genre']}
+        let updatedAuthorElement = {...updatededitformElement['author']};
         updatedAuthorElement.elementConfig.options = this.props.authors.map(authorname => {
             return {
                 value: authorname.authorId,
@@ -285,12 +279,17 @@ class EditBook extends Component {
             }
         });
         this.setState({
-            addform:updatedAddformElement,
+            editform:updatededitformElement,
             authorUpdating: false
         })
     }
 
     render() {
+        if(this.props.book.title === 'getting'){
+            return(
+                <Redirect to='/admin/home' />
+            )
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>
@@ -299,10 +298,10 @@ class EditBook extends Component {
         }
         const formElement = [];
 
-        for(let key in this.state.addform){
+        for(let key in this.state.editform){
             formElement.push({
                 id : key,
-                config : this.state.addform[key]
+                config : this.state.editform[key]
             })
         }
 
@@ -322,7 +321,7 @@ class EditBook extends Component {
             form = <p>Loding....</p>
         }
         if(this.props.authors[0].id !== 1 && this.state.authorUpdating && this.props.publisher[0].id !== 1 && this.props.genre[0].id !== 1){
-            this.updatingTheAuthors();
+            this.updating();
         }
         let editform = (<form>
                         <div className={classes.Form}>
@@ -345,7 +344,8 @@ const mapStateToProps = (state) =>{
     return {
         authors : state.authorReducer.authors,
         publisher : state.publisherReducer.publisher,
-        genre : state.genreReducer.genre
+        genre : state.genreReducer.genre,
+        book : state.bookReducer.book
     }
 }
 
@@ -354,7 +354,7 @@ const mapDispatchToProps = (dispatch) =>{
         getAuthors : () => dispatch(authorActionTypes.getAuthors()),
         getPublisher : () =>dispatch(publisherActionTypes.getPublisher()),
         getGenre : () => dispatch(genreActionTypes.getGenre()),
-        // getBookTitle : (title) => dispatch(bookActionTypes.getTitles(title))
+        getBooks : (bookId) => dispatch(bookActionsType.getBook(bookId))
     }
 }
 

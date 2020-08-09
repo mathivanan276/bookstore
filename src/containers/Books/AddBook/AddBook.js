@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
-import { Link, withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import Axios from 'axios';
 
 class AddBook extends Component {
@@ -129,6 +129,18 @@ class AddBook extends Component {
                 touched:false,
                 validation:false
                 },
+            // image : {
+            //     elementType: "input",
+            //     elementConfig:{
+            //         placeholder: "TITLE",
+            //         type:"file"
+            //     },
+            //     value : "",
+            //     validation:false,
+            //     touched: false,
+            //     isvalid: true,
+            //     name:"image"
+            // },
             description :{
                 elementType: "textarea",
                 elementConfig:{
@@ -199,7 +211,7 @@ class AddBook extends Component {
         })
         return validating.pop();
     }  
-    inputChangeHandeler = (event,identifier,check) =>{        
+    inputChangeHandeler = (event,identifier) =>{        
         const updatedAddForm = {...this.state.addform};
         const updatedAddFormElement = {...updatedAddForm[identifier]};
         updatedAddFormElement.value = event.target.value;
@@ -231,8 +243,9 @@ class AddBook extends Component {
             Axios.post('/books/add',bookData)
             .then(res => {
                 if(res.data.response === true){
-                    alert('Book Created Successfully');
-                    window.location.reload(false);
+                    // alert('Book Created Successfully');
+                    // window.location.reload(false);
+                    
                 }
             })
             .catch(err => {
@@ -322,9 +335,9 @@ class AddBook extends Component {
                     <div className={classes.Form}>
                     {form}
                     </div>
-                    <Button type="submit" clicked={this.handleSubmit}>Register</Button> 
+                    <Button type="submit" clicked={this.handleSubmit}>AddBook</Button> 
                 </form>
-                <p>Edit Existing Book | <Link to='/admin/book/edit'><span className={classes.Link}>Click Here</span></Link></p>
+                <p>To Edit Book Search a book manually and edit</p>
             </div>
         )
     }

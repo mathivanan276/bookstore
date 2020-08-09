@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 
 import classes from './AdminHome.module.css';
 import Input from '../../../components/UI/form/input/Input';
+import Button from '../../../components/UI/form/button/button';
 import { connect } from 'react-redux';
 
 import * as authorActionTypes from '../../../store/actions/authorAction';
-import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionTypes from '../../../store/actions/bookAction';
+import button from '../../../components/UI/form/button/button';
 
 class AdminHome extends Component {
 
@@ -19,7 +20,9 @@ class AdminHome extends Component {
                     options: this.props.authors
                 },
                 value : "--null--",
-                validation:false,
+                validation:{
+                    isNumeric:true
+                },
                 touched: false,
                 isvalid: true,
                 label:"Author"
@@ -30,25 +33,33 @@ class AdminHome extends Component {
                     options: this.props.authors
                 },
                 value : "--null--",
-                validation:false,
+                validation:{
+                    isNumeric:true
+                },
                 touched: false,
                 isvalid: true,
                 label:"Genre"
             },
+        },
+        selectForm:{
             title : {
-                elementType: "input",
+                elementType: "select",
                 elementConfig:{
-                    placeholder: 'Enter Title',
-                    type: 'text'
+                    options: this.props.title
                 },
-                value : '',
-                validation:false,
+                validation:{
+                    isNumeric:true
+                },
+                value : "Loading...",
                 touched: false,
                 isvalid: true,
                 label:"Title"
             }
         },
-        updating: true
+        step2:false,
+        error:false,
+        updating: true,
+        titleUpdate: false
     }
     
     componentDidMount(){
@@ -56,7 +67,7 @@ class AdminHome extends Component {
         this.props.getGenre();
     }
     updating=()=>{
-        console.log('updating...')
+        // console.log('updating...')
         let updatedAddformElement = {...this.state.searchForm};
         let updatedGenreElement = {...updatedAddformElement['genre']};
         let updatedAuthorElement = {...updatedAddformElement['author']};
@@ -72,64 +83,145 @@ class AdminHome extends Component {
                 dispVal: genrename.genreName
             }
         });
+        
         this.setState({
             ...this.state,
             searchForm:updatedAddformElement,
             updating: false
         })
     }
-    handleChange = (event,identifier) => {
-        if(identifier === 'title'){
-            // console.log('title')
-            const updatedSearchForm = {...this.state.searchForm};
-            const updatedTitleSearchForm = updatedSearchForm[identifier];
-            updatedTitleSearchForm.value = event.target.value;
-            this.setState({
-                ...this.state,
-                searchForm:updatedSearchForm
-            })
-            if(updatedTitleSearchForm.value.length >= 3 && this.state.searchForm.author.touched && this.state.searchForm.genre.touched){
-                console.log(updatedTitleSearchForm.value);
-                this.props.getBooks(this.state.searchForm.author.value,
-                                    this.state.searchForm.genre.value,
-                                    this.state.searchForm.title.value)
-                return true;
+    updateTitle = () => {
+        console.log('updating title...');
+        let updatedState = {...this.state}
+        let updatedselectformElement = {...updatedState['selectForm']};
+        let updatedTitleElement = {...updatedselectformElement['title']};
+        updatedTitleElement.elementConfig.options = this.props.title.map(titles => {
+            console.log(titles)
+            return {
+                value: titles.bookId,
+                dispVal: titles.title
             }
-            return true;
-        }
-        const updatedSearchForm = {...this.state.searchForm};
-        const updatedSearchFormElement = updatedSearchForm[identifier];
-        updatedSearchFormElement.value = event.target.value;
-        updatedSearchFormElement.touched = true;
-            this.setState({
-                ...this.state,
-                searchForm:updatedSearchForm
-            })
+        });
+        updatedState.titleUpdate = false;
+        updatedState.selectForm = updatedselectformElement;
+        console.log(updatedState);
+        // this.setState({
+        //     state:updatedState
+        // })
     }
-    render() {
-        const formElement = [];
+    checkValidation = (value, rule) =>{
+        let isvalid = true;
 
+        if(!rule){
+            return isvalid = true;
+        }
+
+        if(rule.required){
+            isvalid = value.trim(' ') !== '' && isvalid;
+        }
+
+        if(rule.minLength){
+            isvalid = value.length >= rule.minLength && isvalid;
+        }
+
+        // console.log(value.length,rule.maxLength);   
+        if(rule.maxLength){
+            // console.log(value.length,rule.maxLength);
+            isvalid = value.length < rule.maxLength && isvalid;
+        }
+        if (rule.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            // console.log(pattern.test(value),isvalid);
+            isvalid = pattern.test(value) && isvalid;
+        }
+
+        if (rule.isNumeric) {
+            const pattern = /^\d+$/;
+            isvalid = pattern.test(value) && isvalid
+        }
+        return isvalid;
+    }
+
+    formValidation = () => {
+        let validating = false;
+        let formElement = [];
         for(let key in this.state.searchForm){
             formElement.push({
                 id : key,
                 config : this.state.searchForm[key]
             })
         }
+        validating = formElement.map( element => {
+            if(element.config.touched && element.config.isvalid){
+                return true;
+            }else{
+                return false;
+            }
+        })
+        return ! validating.some(valid => valid===false);
+    }  
+    handleChange = (event,identifier,form) => {
+        const updatedState = {...this.state}
+        const updatedSearchForm = {...updatedState[form]};
+        const updatedSearchFormElement = updatedSearchForm[identifier];
+        updatedSearchFormElement.value = event.target.value;
+        updatedSearchFormElement.touched = true;
+        updatedSearchFormElement.isvalid = this.checkValidation(updatedSearchFormElement.value , updatedSearchFormElement.validation);
+            this.setState({
+                ...this.state,
+                searchForm:updatedSearchForm
+            })
+    }
+    handleGetbook = () => {
+        if(this.state.searchForm.author.value !== '--null--' && this.state.searchForm.genre.value !== '--null--'){
+            this.props.getBooksTitle(this.state.searchForm.author.value,this.state.searchForm.genre.value);
+            this.setState({
+                ...this.state,
+                step2: ! this.state.step2,
+                titleUpdate: true
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                error: true
+            })
+        }
+    }
+    handlesteps = () => {
+        // console.log('go back');
+        this.setState({
+            step2: !this.state.step2
+        })
+    }
+    handleSubmit = () => {
+        // console.log(this.formValidation())
+        if(this.formValidation()){
+            this.props.history.push('/admin/book/view/'+this.state.searchForm.title.value);
+        } else {
+            this.setState({
+                error: true
+            })
+        }
+    }
+    render() {
+        let error = null;   
+        if(this.state.error){
+            error =  <div className={classes.Error}>
+                        <p>Validation Failed </p>
+                    </div>
+        }
+        const formElement1 = [];
 
-        let form = (
-                formElement.map(formElement =>{
-                    if(formElement.config.elementType === 'input'){
-                        return(
-                            <div>
-                            <label>{formElement.config.label}</label>
-                            <Input
-                            key={formElement.id}
-                            elementType = {formElement.config.elementType}
-                            elementConfig = {formElement.config.elementConfig}
-                            isvalid = {formElement.config.isvalid}
-                            changed = {(event)=>this.handleChange(event,formElement.id)}  />
-                        </div>
-                        )}
+        for(let key in this.state.searchForm){
+            formElement1.push({
+                id : key,
+                config : this.state.searchForm[key]
+            })
+        }
+
+        let form1 = (
+                formElement1.map(formElement =>{
+                    
                     return(
                         <Input
                     key={formElement.id}
@@ -138,30 +230,79 @@ class AdminHome extends Component {
                     value = {formElement.config.value}
                     isvalid = {formElement.config.isvalid}
                     label = {formElement.config.label}
-                    changed = {(event)=>this.handleChange(event,formElement.id)}  />
+                    changed = {(event)=>this.handleChange(event,formElement.id,'searchForm')}  />
                     );
                 }
               )
         );
+        const formElement2 = [];
+
+        for(let key in this.state.selectForm){
+            formElement2.push({
+                id : key,
+                config : this.state.selectForm[key]
+            })
+        }
+
+        let form2 = (
+                formElement2.map(formElement =>{
+                    
+                    return(
+                        <Input
+                    key={formElement.id}
+                    elementType = {formElement.config.elementType}
+                    elementConfig = {formElement.config.elementConfig}
+                    value = {formElement.config.value}
+                    isvalid = {formElement.config.isvalid}
+                    label = {formElement.config.label}
+                    changed = {(event)=>this.handleChange(event,formElement.id,'selectForm')}  />
+                    );
+                }
+              )
+        );
+        let formdisp = null;
+        if(this.state.step2){
+            formdisp = null;
+            formdisp = <form>
+                            {error}
+                            {form2}
+                            <div className={classes.Button}>
+                                <Button type="button" clicked={this.handleSubmit}>Get Books</Button> 
+                            </div> 
+                            <div className={classes.Button}>
+                                <Button type="button" clicked={this.handlesteps}>Go Back</Button> 
+                            </div> 
+                        </form>
+        } else {
+            formdisp = null;
+            formdisp = <form>
+                            {error}
+                            {form1}
+                            <div className={classes.Button}>
+                                <Button type="button" clicked={this.handleGetbook}>Get Books</Button> 
+                            </div>
+                        </form>
+        }
         if(this.props.authors[0].id === 1 && this.state.updating && this.props.genre[0].id === 1){
-            form = <p>Loding....</p>
+            form1 = <p>Loding....</p>
         }
         if(this.props.authors[0].id !== 1 && this.state.updating && this.props.genre[0].id !== 1){
             this.updating();
         }
-        const selectbook =<div className={classes.Message}>
-                                <h1>Search Books</h1>
-                            </div>;
-        
+        if(this.state.titleUpdate && this.props.title[0].id === 1){
+            form2 = <p>Loding....</p>
+        }
+        if(this.state.titleUpdate && this.props.title[0].id !== 1){
+            this.updateTitle();
+        }
         return (
             <div>
                 <div className={classes.Greetings}>
                     <h1>Welcome</h1>
-                    <form>
-                        {form}
-                    </form>
+                    <div className={classes.Forms}>
+                        {formdisp}
+                    </div>  
                 </div>
-                {selectbook}
             </div>
         )
     }
@@ -171,7 +312,7 @@ const mapStateToProps = (state) =>{
     return {
         authors : state.authorReducer.authors,
         genre : state.genreReducer.genre,
-        
+        title : state.bookReducer.bookstitle
     }
 }
 
@@ -179,7 +320,7 @@ const mapDispatchToProps = (dispatch) =>{
     return{
         getAuthors : () => dispatch(authorActionTypes.getAuthors()),
         getGenre : () => dispatch(genreActionTypes.getGenre()),
-        getBooks : (authorId,genreId,title) => dispatch(bookActionTypes.getBooksByAuthor(authorId,genreId,title))
+        getBooksTitle : (authorId,genreId) => dispatch(bookActionTypes.getBooksTitlesArray(authorId,genreId))
     }
 }
 

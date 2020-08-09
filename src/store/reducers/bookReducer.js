@@ -4,7 +4,7 @@ const initialState = {
     bookstitle: [{
         id:1
     }],
-    books : {}
+    book: {title:"getting"}
 }
 
 const reducer = (state = initialState , action) => {
@@ -12,16 +12,20 @@ const reducer = (state = initialState , action) => {
     switch(action.type){
 
         case (actionType.GET_BOOKS_AUTHOR_GENRE_TITLE) : 
-            console.log('mathi')
             return {
                 ...state,
-                books:action.data
+                bookstitle:action.data
             };
-        case (actionType.GET_TITLES):
-            return{
-                ...state,
-                bookstitle: action.data
-            };
+        case (actionType.GET_BOOK) : 
+        return {
+            ...state,
+            book:action.data
+        };
+        // case (actionType.GET_TITLES):
+        //     return{
+        //         ...state,
+        //         bookstitle: action.data
+        //     };
 
         default: 
             return state;

@@ -1,0 +1,15 @@
+.Section {
+    text-align: center;
+    margin: 2rem;
+    padding: 3rem;
+    border: 1px solid rgb(247, 252, 184);
+    box-shadow: 2px 2px 5px #ffd931;
+    border-radius: 3px;
+}
+
+.Section .Cover{
+    padding: 0.75rem;
+    border: 1px solid rgb(247, 252, 184);
+    box-shadow: 1px 1px 5px #ffd931,-1px -1px 5px #ffd931;
+
+}
