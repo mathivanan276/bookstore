@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 import Axios from 'axios';
 
 import classes from './AddBookCover.module.css';
@@ -17,7 +19,7 @@ class AddBookCover extends Component {
             touched:false
         },
         file:'',
-        preview : " ",
+        preview : '',
         error:false
     }
     handleSubmit = async (event)=> {
@@ -65,15 +67,25 @@ class AddBookCover extends Component {
     }
 
     render() {
+        if(this.props.book.title === 'getting'){
+            return(
+                <Redirect to='/admin/home' />
+            )
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>
                         <p>Validation Failed </p>
                     </div>
         }
+        let image = <img src={this.props.book.imageUrl} alt="Preview cover" className={classes.Cover} width='150px' height='200px' />;
+        if(this.state.preview !== ''){
+            image = null;
+            image = <img src={this.state.preview} alt="Preview cover" className={classes.Cover} width='150px' height='200px' />;
+        }
         return (
             <div className={classes.Section}>
-                <img src={this.state.preview} alt="Preview cover" className={classes.Cover} width='150px' height='200px' />
+                {image}
                 <form>
                     {error}
                     <Input 
@@ -88,4 +100,10 @@ class AddBookCover extends Component {
     }
 }
 
-export default AddBookCover;
+const mapStateToProps = (state) => {
+    return{
+        book : state.bookReducer.book
+    }
+}
+
+export default connect(mapStateToProps)(AddBookCover);

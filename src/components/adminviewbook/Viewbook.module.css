@@ -62,6 +62,15 @@
 .EditBook{
     grid-column: 1 / span 2;
 }
+.EditCover{
+    grid-column: 1 / span 2;
+    margin-top: 1rem;
+    text-align: center;
+}
+.EditCover .EditCoverButton{
+    background: none;
+    color: cornflowerblue;
+}
 
 .Button {
     display: block;

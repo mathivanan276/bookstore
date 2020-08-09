@@ -76,6 +76,11 @@ class Viewbook extends Component {
                     className={classes.Button}>
                     Edit Book</Link>
                 </div>
+                <div className={classes.EditCover}>
+                    <Link to={'/admin/book/cover/'+this.props.match.params.bookId}
+                    className={classes.EditCoverButton}>
+                    Add | Change Book Cover</Link>
+                </div>
             </div>
         )
     }

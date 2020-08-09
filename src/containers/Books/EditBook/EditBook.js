@@ -204,15 +204,6 @@ class EditBook extends Component {
         })
     }
 
-    handleSearch = (event) => {
-        let data = this.state.search.value;
-        if(this.state.search.touched){
-            this.props.getBookTitle(data);
-        } else {
-            alert('Enter Book Title');
-        }
-    }
-
     handleSubmit = (event) => {
         event.preventDefault();
         const data = this.state.editform;
@@ -235,7 +226,7 @@ class EditBook extends Component {
                 console.log(res);
                 if(res.data.response === true){
                     alert('Edited Successfully');
-                    this.props.history.push('/admin/home')
+                    this.props.history.push('/admin/home');
                 }
             })
             .catch(err => {

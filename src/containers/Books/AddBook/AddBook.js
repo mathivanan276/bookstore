@@ -243,9 +243,9 @@ class AddBook extends Component {
             Axios.post('/books/add',bookData)
             .then(res => {
                 if(res.data.response === true){
-                    // alert('Book Created Successfully');
+                    alert('Book Created Successfully');
                     // window.location.reload(false);
-                    
+                    this.props.histroy.push('/admin/home');
                 }
             })
             .catch(err => {
