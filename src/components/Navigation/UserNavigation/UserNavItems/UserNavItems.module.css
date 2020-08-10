@@ -10,3 +10,13 @@
 .active{
     background-color: var(--secondary-background);
 }
+
+
+@media only screen and (max-width:768px){
+    .UserNavItems{
+        text-decoration: none;
+        color: black;
+        max-width: 200px;
+        padding: 1rem;
+    }
+}
