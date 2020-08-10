@@ -17,7 +17,7 @@ import PublisherReducer from './store/reducers/publicherReducer';
 import GenreReducer from './store/reducers/genreReducer';
 import BookReducer from './store/reducers/bookReducer';
 
-axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
+// axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
 axios.defaults.baseURL = 'https://35707e011f2b.ngrok.io/bookstore_mvc/';
 
 const rootReducer = combineReducers(
