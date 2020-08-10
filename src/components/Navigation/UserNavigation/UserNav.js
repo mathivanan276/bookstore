@@ -36,9 +36,6 @@ const UserNav = (props) => {
 
             {nav}
             <div className={classes.DesktopNav}>
-                <div className={classes.Logo}>
-                    <h1>Readers.com</h1>
-                </div>
                 <nav className={classes.Navbar}>
                     <UserNavItems link='/home'>home</UserNavItems>
                     <UserNavItems link='/new-arivals'>New Arivals</UserNavItems>

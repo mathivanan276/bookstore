@@ -43,7 +43,7 @@ class UserLogin extends Component {
                 value : "",
                 validation:{
                     required: true,
-                    minLength: 6,
+                    minLength: 8,
                     content: 'password'
                 },
                 touched: false,

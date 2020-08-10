@@ -2,14 +2,14 @@
     text-decoration: none;
     color: black;
     max-width: 200px;
-    padding: 1rem 3rem;
-    margin-bottom: 0.5rem;
+    padding: 1rem 2rem;
     border-radius: 0.2rem;
 }
 
 .active{
     background-color: #ffed47;
-} 
+}
+
 
 @media only screen and (max-width:768px){
     .AdminNavItems{

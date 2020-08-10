@@ -25,6 +25,20 @@ if(userdata !== null){
     }
 }
 
+const admindata = JSON.parse(localStorage.getItem('adminDetails'));
+
+if(admindata !== null){
+    initialState = {
+        loggedIn : true,
+        userDetails : {
+            username: admindata.username ,
+            role: admindata.role,
+            email: admindata.email,
+            userId: admindata.userId
+        }
+    }
+}
+
 const reducer = ( state = initialState, action ) => {
     if(action.type === actionTypes.USER_LOGIN){
         localStorage.setItem('userDetails',JSON.stringify(action.data))

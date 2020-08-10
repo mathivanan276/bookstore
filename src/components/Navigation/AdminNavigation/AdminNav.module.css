@@ -1,6 +1,5 @@
 .AdminNavbar {
     margin: 0px;
-    padding: 0px 5rem;
     display: block;
     background-color: var(--primary-background);
     display: flex;
@@ -14,9 +13,7 @@
 .Logout {
     text-decoration: none;
     color: black;
-    padding: 1rem 3rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.2rem;
+    padding: 1rem;
 }
 
 .MobileNav {
