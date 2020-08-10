@@ -6,13 +6,7 @@ import AdminNavItems from './AdminNavItems/AdminNavItems';
 const AdminNav = (props) =>{
 
     const [menuButton , setMenuButton ] = useState(false);
-    
-    let login = <AdminNavItems link='/login' clicked = {()=>setMenuButton(!menuButton)}>LogIn</AdminNavItems>
-    if(props.isLogged === true){
-        login = <p onClick={props.logout} className={classes.Logout}>LogOut</p>
-    }
     let nav = null;
-
     if(menuButton){
         nav =   <nav className={classes.AdminNavbar}>
                         <AdminNavItems link="/admin/home" clicked = {()=>setMenuButton(!menuButton)}>Home</AdminNavItems>
@@ -21,7 +15,7 @@ const AdminNav = (props) =>{
                         <AdminNavItems link="/admin/authors" clicked = {()=>setMenuButton(!menuButton)}>Authors</AdminNavItems>
                         <AdminNavItems link="/admin/publishers" clicked = {()=>setMenuButton(!menuButton)}>Publishers</AdminNavItems>
                         <AdminNavItems link="/admin/stocks" clicked = {()=>setMenuButton(!menuButton)}>Stocks</AdminNavItems>
-                        {login}
+                        <p onClick={()=>{props.logout(); setMenuButton(!menuButton); }} className={classes.Logout}>LogOut</p>
                 </nav>
     }
 
@@ -44,7 +38,7 @@ const AdminNav = (props) =>{
                     <AdminNavItems link="/admin/authors">Authors</AdminNavItems>
                     <AdminNavItems link="/admin/publishers">Publishers</AdminNavItems>
                     <AdminNavItems link="/admin/stocks">Stocks</AdminNavItems>
-                    {login}
+                    <p onClick={props.logout} className={classes.Logout}>LogOut</p>
                 </nav>
             </div>
         </div>

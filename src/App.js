@@ -11,6 +11,7 @@ import EditBook from './containers/Books/EditBook/EditBook';
 import AdminHome from "./containers/Home/admin/AdminHome";
 import AddBookCover from './containers/Books/AddBookCover/AddBookCover';
 import ViewBook from './components/adminviewbook/Viewbook';
+import AdminLogin from './containers/Login/AdminLogin/AdminLogin';
 
 class App extends Component{
 
@@ -21,6 +22,7 @@ class App extends Component{
           <Navigation/>
           <Switch>
             <Route path='/login' component={UserLogin} />
+            <Route path='/admin/login' component={AdminLogin} />
             <Route path='/register' component={UserRegister} />
             <Route path='/admin/book/add' component={AddBook} />
             <Route path='/admin/book/cover/:bookId' component={AddBookCover} />

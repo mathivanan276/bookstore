@@ -14,7 +14,9 @@
 .Logout {
     text-decoration: none;
     color: black;
-    padding: 1rem;
+    padding: 1rem 3rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.2rem;
 }
 
 .MobileNav {
@@ -63,5 +65,14 @@
 
     .MobileNav p:active{
         box-shadow: 1px 1px 5px #706a4d;
+    }
+
+    .Logout {
+        text-align: center;
+        max-width: 100%;
+        padding: 1rem;
+    }
+    .Logout :active{
+       background-color: #ffed47;
     }
 }

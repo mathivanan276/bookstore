@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
-import classes from './UserLogin.module.css';
+import classes from './AdminLogin.module.css';
 import * as actionType from '../../../store/actions/loginActions';
 import axios from 'axios';
 
@@ -123,7 +123,7 @@ class UserLogin extends Component {
                 email: this.state.loginForm.email.value
             }
             // alert('succes')
-            axios.post('/users/login', userdata)
+            axios.post('/users/adminlogin', userdata)
             .then( res => {
                 console.log(res);
                 if(res.data.id){
@@ -195,14 +195,13 @@ class UserLogin extends Component {
 
         return (
             <div className={classes.Container}>
-                <h1>Sign In</h1>
+                <h1>Sign In | Admin</h1>
                 {error}
                 <form onSubmit={this.handleLogin}>
                     {form}
                     <Button type="submit" clicked={this.handleLogin}>Sign In</Button> 
                 </form>
                 <p>New User Sign Up |<Link to='/register'><span className={classes.Link}> Click Here</span> </Link></p>
-                <p>Sign In | Admin |<Link to='/admin/login'><span className={classes.Link}> Click Here</span> </Link></p>
             </div>
         );
     }
