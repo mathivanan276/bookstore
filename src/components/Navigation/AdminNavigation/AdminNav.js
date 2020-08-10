@@ -34,7 +34,7 @@ const AdminNav = (props) =>{
 
             {nav}
             <div className={classes.DesktopNav}>
-                <div className={classes.Logo}> clicked = {()=>setMenuButton(!menuButton)}
+                <div className={classes.Logo}>
                     <h1>Readers.com</h1>
                 </div>
                 <nav className={classes.AdminNavbar}>
