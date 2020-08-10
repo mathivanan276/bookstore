@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionTypes from '../../../store/actions/bookAction';
-import button from '../../../components/UI/form/button/button';
 
 class AdminHome extends Component {
 

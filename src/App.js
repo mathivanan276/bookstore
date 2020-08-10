@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 import Navigation from './containers/Navigation/Navigation';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route, Switch, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import UserLogin from './containers/Login/UserLogin/UserLogin';
 import UserRegister from './containers/register/UserRegister';
 import Footer from './components/Footer/Footer';
@@ -27,7 +27,8 @@ class App extends Component{
             <Route path='/admin/book/edit/:bookId' component={EditBook} />
             <Route path='/admin/book/view/:bookId' component={ViewBook} />
             <Route path='/admin/home' component={AdminHome} />
-            <Route path='/' exact component={()=>{ return <h1>home page</h1> } } />
+            <Route path='/home' component={()=>{ return <h1>home page</h1> } } />
+            {/* <Route path="*" component={() =>{ return <h1>home page</h1>}} /> */}
             <Route path='/' component={ () => {
               return <h1>404 - Page Not Found</h1>
             }} />

@@ -1,9 +1,10 @@
 .AdminNavbar {
     margin: 0px;
+    padding: 0px 5rem;
     display: block;
     background-color: var(--primary-background);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .AdminNavbar p {
@@ -14,4 +15,55 @@
     text-decoration: none;
     color: black;
     padding: 1rem;
+}
+
+.MobileNav {
+    display: none;
+}
+
+.Logo {
+    background-color: var(--primary-background);
+    text-align: center;
+}
+@media only screen and (max-width:768px){
+    .AdminNavbar {
+        display: block;
+        background-color: #fffd6d;
+        display: flex;
+        flex-direction: column;
+    }
+    .DesktopNav{
+        display: none;
+    }
+    .MobileNav {
+        display: block;
+        display: flex;
+        justify-content: space-between;
+        height: fit-content;
+        transition-property: height;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out ;
+    }
+
+    .MobileNav{
+        background-color: var(--primary-background)
+    }
+
+    .MobileNav h1 {
+        padding: 0.75rem 0.5rem 0rem 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .MobileNav p {
+        padding: 0.75rem;
+        margin: 0.25rem;
+        border: 1px solid #ffe343;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background-color: #fffd6d;
+    }
+
+    .MobileNav p:active{
+        box-shadow: 1px 1px 5px #706a4d;
+    }
 }

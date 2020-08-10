@@ -1,9 +1,12 @@
 .UserNavItems{
     text-decoration: none;
     color: black;
-    padding: 1rem;
+    max-width: 200px;
+    padding: 1rem 3rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.2rem;
 }
 
-.UserNavItems:hover,.active{
+.active{
     background-color: var(--secondary-background);
 }

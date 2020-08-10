@@ -1,9 +1,16 @@
 .AdminNavItems{
     text-decoration: none;
     color: black;
-    padding: 1rem;
+    max-width: 200px;
+    padding: 1rem 3rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.2rem;
 }
 
-.AdminNavItems:hover,.active{
-    background-color: var(--secondary-background);;
+.active{
+    background-color: var(--secondary-background);
 } 
+
+@media only screen and (max-width:768px){
+
+}
