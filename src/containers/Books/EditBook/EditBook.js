@@ -276,6 +276,10 @@ class EditBook extends Component {
     }
 
     render() {
+        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
+        if(!adminData){
+            return <Redirect to='/admin/login' />
+        }
         if(this.props.book.title === 'getting'){
             return(
                 <Redirect to='/admin/home' />

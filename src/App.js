@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 import Navigation from './containers/Navigation/Navigation';
-import { Route, Switch, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import UserLogin from './containers/Login/UserLogin/UserLogin';
 import UserRegister from './containers/register/UserRegister';
 import Footer from './components/Footer/Footer';

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import classes from './AddBook.module.css';
 import Input from '../../../components/UI/form/input/Input';
@@ -9,7 +11,7 @@ import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import Axios from 'axios';
+
 
 class AddBook extends Component {
 
@@ -294,6 +296,10 @@ class AddBook extends Component {
     }
 
     render() {
+        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
+        if(!adminData){
+            return <Redirect to='/admin/login' />
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>

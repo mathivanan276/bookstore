@@ -26,8 +26,22 @@ if(userdata !== null){
 }
 
 const reducer = ( state = initialState, action ) => {
-    if(action.type === actionTypes.LOGIN){
+    if(action.type === actionTypes.USER_LOGIN){
         localStorage.setItem('userDetails',JSON.stringify(action.data))
+        return{
+            ...state,
+            loggedIn: !state.loggedIn,
+            userDetails: {
+                userId : action.data.id,
+                username : action.data.username,
+                email : action.data.email,
+                role : action.data.role
+            } 
+
+        }
+    }
+    if(action.type === actionTypes.ADMIN_LOGIN){
+        localStorage.setItem('adminDetails',JSON.stringify(action.data))
         return{
             ...state,
             loggedIn: !state.loggedIn,
@@ -42,6 +56,7 @@ const reducer = ( state = initialState, action ) => {
     }
     if(action.type === actionTypes.LOGOUT){
         localStorage.removeItem('userDetails');
+        localStorage.removeItem('adminDetails');
         return{
             ...state,
             loggedIn: !state.loggedIn,

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionTypes from '../../../store/actions/bookAction';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 class AdminHome extends Component {
 
@@ -203,6 +204,10 @@ class AdminHome extends Component {
         }
     }
     render() {
+        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
+        if(!adminData){
+            return <Redirect to='/admin/login' />
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>

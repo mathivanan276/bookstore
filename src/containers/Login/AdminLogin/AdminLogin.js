@@ -215,7 +215,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (id,username,email,role) => dispatch(actionType.login(id,username,email,role)) // data:{ id:id, username:username, email:email,role:role }})
+        login: (id,username,email,role) => dispatch(actionType.adminlogin(id,username,email,role)) // data:{ id:id, username:username, email:email,role:role }})
     }
 }
 
