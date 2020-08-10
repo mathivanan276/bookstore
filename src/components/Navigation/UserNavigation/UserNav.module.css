@@ -26,6 +26,7 @@
 }
 @media only screen and (max-width:768px){
     .Navbar {
+        padding: 0px;
         display: block;
         background-color: #fffd6d;
         display: flex;
@@ -64,5 +65,14 @@
 
     .MobileNav p:active{
         box-shadow: 1px 1px 5px #706a4d;
+    }
+    .Navbar p {
+        cursor: pointer;
+        text-align: center; 
+        max-width: 100%;
+        padding: 1rem;
+    }
+    .Navbar p:active{
+        background-color: #ffed47;
     }
 }

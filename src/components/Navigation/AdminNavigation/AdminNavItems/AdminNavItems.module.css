@@ -13,9 +13,8 @@
 
 @media only screen and (max-width:768px){
     .AdminNavItems{
-        text-decoration: none;
-        color: black;
-        max-width: 200px;
+        text-align: center;
+        max-width: 100%;
         padding: 1rem;
     }
 }

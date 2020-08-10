@@ -7,13 +7,15 @@ const UserNavItems = (props) => {
     if(props.link === '/'){
         return  <NavLink 
                 to={props.link}
-                className={classes.UserNavItems}>{props.children}</NavLink>
+                className={classes.UserNavItems}
+                onClick={props.clicked}>{props.children}</NavLink>
     }
     return (
         <NavLink 
         to={props.link} 
         activeClassName={classes.active}
-        className={classes.UserNavItems}>{props.children}</NavLink>
+        className={classes.UserNavItems}
+        onClick={props.clicked}>{props.children}</NavLink>
     )
 }
 

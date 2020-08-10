@@ -9,3 +9,11 @@
     font-size: 0.75rem;
     color: #000;
 }
+
+@media only screen and (max-width:768px){
+    .Footer p {
+        margin: 0.5rem 2rem;
+        font-size: 0.75rem;
+        color: #000;
+    }
+}
