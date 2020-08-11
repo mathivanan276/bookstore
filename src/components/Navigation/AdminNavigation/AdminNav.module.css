@@ -18,32 +18,54 @@
 
 .MobileNav {
     display: none;
+    /* padding: 0px;
+    display: block;
+    background-color: #c9c9c9;
+    display: flex;
+    flex-direction: column;
+    transition: transform 1s ease-in-out; */
 }
-
+.MobileNavbar{
+    display: none;
+}
 .Logo {
     background-color: var(--primary-background);
     text-align: center;
 }
+
 @media only screen and (max-width:768px){
+    .Dropmenu{
+        position: sticky;
+        transition: transform 0.5s ease-in-out;
+    }
+    .Open{
+        transform: translateY(0%);
+        z-index: -100;
+    }
+    .Close {
+        transform: translateY(-150%);
+        z-index: -100;
+    }
     .MobileNavbar {
         padding: 0px;
-        display: block;
         background-color: #c9c9c9;
         display: flex;
         flex-direction: column;
+        z-index: 100;
     }
     .DesktopNav{
         display: none;
     }
     .MobileNav {
-        display: block;
+        /* display: block; */
         display: flex;
         justify-content: space-between;
         text-align: center  ;
     }
 
     .MobileNav{
-        background-color: var(--primary-background)
+        background-color: var(--primary-background);
+        z-index: 200;
     }
 
     .MobileNav h1 {

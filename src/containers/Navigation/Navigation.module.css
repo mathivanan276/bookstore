@@ -1,5 +1,9 @@
 .Nav {
     position: sticky;
-    top: 0;
-    left: 0;
+}
+
+@media only screen and (max-width:768px){
+    .Nav{
+        height: 52px;
+    }
 }
