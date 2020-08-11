@@ -28,7 +28,7 @@
     .Navbar {
         padding: 0px;
         display: block;
-        background-color: #fffd6d;
+        background-color: #c9c9c9;
         display: flex;
         flex-direction: column;
     }
@@ -39,10 +39,10 @@
         display: block;
         display: flex;
         justify-content: space-between;
-        height: fit-content;
+        /* height: fit-content;
         transition-property: height;
         transition-duration: 0.5s;
-        transition-timing-function: ease-in-out ;
+        transition-timing-function: ease-in-out ; */
     }
 
     .MobileNav{
@@ -60,7 +60,7 @@
         border: 1px solid #ffe343;
         border-radius: 5px;
         box-sizing: border-box;
-        background-color: #ffed47;
+        background-color: #ffbb00;
     }
 
     .MobileNav p:active{
