@@ -8,19 +8,6 @@ const AdminNav = (props) =>{
     const [menuButton , setMenuButton ] = useState(false);
     const Opened = classes.Dropmenu+' '+classes.Open;
     const Closed = classes.Dropmenu+ ' '+ classes .Close;
-    // let nav = null;
-    // if(menuButton){
-    //     nav =   <nav className={classes.MobileNavbar}>
-    //                     <AdminNavItems link="/admin/home" clicked = {()=>setMenuButton(!menuButton)}>Home</AdminNavItems>
-    //                     <AdminNavItems link="/admin/orders" clicked = {()=>setMenuButton(!menuButton)}>Orders</AdminNavItems>
-    //                     <AdminNavItems link="/admin/book" clicked = {()=>setMenuButton(!menuButton)}>Books</AdminNavItems>
-    //                     <AdminNavItems link="/admin/authors" clicked = {()=>setMenuButton(!menuButton)}>Authors</AdminNavItems>
-    //                     <AdminNavItems link="/admin/publishers" clicked = {()=>setMenuButton(!menuButton)}>Publishers</AdminNavItems>
-    //                     <AdminNavItems link="/admin/stocks" clicked = {()=>setMenuButton(!menuButton)}>Stocks</AdminNavItems>
-    //                     <p onClick={()=>{props.logout(); setMenuButton(!menuButton); }} className={classes.Logout}>LogOut</p>
-    //             </nav>
-    // }
-
     return (
         <>
             <div>
