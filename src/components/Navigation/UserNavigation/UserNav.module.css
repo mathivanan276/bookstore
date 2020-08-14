@@ -19,34 +19,47 @@
 .MobileNav {
     display: none;
 }
-
+.MobileNavbar{
+    display: none;
+}
 .Logo {
     background-color: var(--primary-background);
     text-align: center;
 }
+
 @media only screen and (max-width:768px){
-    .Navbar {
+    .Dropmenu{
+        position: sticky;
+        transition: transform 0.5s ease-in-out;
+    }
+    .Open{
+        transform: translateY(0%);
+        z-index: -100;
+    }
+    .Close {
+        transform: translateY(-150%);
+        z-index: -100;
+    }
+    .MobileNavbar {
         padding: 0px;
-        display: block;
-        background-color: #c9c9c9;
+        background-color: #f1f0f0;
         display: flex;
         flex-direction: column;
+        z-index: 100;
     }
     .DesktopNav{
         display: none;
     }
     .MobileNav {
-        display: block;
+        /* display: block; */
         display: flex;
         justify-content: space-between;
-        /* height: fit-content;
-        transition-property: height;
-        transition-duration: 0.5s;
-        transition-timing-function: ease-in-out ; */
+        text-align: center  ;
     }
 
     .MobileNav{
-        background-color: var(--primary-background)
+        background-color: var(--primary-background);
+        z-index: 200;
     }
 
     .MobileNav h1 {
@@ -57,22 +70,22 @@
     .MobileNav p {
         padding: 0.75rem;
         margin: 0.25rem;
-        border: 1px solid #ffe343;
+        border: 1px solid #ffea4e;
         border-radius: 5px;
         box-sizing: border-box;
-        background-color: #ffbb00;
+        background-color:#ffbb00;
     }
 
     .MobileNav p:active{
         box-shadow: 1px 1px 5px #706a4d;
     }
-    .Navbar p {
-        cursor: pointer;
-        text-align: center; 
+
+    .Logout {
+        text-align: center;
         max-width: 100%;
         padding: 1rem;
     }
-    .Navbar p:active{
-        background-color: #ffed47;
+    .Logout :active{
+       background-color: #ffed47;
     }
 }

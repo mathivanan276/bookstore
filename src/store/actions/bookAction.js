@@ -3,6 +3,7 @@ import Axios from 'axios';
 // export const GET_TITLES = 'GET_TITLES';
 export const GET_BOOKS_AUTHOR_GENRE_TITLE = 'GET_BOOKS_AUTHOR_GENRE_TITLE';
 export const GET_BOOK = 'GET_BOOK';
+export const GET_LOW_STOCK = 'GET_LOW_STOCK';
  
 // const saveTitles = (data) => {
 //     return {
@@ -50,6 +51,30 @@ export const getBooksTitlesArray = (authorId,genreId) => {
                     console.log(err);
                 })
             }
+}
+
+const lowstocks = (data) => {
+    return({
+        type : GET_LOW_STOCK,
+        data : data
+    })
+}
+
+export const getLowStockBooks = () => {
+    console.log('getting');
+    return (dispatch) => {
+        Axios.get('books/lowstock')
+        .then(res => {
+            console.log(res)
+            if(res.data.response === true ){
+                console.log(res.data);
+              return dispatch(lowstocks(res.data.data));
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
 }
 
 const saveBook = (data) => {

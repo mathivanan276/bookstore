@@ -322,7 +322,7 @@ class EditBook extends Component {
                         <div className={classes.Form}>
                         {form}
                         </div>
-                        <Button type="submit" clicked={this.handleSubmit}>Register</Button> 
+                        <Button type="submit" clicked={this.handleSubmit}>Edit Book</Button> 
                     </form>);
         return (
             <div className={classes.Section}>

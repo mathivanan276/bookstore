@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-import classes from './AddAuthor.module.css';
+import classes from './AddGenre.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
 
-class AddAuthor extends Component {
+class AddGenre extends Component {
 
     state = {
         addform : {
-            author : {
+            genre : {
                 elementType: "input",
                 elementConfig:{
-                    placeholder: "AUTHOR NAME",
+                    placeholder: "GENRE NAME",
                     type:"text"
                 },
                 value : "",
@@ -25,7 +25,7 @@ class AddAuthor extends Component {
                 name:"title"
             }
         },
-        authorNameErr:'',
+        genreNameErr:'',
         error:false
     }
     checkValidation = (value, rule) =>{
@@ -95,20 +95,20 @@ class AddAuthor extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if(this.state.addform.author.isvalid && this.state.addform.author.touched){
+        if(this.state.addform.genre.isvalid && this.state.addform.genre.touched){
             const data={
-                authorName:this.state.addform.author.value
+                genreName:this.state.addform.genre.value
             }
             // console.log(data);
-            Axios.post('authors/add',data)
+            Axios.post('genres/add',data)
             .then(res => {
                 // console.log(res);
                 if(res.data.response){
-                    alert('Author Added');
-                    this.props.history.push('/admin/author');
+                    alert('Genre Added');
+                    this.props.history.push('/admin/genre');
                 } else {
                     this.setState({
-                        authorNameErr: res.data.dataErr
+                        genreNameErr: res.data.dataErr
                     });
                 }
             })
@@ -133,9 +133,9 @@ class AddAuthor extends Component {
                         <p>Validation Failed </p>
                     </div>
         }
-        if(this.state.authorNameErr !== ''){
+        if(this.state.genreNameErr !== ''){
                 error =  <div className={classes.Error}>
-                            <p>{this.state.authorNameErr}</p>
+                            <p>{this.state.genreNameErr}</p>
                         </div>
         }
         const formElement = [];
@@ -161,19 +161,19 @@ class AddAuthor extends Component {
         );
         return (
             <div className={classes.Section}>
-                <h1>Add Author</h1>
+                <h1>Add Genre</h1>
                 {error}
                 <form >
                     <div className={classes.Form}>
                     {form}
                     </div>
-                    <Button type="submit" clicked={this.handleSubmit}>Add Author</Button> 
+                    <Button type="submit" clicked={this.handleSubmit}>Add Genre</Button> 
                 </form>
-                <p>To Edit Author Search a Author manually and edit</p>
+                <p>To Edit genre Search a genre manually and edit</p>
             </div>
         )
     }
 }
 
 
-export default AddAuthor;
+export default AddGenre;

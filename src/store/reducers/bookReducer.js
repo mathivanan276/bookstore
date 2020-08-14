@@ -4,7 +4,8 @@ const initialState = {
     bookstitle: [{
         id:1
     }],
-    book: {title:"getting"}
+    book: {title:"getting"},
+    lowStock: 'loading'
 }
 
 const reducer = (state = initialState , action) => {
@@ -21,6 +22,11 @@ const reducer = (state = initialState , action) => {
             ...state,
             book:action.data
         };
+        case (actionType.GET_LOW_STOCK) : 
+            return{
+                ...state,
+                lowStock:action.data
+            }
         // case (actionType.GET_TITLES):
         //     return{
         //         ...state,

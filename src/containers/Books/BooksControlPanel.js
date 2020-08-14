@@ -212,7 +212,7 @@ class BooksControlPanel extends Component {
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>
-                        <p>Select From Both Inputs</p>
+                        <p>Select Valid Input</p>
                     </div>
         }
         const formElement1 = [];

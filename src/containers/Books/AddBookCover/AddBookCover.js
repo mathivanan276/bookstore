@@ -47,7 +47,7 @@ class AddBookCover extends Component {
         .then(res=>{
           if(res.data.response === true){
             alert("Cover Uploaded Successfully")
-            this.props.history.push('/admin/book/view/'+this.props.match.params.bookId);
+            this.props.history.push('/admin/book');
           }
         });
       }
@@ -71,11 +71,11 @@ class AddBookCover extends Component {
         if(!adminData){
             return <Redirect to='/admin/login' />
         }
-        if(this.props.book.title === 'getting'){
-            return(
-                <Redirect to='/admin/home' />
-            )
-        }
+        // if(this.props.book.title === 'getting'){
+        //     return(
+        //         <Redirect to='/admin/home' />
+        //     )
+        // }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>

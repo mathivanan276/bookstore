@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 import Navigation from './containers/Navigation/Navigation';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route, Switch } from 'react-router-dom';
 import UserLogin from './containers/Login/UserLogin/UserLogin';
 import UserRegister from './containers/register/UserRegister';
 import Footer from './components/Footer/Footer';
@@ -16,6 +16,14 @@ import BookControl from './containers/Books/BooksControlPanel';
 import AuthorControlPanel from './containers/Authors/AuthorControlPanel';
 import AddAuthor from './containers/Authors/AddAuthor/AddAuthor';
 import EditAuthor from './containers/Authors/EditAuthor/EditAuthor';
+import PublisherControlPanel from './containers/Publisher/PublisherControlPanel';
+import AddPublisher from './containers/Publisher/AddPublisher/AddPublisher';
+import EditPublisher from './containers/Publisher/EditPublisher/EditPublisher';
+import GenreControlPanel from './containers/Genres/GenreControlPanel';
+import AddGenre from './containers/Genres/AddGenre/AddGenre';
+import EditGenre from './containers/Genres/EditGenre/EditGenre';
+import Stock from './containers/Books/AddStock/Stock';
+import Stocks from './containers/stocks/Stocks';
 
 class App extends Component{
 
@@ -28,10 +36,18 @@ class App extends Component{
             <Route path='/login' component={UserLogin} />
             <Route path='/admin/login' component={AdminLogin} />
             <Route path='/register' component={UserRegister} />
+            <Route path='/admin/stocks' component={Stocks} />
+            <Route path='/admin/genre/add' component={AddGenre} />
+            <Route path='/admin/genre/edit/:genreIndex' component={EditGenre} />
+            <Route path='/admin/genre' component={GenreControlPanel} />
+            <Route path='/admin/publisher/add' component={AddPublisher} />
+            <Route path='/admin/publisher/edit/:publisherIndex' component={EditPublisher} />
+            <Route path='/admin/publisher' component={PublisherControlPanel} />
             <Route path='/admin/author/add' component={AddAuthor} />
             <Route path='/admin/author/edit/:authorIndex' component={EditAuthor} />
             <Route path='/admin/author' component={AuthorControlPanel} />
             <Route path='/admin/book/cover/:bookId' component={AddBookCover} />
+            <Route path='/admin/book/stock/:bookId/:quantity' component={Stock} />
             <Route path='/admin/book/edit/:bookId' component={EditBook} />
             <Route path='/admin/book/view/:bookId' component={ViewBook} />
             <Route path='/admin/book/add' component={AddBook} />

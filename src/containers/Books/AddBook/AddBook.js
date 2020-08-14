@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
-import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { withRouter } from 'react-router-dom';
 
 
 class AddBook extends Component {
@@ -244,10 +244,12 @@ class AddBook extends Component {
             }
             Axios.post('/books/add',bookData)
             .then(res => {
+                console.log(res);
+                console.log(this.props)
                 if(res.data.response === true){
                     alert('Book Created Successfully');
                     // window.location.reload(false);
-                    this.props.histroy.push('/admin/home');
+                    this.props.history.push(`/admin/book/cover/${res.data.data}`);
                 }
             })
             .catch(err => {
@@ -296,6 +298,7 @@ class AddBook extends Component {
     }
 
     render() {
+        // this.props.histroy.push(`/admin/book/cover/ `);
         const adminData = JSON.parse(localStorage.getItem('adminDetails'));
         if(!adminData){
             return <Redirect to='/admin/login' />

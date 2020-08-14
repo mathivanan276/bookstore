@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 
-import classes from './AddAuthor.module.css';
+import classes from './EditGenre.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
 
-class AddAuthor extends Component {
+import { connect } from 'react-redux';
+
+class EditGenre extends Component {
 
     state = {
-        addform : {
-            author : {
+        editform : {
+            genre : {
                 elementType: "input",
                 elementConfig:{
-                    placeholder: "AUTHOR NAME",
+                    placeholder: "genre NAME",
                     type:"text"
                 },
-                value : "",
+                value : this.props.genre[this.props.match.params.genreIndex].genreName,
                 validation:{
                     required: true
                 },
@@ -25,7 +27,7 @@ class AddAuthor extends Component {
                 name:"title"
             }
         },
-        authorNameErr:'',
+        genreNameErr:'',
         error:false
     }
     checkValidation = (value, rule) =>{
@@ -81,7 +83,7 @@ class AddAuthor extends Component {
     // }  
     
     inputChangeHandeler = (event,identifier) =>{        
-        const updatedAddForm = {...this.state.addform};
+        const updatedAddForm = {...this.state.editform};
         const updatedAddFormElement = {...updatedAddForm[identifier]};
         updatedAddFormElement.value = event.target.value;
         updatedAddFormElement.touched = true;
@@ -89,26 +91,26 @@ class AddAuthor extends Component {
         updatedAddForm[identifier] = updatedAddFormElement;
         // console.log(updatedAddForm)
         this.setState({
-            addform:updatedAddForm
+            editform:updatedAddForm
         })
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if(this.state.addform.author.isvalid && this.state.addform.author.touched){
+        if(this.state.editform.genre.isvalid && this.state.editform.genre.touched){
             const data={
-                authorName:this.state.addform.author.value
+                genreName:this.state.editform.genre.value
             }
             // console.log(data);
-            Axios.post('authors/add',data)
+            Axios.post('genres/edit/'+this.props.genre[this.props.match.params.genreIndex].genreId,data)
             .then(res => {
-                // console.log(res);
+                console.log(res);
                 if(res.data.response){
-                    alert('Author Added');
-                    this.props.history.push('/admin/author');
+                    alert('Genre Edited');
+                    this.props.history.push('/admin/genre');
                 } else {
                     this.setState({
-                        authorNameErr: res.data.dataErr
+                        genreNameErr: res.data.dataErr
                     });
                 }
             })
@@ -127,23 +129,28 @@ class AddAuthor extends Component {
         if(!adminData){
             return <Redirect to='/admin/login' />
         }
+        if(this.props.genre[0].id === 1){
+            return(
+                <Redirect to='/admin/genre/home' />
+            )
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>
                         <p>Validation Failed </p>
                     </div>
         }
-        if(this.state.authorNameErr !== ''){
+        if(this.state.genreNameErr !== ''){
                 error =  <div className={classes.Error}>
-                            <p>{this.state.authorNameErr}</p>
+                            <p>{this.state.genreNameErr}</p>
                         </div>
         }
         const formElement = [];
 
-        for(let key in this.state.addform){
+        for(let key in this.state.editform){
             formElement.push({
                 id : key,
-                config : this.state.addform[key]
+                config : this.state.editform[key]
             })
         }
 
@@ -161,19 +168,23 @@ class AddAuthor extends Component {
         );
         return (
             <div className={classes.Section}>
-                <h1>Add Author</h1>
+                <h1>Add Genre</h1>
                 {error}
                 <form >
                     <div className={classes.Form}>
                     {form}
                     </div>
-                    <Button type="submit" clicked={this.handleSubmit}>Add Author</Button> 
+                    <Button type="submit" clicked={this.handleSubmit}>Edit genre</Button> 
                 </form>
-                <p>To Edit Author Search a Author manually and edit</p>
+                <p>Add A Genre | <Link to='/admin/genre/add'><span className={classes.Link}>Click Here</span></Link></p>
             </div>
         )
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        genre : state.genreReducer.genre
+    }
+}
 
-
-export default AddAuthor;
+export default connect(mapStateToProps)(EditGenre);

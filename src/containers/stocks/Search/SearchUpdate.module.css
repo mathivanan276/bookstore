@@ -1,0 +1,75 @@
+.SearchBar{
+    text-align: center;
+    width: 100%;
+    margin: 0rem auto 1rem auto;
+}
+
+h3{
+    color: #d4d4d4;
+}
+
+.SearchBar input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgb(163, 163, 163);
+    border-right: none;
+    border-radius: 5px 0px 0px 5px;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.SearchBar input:focus,.SearchBar button:focus{
+    outline: none;
+    box-shadow: 1px 1px 5px var(--primary-background);
+}
+.SearchBar button{
+    display: inline;
+    margin: 1rem 0rem;
+    min-width: 100px;
+    padding: 0.5rem 0.75rem;
+    font-family: monospace;
+    border: 1px solid rgb(163, 163, 163);
+    border-left: none;
+    border-radius: 0px 5px 5px 0px;
+    background-color: var(--primary-background);
+    box-sizing: border-box;
+}
+
+.Table{
+    padding: 1rem 0.75rem;
+    width: 100%;
+    text-align: center;
+}
+
+.Table input {
+    margin: 0.5rem auto;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 5px;
+}
+.Table p {
+    cursor: pointer;
+    color: cornflowerblue;
+}
+
+.Table button {
+    display: inline;
+    margin: 1rem 0rem;
+    min-width: 100px;
+    padding: 0.5rem 0.75rem;
+    font-family: monospace;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 5px;
+    background-color: var(--primary-background);
+    box-sizing: border-box;
+}
+
+.Error {
+    font-size: 0.75rem;
+    box-sizing: border-box;
+    background-color: #ffa9a9;
+    border: red;
+    border-radius: 5px;
+    color: #222;
+    margin: 0.2rem auto 0rem auto;
+    max-width: 300px;
+    padding: 1rem;
+}

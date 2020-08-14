@@ -1,0 +1,51 @@
+.Container{
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../../assets/welcome.jpg) center center/cover ;
+}
+.Section {
+    display: flex;
+    justify-content: center;
+    height: 60vh;
+}
+
+.Section h3 {
+    margin-top: 3rem;
+}
+
+.Table{
+    padding: 1rem 0.75rem;
+    width: 100%;
+    text-align: center;
+}
+
+.Table input {
+    margin: 0.5rem auto;
+    padding: 0.75rem 0.5rem;
+}
+.Table p {
+    cursor: pointer;
+    color: cornflowerblue;
+}
+
+.Table button {
+    display: inline;
+    margin: 1rem 0rem;
+    min-width: 100px;
+    padding: 0.5rem 0.75rem;
+    font-family: monospace;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 5px;
+    background-color: var(--primary-background);
+    box-sizing: border-box;
+}
+
+.Error {
+    font-size: 0.75rem;
+    box-sizing: border-box;
+    background-color: #ffa9a9;
+    border: red;
+    border-radius: 5px;
+    color: #222;
+    margin: 0.2rem auto 0rem auto;
+    max-width: 300px;
+    padding: 1rem;
+}

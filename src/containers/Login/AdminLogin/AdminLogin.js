@@ -153,7 +153,7 @@ class UserLogin extends Component {
 
     render(){
         if(this.props.islogged === true){
-           return <Redirect to="/" />
+           return <Redirect to="/admin/home" />
         }
         let error = null;   
         if(this.state.error){
