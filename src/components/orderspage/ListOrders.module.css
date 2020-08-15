@@ -18,3 +18,25 @@
 .Link {
     color: #00a2ff
 }
+
+@media only screen and (max-width:768px){
+    .Section {
+        display: block;
+        height: 60vh;
+        overflow: auto;
+        scroll-behavior: smooth;
+    }
+    .Table{
+        margin: auto;
+        background-color: rgba(247, 243, 243, 0.808);
+        padding: 0.5rem 0.5rem;
+        max-width: 700px;
+        text-align: center;
+        box-sizing: border-box;
+        font-size: 0.75rem;
+    }
+    .Table thead {
+        border-bottom: 1px solid #333;
+    }
+    
+}

@@ -9,7 +9,7 @@ import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionTypes from '../../../store/actions/bookAction';
 import * as orderActionTypes from '../../../store/actions/orderAction';
-import Dashboard from './ordersdashboard/Dashboard';
+import Dashboard from '../../../components/orderspage/ordersdashboard/Dashboard';
 import ListOrders from '../../../components/orderspage/ListOrders';
 
 class AdminHome extends Component {
@@ -57,7 +57,7 @@ class AdminHome extends Component {
         return(
            <div className={classes.Section}>
                 {dash}
-                <ListOrders ordersArr={list ? list : []}/>
+                <ListOrders ordersArr={list ? list : []} type={this.state.page.toLowerCase()}/>
            </div>
         )
     }

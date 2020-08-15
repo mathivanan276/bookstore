@@ -131,18 +131,15 @@ class AddBook extends Component {
                 touched:false,
                 validation:false
                 },
-            // image : {
-            //     elementType: "input",
-            //     elementConfig:{
-            //         placeholder: "TITLE",
-            //         type:"file"
-            //     },
-            //     value : "",
-            //     validation:false,
-            //     touched: false,
-            //     isvalid: true,
-            //     name:"image"
-            // },
+            bindingOption:{
+                value:'',
+                elementType:"radio",
+                elementConfig:{
+                    buttons: [{id:1,value:'Hardcover',label:'Hard Cover',name:'bindingOption'},{id:2,value:'Softcover',label:'Soft Cover',name:'bindingOption'}]
+                },
+                touched:false,
+                validation:false
+                },
             description :{
                 elementType: "textarea",
                 elementConfig:{
@@ -240,7 +237,8 @@ class AddBook extends Component {
                 authorId : data.author.value,
                 publisherId : data.publisher.value,
                 genreId : data.genre.value,
-                description : data.description.value
+                description : data.description.value,
+                binding : data.bindingOption.value
             }
             Axios.post('/books/add',bookData)
             .then(res => {

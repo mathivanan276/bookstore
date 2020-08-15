@@ -65,6 +65,10 @@ class Viewbook extends Component {
                                     <td className={classes.Spec}>Returnable</td>
                                     <td>{this.props.book.returnable}</td>
                                 </tr>
+                                <tr>
+                                    <td className={classes.Spec}>Binding</td>
+                                    <td>{this.props.book.binding}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <p className={classes.Spec}>Description</p>
