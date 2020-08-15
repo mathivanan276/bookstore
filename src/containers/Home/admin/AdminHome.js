@@ -8,323 +8,70 @@ import { connect } from 'react-redux';
 import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionTypes from '../../../store/actions/bookAction';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import * as orderActionTypes from '../../../store/actions/orderAction';
+import Dashboard from './ordersdashboard/Dashboard';
+import ListOrders from '../../../components/orderspage/ListOrders';
 
 class AdminHome extends Component {
 
-    state = {
-        searchForm:{
-            author : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.authors
-                },
-                value : "--null--",
-                validation:{
-                    isNumeric:true
-                },
-                touched: false,
-                isvalid: true,
-                label:"Author"
-            },
-            genre : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.authors
-                },
-                value : "--null--",
-                validation:{
-                    isNumeric:true
-                },
-                touched: false,
-                isvalid: true,
-                label:"Genre"
-            },
-        },
-        selectForm:{
-            title : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.title
-                },
-                validation:{
-                    isNumeric:true
-                },
-                value : "Loading...",
-                touched: false,
-                isvalid: true,
-                label:"Title"
-            }
-        },
-        step2:false,
-        error:false,
-        updating: true,
-        titleUpdate: false
+    state={
+        page:'Confirmed'
     }
-    
-    componentDidMount(){
-        this.props.getAuthors();
-        this.props.getGenre();
-    }
-    updating=()=>{
-        // console.log('updating...')
-        let updatedAddformElement = {...this.state.searchForm};
-        let updatedGenreElement = {...updatedAddformElement['genre']};
-        let updatedAuthorElement = {...updatedAddformElement['author']};
-        updatedAuthorElement.elementConfig.options = this.props.authors.map(authorname => {
-            return {
-                value: authorname.authorId,
-                dispVal: authorname.authorName
-            }
-        });
-        updatedGenreElement.elementConfig.options = this.props.genre.map(genrename => {
-            return {
-                value: genrename.genreId,
-                dispVal: genrename.genreName
-            }
-        });
-        
+
+    handlepage = (page) => {
         this.setState({
             ...this.state,
-            searchForm:updatedAddformElement,
-            updating: false
+            page
         })
     }
-    updateTitle = () => {
-        console.log('updating title...');
-        let updatedState = {...this.state}
-        let updatedselectformElement = {...updatedState['selectForm']};
-        let updatedTitleElement = {...updatedselectformElement['title']};
-        updatedTitleElement.elementConfig.options = this.props.title.map(titles => {
-            console.log(titles)
-            return {
-                value: titles.bookId,
-                dispVal: titles.title
+
+    componentDidMount(){
+        this.props.getOrders();
+    }
+    render(){
+        let dash = null;
+        if(this.props.orders === 'null'){
+            dash = <h2>Loading..</h2>
+        } else if(this.props.orders !== 'null') {
+            dash = <Dashboard confirmed={this.props.orders.Confirmed.length} clicked={this.handlepage} />
+        }
+        let list= null;
+        if(this.props.orders !== 'null'){
+            switch(this.state.page){
+                case 'Confirmed':
+                    list = this.props.orders.Confirmed;
+                    break;
+                case 'Shipping' :
+                    list = this.props.orders.Shipping;
+                    break;
+                case 'Shipped' :
+                    list = this.props.orders.Shipped;
+                    break;
+                case 'Cancelled' : 
+                    list = this.props.orders.Cancelled;
+                    break;
+                default :
+                    list = this.props.orders.Confirmed;
             }
-        });
-        updatedState.titleUpdate = false;
-        updatedState.selectForm = updatedselectformElement;
-        console.log(updatedState);
-        // this.setState({
-        //     state:updatedState
-        // })
-    }
-    checkValidation = (value, rule) =>{
-        let isvalid = true;
-
-        if(!rule){
-            return isvalid = true;
         }
-
-        if(rule.required){
-            isvalid = value.trim(' ') !== '' && isvalid;
-        }
-
-        if(rule.minLength){
-            isvalid = value.length >= rule.minLength && isvalid;
-        }
-
-        // console.log(value.length,rule.maxLength);   
-        if(rule.maxLength){
-            // console.log(value.length,rule.maxLength);
-            isvalid = value.length < rule.maxLength && isvalid;
-        }
-        if (rule.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            // console.log(pattern.test(value),isvalid);
-            isvalid = pattern.test(value) && isvalid;
-        }
-
-        if (rule.isNumeric) {
-            const pattern = /^\d+$/;
-            isvalid = pattern.test(value) && isvalid
-        }
-        return isvalid;
-    }
-
-    formValidation = () => {
-        let validating = false;
-        let formElement = [];
-        for(let key in this.state.searchForm){
-            formElement.push({
-                id : key,
-                config : this.state.searchForm[key]
-            })
-        }
-        validating = formElement.map( element => {
-            if(element.config.touched && element.config.isvalid){
-                return true;
-            }else{
-                return false;
-            }
-        })
-        return ! validating.some(valid => valid===false);
-    }  
-    handleChange = (event,identifier,form) => {
-        const updatedState = {...this.state}
-        const updatedSearchForm = {...updatedState[form]};
-        const updatedSearchFormElement = updatedSearchForm[identifier];
-        updatedSearchFormElement.value = event.target.value;
-        updatedSearchFormElement.touched = true;
-        updatedSearchFormElement.isvalid = this.checkValidation(updatedSearchFormElement.value , updatedSearchFormElement.validation);
-            this.setState({
-                ...this.state,
-                searchForm:updatedSearchForm
-            })
-    }
-    handleGetbook = () => {
-        if(this.state.searchForm.author.value !== '--null--' && this.state.searchForm.genre.value !== '--null--'){
-            this.props.getBooksTitle(this.state.searchForm.author.value,this.state.searchForm.genre.value);
-            this.setState({
-                ...this.state,
-                step2: ! this.state.step2,
-                titleUpdate: true
-            })
-        } else {
-            this.setState({
-                ...this.state,
-                error: true
-            })
-        }
-    }
-    handlesteps = () => {
-        // console.log('go back');
-        this.setState({
-            step2: !this.state.step2
-        })
-    }
-    handleSubmit = () => {
-        // console.log(this.formValidation())
-        if(this.formValidation()){
-            this.props.history.push('/admin/book/view/'+this.state.searchForm.title.value);
-        } else {
-            this.setState({
-                error: true
-            })
-        }
-    }
-    render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
-        }
-        let error = null;   
-        if(this.state.error){
-            error =  <div className={classes.Error}>
-                        <p>Validation Failed </p>
-                    </div>
-        }
-        const formElement1 = [];
-
-        for(let key in this.state.searchForm){
-            formElement1.push({
-                id : key,
-                config : this.state.searchForm[key]
-            })
-        }
-
-        let form1 = (
-                formElement1.map(formElement =>{
-                    
-                    return(
-                        <Input
-                    key={formElement.id}
-                    elementType = {formElement.config.elementType}
-                    elementConfig = {formElement.config.elementConfig}
-                    value = {formElement.config.value}
-                    isvalid = {formElement.config.isvalid}
-                    label = {formElement.config.label}
-                    changed = {(event)=>this.handleChange(event,formElement.id,'searchForm')}  />
-                    );
-                }
-              )
-        );
-        const formElement2 = [];
-
-        for(let key in this.state.selectForm){
-            formElement2.push({
-                id : key,
-                config : this.state.selectForm[key]
-            })
-        }
-
-        let form2 = (
-                formElement2.map(formElement =>{
-                    
-                    return(
-                        <Input
-                    key={formElement.id}
-                    elementType = {formElement.config.elementType}
-                    elementConfig = {formElement.config.elementConfig}
-                    value = {formElement.config.value}
-                    isvalid = {formElement.config.isvalid}
-                    label = {formElement.config.label}
-                    changed = {(event)=>this.handleChange(event,formElement.id,'selectForm')}  />
-                    );
-                }
-              )
-        );
-        let formdisp = null;
-        if(this.state.step2){
-            formdisp = null;
-            formdisp = <form>
-                            {error}
-                            {form2}
-                            <div className={classes.Button}>
-                                <Button type="button" clicked={this.handleSubmit}>Get Books</Button> 
-                            </div> 
-                            <div className={classes.Button}>
-                                <Button type="button" clicked={this.handlesteps}>Go Back</Button> 
-                            </div> 
-                        </form>
-        } else {
-            formdisp = null;
-            formdisp = <form>
-                            {error}
-                            {form1}
-                            <div className={classes.Button}>
-                                <Button type="button" clicked={this.handleGetbook}>Get Books</Button> 
-                            </div>
-                        </form>
-        }
-        if(this.props.authors[0].id === 1 && this.state.updating && this.props.genre[0].id === 1){
-            form1 = <p>Loding....</p>
-        }
-        if(this.props.authors[0].id !== 1 && this.state.updating && this.props.genre[0].id !== 1){
-            this.updating();
-        }
-        if(this.state.titleUpdate && this.props.title[0].id === 1){
-            form2 = <p>Loding....</p>
-        }
-        if(this.state.titleUpdate && this.props.title[0].id !== 1){
-            this.updateTitle();
-        }
-        return (
-            <div>
-                <div className={classes.Greetings}>
-                    <h1>Welcome</h1>
-                    <div className={classes.Forms}>
-                        {formdisp}
-                    </div>  
-                </div>
-            </div>
+        return(
+           <div className={classes.Section}>
+                {dash}
+                <ListOrders ordersArr={list ? list : []}/>
+           </div>
         )
     }
 }
 
 const mapStateToProps = (state) =>{
     return {
-        authors : state.authorReducer.authors,
-        genre : state.genreReducer.genre,
-        title : state.bookReducer.bookstitle
+        orders : state.orderReducer.orders
     }
 }
 
 const mapDispatchToProps = (dispatch) =>{
     return{
-        getAuthors : () => dispatch(authorActionTypes.getAuthors()),
-        getGenre : () => dispatch(genreActionTypes.getGenre()),
-        getBooksTitle : (authorId,genreId) => dispatch(bookActionTypes.getBooksTitlesArray(authorId,genreId))
+        getOrders: () => dispatch(orderActionTypes.getorders())
     }
 }
 

@@ -19,7 +19,6 @@ const AdminNav = (props) =>{
             <div className={menuButton ? Opened : Closed}>
                 <nav className={classes.MobileNavbar}>
                     <AdminNavItems link="/admin/home" clicked = {()=>setMenuButton(!menuButton)}>Home</AdminNavItems>
-                    <AdminNavItems link="/admin/orders" clicked = {()=>setMenuButton(!menuButton)}>Orders</AdminNavItems>
                     <AdminNavItems link="/admin/book" clicked = {()=>setMenuButton(!menuButton)}>Books</AdminNavItems>
                     <AdminNavItems link="/admin/author" clicked = {()=>setMenuButton(!menuButton)}>Authors</AdminNavItems>
                     <AdminNavItems link="/admin/publisher" clicked = {()=>setMenuButton(!menuButton)}>Publishers</AdminNavItems>
@@ -32,7 +31,6 @@ const AdminNav = (props) =>{
             <div className={classes.DesktopNav}>
                 <nav className={classes.AdminNavbar}>
                     <AdminNavItems link="/admin/home">Home</AdminNavItems>
-                    <AdminNavItems link="/admin/orders">Orders</AdminNavItems>
                     <AdminNavItems link="/admin/book">Books</AdminNavItems>
                     <AdminNavItems link="/admin/author">Authors</AdminNavItems>
                     <AdminNavItems link="/admin/publisher">Publishers</AdminNavItems>

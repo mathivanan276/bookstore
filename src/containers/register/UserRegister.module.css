@@ -1,8 +1,10 @@
+.Main{
+    height: 75vh;
+}
 .Container {
 
     text-align: center;
     max-width: 500px;
-    height: 100%;
     padding: 2rem 0rem;
     margin: 2rem auto;
     border: 1px solid rgb(247, 252, 184);

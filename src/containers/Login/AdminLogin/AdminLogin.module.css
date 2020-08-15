@@ -1,9 +1,11 @@
+.Main{
+    height: 63vh;
+}
 .Container {
     text-align: center;
     max-width: 500px;
-    height: 100%;
     padding: 1rem 0rem;
-    margin: 3rem auto;
+    margin: 6.3rem auto;
     border: 1px solid rgb(247, 252, 184);
     box-shadow: 2px 2px 5px var(--primary-yellow);
     border-radius: 5px;
@@ -13,7 +15,7 @@
     text-align: center;
     max-width: 500px;
     padding: 1rem 0rem;
-    margin: 3rem auto;
+    margin: 6.3rem auto;
     border: 1px solid rgb(238, 255, 0);
     box-shadow: 2px 2px 5px var(--primary-yellow);
     border-radius: 5px;

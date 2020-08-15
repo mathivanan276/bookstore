@@ -46,8 +46,6 @@
     text-align: center;
     padding: 0.6rem 1rem;
 }
-
-
 .Spec{
     font-size: 1.2rem;
     font-style: italic;
@@ -81,4 +79,64 @@
     border-radius: 3px;
     border: none;
     text-align: center;
+}
+
+@media only screen and (max-width:769px){
+    .Section{
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgb(247, 252, 184);
+        box-shadow: 1px 1px 5px #ffd931,-1px -1px 5px #ffd931;
+        margin: 1rem 1rem;
+        padding: 2rem;
+    }
+    .Section .BookCover{
+        margin: auto;
+    }
+    .Section .Cover{
+        padding: 0.75rem;
+        border: 1px solid rgb(247, 252, 184);
+        box-shadow: 1px 1px 5px #ffd931,-1px -1px 5px #ffd931;
+        box-sizing: border-box;
+    }
+    .Section .Title{
+        display: block;
+        margin-top: 0.75rem;
+        width: 100%;
+        text-align: center;
+    } 
+    .Section .BookDetails {
+        display: block;
+    }
+    .Section .BookDetails .BookSpecs{
+        margin: 0rem auto;
+        width: 100%;
+    }
+    .Section .BookDetails .BookSpecs table td{
+        text-align: left;
+        font-size: 0.75rem;
+        padding: 0.3rem 0rem;
+    }
+    .Spec{
+        margin-top: 0.75rem;
+        font-size: 1rem;
+        font-style: italic;
+        padding: 0px;
+    }
+    
+    .Section .BookDetails .BookSpecs .Description {
+        font-size: 0.75rem;
+        line-height: 1.1rem;
+        padding: 0px;
+    }
+    .Button {
+        display: block;
+        margin: 0.5rem auto;
+        max-width: 200px;
+        padding: 0.75rem;
+        background-color: var(--primary-background);
+        border-radius: 3px;
+        border: none;
+        text-align: center;
+    }
 }

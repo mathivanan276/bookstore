@@ -194,14 +194,16 @@ class UserLogin extends Component {
         );
 
         return (
-            <div className={classes.Container}>
-                <h1>Sign In | Admin</h1>
-                {error}
-                <form onSubmit={this.handleLogin}>
-                    {form}
-                    <Button type="submit" clicked={this.handleLogin}>Sign In</Button> 
-                </form>
-                <p>New User Sign Up |<Link to='/register'><span className={classes.Link}> Click Here</span> </Link></p>
+            <div className={classes.Main}>
+                <div className={classes.Container}>
+                    <h1>Sign In | Admin</h1>
+                    {error}
+                    <form onSubmit={this.handleLogin}>
+                        {form}
+                        <Button type="submit" clicked={this.handleLogin}>Sign In</Button> 
+                    </form>
+                    <p>New User Sign Up |<Link to='/register'><span className={classes.Link}> Click Here</span> </Link></p>
+                </div>
             </div>
         );
     }

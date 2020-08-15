@@ -194,6 +194,7 @@ class UserLogin extends Component {
         );
 
         return (
+            <div className={classes.Main}>
             <div className={classes.Container}>
                 <h1>Sign In</h1>
                 {error}
@@ -203,6 +204,7 @@ class UserLogin extends Component {
                 </form>
                 <p>New User Sign Up |<Link to='/register'><span className={classes.Link}> Click Here</span> </Link></p>
                 <p>Sign In | Admin |<Link to='/admin/login'><span className={classes.Link}> Click Here</span> </Link></p>
+            </div>
             </div>
         );
     }

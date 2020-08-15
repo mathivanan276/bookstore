@@ -1,9 +1,17 @@
+.Main{
+    height: 73vh;
+}
 .Section {
-    margin: 1rem auto;
-    max-width: 800px;
+    margin: 3rem auto;
+    max-width: 500px;
+    text-align: center;
+    border: 1px solid var(--primary-background);
+    border-radius: 5px;
+}
+
+.Section:hover{
     border: 1px solid rgb(247, 252, 184);
     box-shadow: 2px 2px 5px #ffd931;
-    text-align: center;
 }
 
 .Section h1 {
@@ -17,30 +25,6 @@
     font-size: 0.8rem;
 }
 
-.Link {
-    color: #099bf0;
-}
-.Form {
-    display: flex;
-    grid-template-columns: repeat(2,1fr);
-    justify-content: center;
-}
-
-.Form input{
-    width: 300px;
-    margin: 0.5rem auto; 
-}
-.Form select{
-    margin: 0.5rem;
-}
-.Form textarea{
-    width: 87%;
-    grid-column: 1/ span 2;
-}
-.Form input[type='file']{
-    width: 87%;
-    grid-column: 1/ span 2;
-}
 .Error {
     box-sizing: border-box;
     background-color: #ffa9a9;
@@ -50,32 +34,4 @@
     margin: 0.2rem auto 0rem auto;
     max-width: 300px;
     font-size: 1rem !important;
-}
-
-@media only screen and (max-width:500px){
-    .Form {
-        display: block;
-    }
-    .Form textarea{
-        width: 71%;
-        grid-column: 1/ span 2;
-    }
-    .Form input[type='file']{
-        width: 71%;
-        grid-column: 1/ span 2;
-    }
-    .Form input{
-        margin: 0.75rem 0;
-    }
-    .Form select{
-        margin: 0.75rem 0;
-    }
-    .Form input{
-        width: 300px;
-        margin: 0.5rem auto; 
-    }
-    .Form input:first-child{
-        width: 300px;
-        margin: 0.5rem auto;  
-    }
 }

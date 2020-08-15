@@ -16,9 +16,10 @@ import AuthorReducer from './store/reducers/authorReducer';
 import PublisherReducer from './store/reducers/publicherReducer';
 import GenreReducer from './store/reducers/genreReducer';
 import BookReducer from './store/reducers/bookReducer';
+import OrderReducer from './store/reducers/orderReduser';
 
-axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
-// axios.defaults.baseURL = 'https://35707e011f2b.ngrok.io/bookstore_mvc/';
+// axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
+axios.defaults.baseURL = 'https://a7aa341c03a1.ngrok.io//bookstore_mvc/';
 
 const rootReducer = combineReducers(
   {
@@ -26,7 +27,8 @@ const rootReducer = combineReducers(
     authorReducer : AuthorReducer,
     publisherReducer : PublisherReducer,
     genreReducer : GenreReducer,
-    bookReducer : BookReducer
+    bookReducer : BookReducer,
+    orderReducer : OrderReducer
   }
 )
 

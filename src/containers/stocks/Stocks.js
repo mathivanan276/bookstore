@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as bookActionTypes from '../../store/actions/bookAction';
+import { Redirect } from 'react-router-dom';
 
 import classes from './Stocks.module.css';
 import Input from '../../components/UI/form/input/Input';
@@ -10,21 +11,7 @@ import SearchUpdate from './Search/SearchUpdate';
 class Stocks extends Component {
 
     state = {
-        stock : {
-            elementType: "input",
-            elementConfig:{
-                placeholder: "QUANTITY",
-                type:"number"
-            },
-            value : '',
-            validation:{
-                required: true,
-                minSize : 20
-            },
-            touched: false,
-            isvalid: true,
-            name:"title"
-        },
+        quantity:'',
         error : false,
         updated :false,
     }
@@ -44,7 +31,7 @@ class Stocks extends Component {
     }
     handleSubmit = (event,bookId) => {
         event.preventDefault();
-        if(this.state.stock.isvalid && this.state.stock.touched){
+        if(this.state.quantity > 20){
             Axios.post('/books/changestock/'+bookId,{quantity : this.state.stock.value})
             .then( res => {
                 window.location.reload(false);
@@ -59,19 +46,20 @@ class Stocks extends Component {
         }
     }
     handleChange = (event) => {
-        const updatedStock = {...this.state.stock};
-        updatedStock.isvalid = this.checkValidity(event.target.value,updatedStock.validation); 
-        updatedStock.touched = true;
-        updatedStock.value = event.target.value;
+        const [name,value] = event.target;
         this.setState({
-            ...this.state,
-            stock : updatedStock
+            [name] : value
         })
+       
     }
     componentDidMount(){
         this.props.getlowstock();
     }
     render() {
+        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
+        if(!adminData){
+            return <Redirect to='/admin/login' />
+        }
         let loading = null;    
         if( this.props.lowstock !== 'loading' && this.props.lowstock.count === 0){
             loading = (
@@ -84,25 +72,26 @@ class Stocks extends Component {
             loading = (
                 <div className={classes.Section}>
                 <table className={classes.Table}>
-                    <tr>
-                        <th>S.NO</th>
-                        <th>BOOK ID</th>
-                        <th>TITLE</th>
-                        <th>QUANTITY</th>
-                        <th></th>   
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>S.NO</th>
+                            <th>BOOK ID</th>
+                            <th>TITLE</th>
+                            <th>QUANTITY(>20)</th>
+                            <th></th>
+                        </tr>   
+                    </thead>
                     {this.props.lowstock.data.map( (data,index) => {
                         return (
                             <tr key={data.bookId}>
                                 <td>{index + 1}</td>
                                 <td>{data.bookId}</td>
                                 <td>{data.title}</td>
-                                <td><Input 
-                                     elementType = {this.state.stock.elementType}
-                                     elementConfig = {{placeholder:data.quantity,type:'number'}}
-                                     value = {this.state.stock.value}
-                                     isvalid = {this.state.stock.isvalid}
-                                     label = {this.state.stock.label}
+                                <td><input
+                                     placeholder={data.quantity}
+                                     value={this.state.value}
+                                     name='quantity'
+                                     type='number' 
                                      changed = {(event)=>this.handleChange(event)} /></td>
                                 <td><p onClick={(event)=>this.handleSubmit(event,data.bookId)}>Update</p></td>
                             </tr>

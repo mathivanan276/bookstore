@@ -19,7 +19,7 @@ class Viewbook extends Component {
         }
         return (
             <div className={classes.Section}>
-                <div>
+                <div className={classes.BookCover}>
                     <img src={this.props.book.imageUrl} 
                     alt={this.props.book.title}  
                     className={classes.Cover} 

@@ -192,6 +192,7 @@ class UserRegister extends Component {
         );
 
         return (
+            <div className={classes.Main}>
             <div className={classes.Container}>
                 <h1>Register</h1>
                 {error}
@@ -200,6 +201,7 @@ class UserRegister extends Component {
                     <Button type="submit" clicked={this.handleRegister}>Register</Button> 
                 </form>
                 <p>Already Have An Accont |<Link to='/login'><span className={classes.Link}> Sign In</span> </Link></p>
+            </div>
             </div>
         );
     }

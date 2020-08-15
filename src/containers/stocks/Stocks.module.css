@@ -2,9 +2,9 @@
     background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../../assets/welcome.jpg) center center/cover ;
 }
 .Section {
-    display: flex;
-    justify-content: center;
-    height: 60vh;
+    height: 61vh;
+    overflow: auto;
+    scroll-behavior: smooth;
 }
 
 .Section h3 {
@@ -12,18 +12,36 @@
 }
 
 .Table{
+    border: 1px solid red;
+    background-color: rgba(255, 255, 255, 0.808);
     padding: 1rem 0.75rem;
-    width: 100%;
+    width: 800px;
+    border-radius: 5px;
     text-align: center;
+    font-family: monospace;
+    height: 40vh;
+    margin: auto;
+    margin-bottom: 1rem;
+    /* overflow: scroll; */
 }
 
 .Table input {
     margin: 0.5rem auto;
-    padding: 0.75rem 0.5rem;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+.Table input:focus{
+    outline: none;
+    box-shadow: 1px 1px 5px var(--primary-background);
 }
 .Table p {
     cursor: pointer;
-    color: cornflowerblue;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 5px;
+    background-color: var(--primary-background);
+    padding: 0.5rem 0.5rem;
+    font-family: monospace;
 }
 
 .Table button {
@@ -48,4 +66,44 @@
     margin: 0.2rem auto 0rem auto;
     max-width: 300px;
     padding: 1rem;
+}
+@media only screen and (max-width:768px){
+    .Section {
+        display: block;
+        height: 60vh;
+        overflow: auto;
+        scroll-behavior: smooth;
+    }
+    .Table{
+        margin: auto;
+        border: 1px solid red;
+        background-color: rgba(247, 243, 243, 0.808);
+        padding: 0.5rem 0.5rem;
+        max-width: 600px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .Table thead {
+        border-bottom: 1px solid #333;
+    }
+    .Table input {
+        margin: 0.5rem auto;
+        border: 1px solid rgb(163, 163, 163);
+        border-radius: 5px;
+    }
+    .Table p {
+        cursor: pointer;
+    }
+    .Table button {
+        display: inline;
+        margin: 0;
+        min-width: 100px;
+        padding: 0.5rem 0.75rem;
+        font-family: monospace;
+        border: 1px solid rgb(163, 163, 163);
+        border-radius: 5px;
+        background-color: var(--primary-background);
+        box-sizing: border-box;
+    }
+    
 }

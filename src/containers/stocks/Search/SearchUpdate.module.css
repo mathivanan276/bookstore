@@ -2,6 +2,7 @@
     text-align: center;
     width: 100%;
     margin: 0rem auto 1rem auto;
+    padding-top: 1.5rem;
 }
 
 h3{
@@ -33,11 +34,22 @@ h3{
     background-color: var(--primary-background);
     box-sizing: border-box;
 }
-
+.Section {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    scroll-behavior: smooth;
+}
 .Table{
-    padding: 1rem 0.75rem;
-    width: 100%;
+    background-color: rgba(255, 255, 255, 0.808);
+    margin: auto;
+    padding: 0.5rem 0.5rem;
+    width: 800px;
     text-align: center;
+    border-radius: 5px;
+}
+.Table td {
+    width: 100px;
 }
 
 .Table input {
@@ -52,9 +64,8 @@ h3{
 
 .Table button {
     display: inline;
-    margin: 1rem 0rem;
+    margin: 0rem 0rem;
     min-width: 100px;
-    padding: 0.5rem 0.75rem;
     font-family: monospace;
     border: 1px solid rgb(163, 163, 163);
     border-radius: 5px;
@@ -72,4 +83,37 @@ h3{
     margin: 0.2rem auto 0rem auto;
     max-width: 300px;
     padding: 1rem;
+}
+
+@media only screen and (max-width:768px){
+    .Table{
+        background-color: rgba(255, 255, 255, 0.808);
+        padding: 0.5rem 0.5rem;
+        width: 800px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    .Table input {
+        margin: 0.5rem auto;
+        border: 1px solid rgb(163, 163, 163);
+        border-radius: 5px;
+    }
+    .Table p {
+        cursor: pointer;
+        color: cornflowerblue;
+    }
+    
+    .Table button {
+        display: inline;
+        margin: 0;
+        min-width: 100px;
+        padding: 0.5rem 0.75rem;
+        font-family: monospace;
+        border: 1px solid rgb(163, 163, 163);
+        border-radius: 5px;
+        background-color: var(--primary-background);
+        box-sizing: border-box;
+    }
+    
 }

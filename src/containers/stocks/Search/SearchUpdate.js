@@ -81,26 +81,28 @@ class SearchUpdate extends Component {
             </p>
         }
         if(this.state.result){
-            result =  <table className={classes.Table}>
-                        <tr>
-                            <th>BOOK ID</th>
-                            <th>TITLE</th>
-                            <th>QUANTITY</th>
-                            <th></th>   
-                        </tr>
-                        <tr>
-                            <td> {this.state.searchedbook.id} </td>
-                            <td> {this.state.searchedbook.title} </td>
-                            <td> 
-                                <input 
-                                placeholder='QUANTITY' 
-                                value={this.state.searchedbook.stock} 
-                                type='number' 
-                                onChange={this.handleStockChange} /> 
-                            </td>
-                            <td> <button className={classes.UpdateBook} onClick={(event) => this.handleUpdate(event,this.state.searchedbook.id)}>update</button> </td>
-                        </tr>
-                    </table>
+            result =  <div className={classes.Section}>
+                        <table className={classes.Table}>
+                            <tr>
+                                <th>BOOK ID</th>
+                                <th>TITLE</th>
+                                <th>QUANTITY</th>
+                                <th></th>   
+                            </tr>
+                            <tr>
+                                <td> {this.state.searchedbook.id} </td>
+                                <td> {this.state.searchedbook.title} </td>
+                                <td> 
+                                    <input 
+                                    placeholder='QUANTITY' 
+                                    value={this.state.searchedbook.stock} 
+                                    type='number' 
+                                    onChange={this.handleStockChange} /> 
+                                </td>
+                                <td> <button className={classes.UpdateBook} onClick={(event) => this.handleUpdate(event,this.state.searchedbook.id)}>update</button> </td>
+                            </tr>
+                        </table>
+                       </div> 
         }      
         return (
             <div className={classes.SearchBar}>

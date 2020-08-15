@@ -63,7 +63,7 @@ class Stock extends Component {
                 console.log(res);
                 if(res.data.response === true){
                     alert('quatity updated');
-                    this.props.history.push('/admin/books');
+                    this.props.history.push('/admin/book');
                 }
             })
             .catch( err => {
@@ -84,6 +84,7 @@ class Stock extends Component {
                     </div>
         }
         return (
+            <div className={classes.Main}>
             <div className={classes.Section}>
                 <h1>Update Stock</h1>
                 {error}
@@ -99,6 +100,7 @@ class Stock extends Component {
                     </div>
                     <Button type="submit" clicked={this.handleSubmit}>Update</Button> 
                 </form>
+            </div>
             </div>
         )
     }

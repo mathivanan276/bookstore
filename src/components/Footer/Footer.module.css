@@ -1,7 +1,7 @@
 .Footer {
     background-color: var(--footer-background);;
     text-align: center;
-    padding: 1rem;
+    padding: 0.75rem;
 }
 
 .Footer p {
