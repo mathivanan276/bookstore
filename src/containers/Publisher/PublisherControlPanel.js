@@ -96,11 +96,11 @@ class PublisherControlPanel extends Component {
             </form>
         );
 
-        if(this.props.publisher[0].id === 1){
+        if(this.props.publisherLoading){
             form = null;
             form = <p>Loding....</p>
         }
-        if(this.props.publisher[0].id !== 1 && this.state.updating){
+        if(!this.props.publisherLoading && this.state.updating){
             this.updating();
         }
         return (
@@ -119,7 +119,8 @@ class PublisherControlPanel extends Component {
 }
 const mapStateToProps = (state) =>{
     return {
-        publisher : state.publisherReducer.publisher
+        publisher : state.publisherReducer.publisher,
+        publisherLoading : state.publisherReducer.publisherLoading
     }
 }
 

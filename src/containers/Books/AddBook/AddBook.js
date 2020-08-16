@@ -328,10 +328,10 @@ class AddBook extends Component {
                     changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
               ))
         );
-        if(this.props.authors[0].id === 1 && this.state.authorUpdating && this.props.publisher[0].id === 1 && this.props.genre[0].id === 1){
+        if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading){
             form = <p>Loding....</p>
         }
-        if(this.props.authors[0].id !== 1 && this.state.authorUpdating && this.props.publisher[0].id !== 1 && this.props.genre[0].id !== 1){
+        if(!this.props.authorLoading && this.state.authorUpdating && !this.props.publisherLoading && !this.props.genreLoading){
             this.updatingTheAuthors();
         }
         return (
@@ -354,7 +354,10 @@ const mapStateToProps = (state) =>{
     return {
         authors : state.authorReducer.authors,
         publisher : state.publisherReducer.publisher,
-        genre : state.genreReducer.genre
+        genre : state.genreReducer.genre,
+        authorLoading : state.authorReducer.authorLoading,
+        publisherLoading : state.publisherReducer.publisherLoading,
+        genreLoading : state.genreReducer.genreLoading
     }
 }
 

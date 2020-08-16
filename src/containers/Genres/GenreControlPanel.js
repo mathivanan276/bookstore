@@ -96,11 +96,11 @@ class GenreControlPanel extends Component {
             </form>
         );
 
-        if(this.props.genre[0].id === 1){
+        if(this.props.genreLoading){
             form = null;
             form = <p>Loding....</p>
         }
-        if(this.props.genre[0].id !== 1 && this.state.updating){
+        if(!this.props.genreLoading && this.state.updating){
             this.updating();
         }
         return (
@@ -119,7 +119,8 @@ class GenreControlPanel extends Component {
 }
 const mapStateToProps = (state) =>{
     return {
-        genre : state.genreReducer.genre
+        genre : state.genreReducer.genre,
+        genreLoading : state.genreReducer.genreLoading
     }
 }
 

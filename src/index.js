@@ -16,7 +16,7 @@ import AuthorReducer from './store/reducers/authorReducer';
 import PublisherReducer from './store/reducers/publicherReducer';
 import GenreReducer from './store/reducers/genreReducer';
 import BookReducer from './store/reducers/bookReducer';
-import OrderReducer from './store/reducers/orderReduser';
+import OrderReducer from './store/reducers/orderReducer';
 
 axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
 // axios.defaults.baseURL = 'https://a7aa341c03a1.ngrok.io//bookstore_mvc/';

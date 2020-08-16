@@ -96,11 +96,11 @@ class AuthorControlPanel extends Component {
             </form>
         );
 
-        if(this.props.authors[0].id === 1){
+        if(this.props.authorLoading === 1){
             form = null;
             form = <p>Loding....</p>
         }
-        if(this.props.authors[0].id !== 1 && this.state.updating){
+        if(!this.props.authorLoading && this.state.updating){
             this.updating();
         }
         return (
@@ -119,7 +119,8 @@ class AuthorControlPanel extends Component {
 }
 const mapStateToProps = (state) =>{
     return {
-        authors : state.authorReducer.authors
+        authors : state.authorReducer.authors,
+        authorLoading : state.authorReducer.authorLoading
     }
 }
 

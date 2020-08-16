@@ -30,13 +30,14 @@ class AdminHome extends Component {
     }
     render(){
         let dash = null;
-        if(this.props.orders === 'null'){
+        if(this.props.ordersLoading){
             dash = <h2>Loading..</h2>
-        } else if(this.props.orders !== 'null') {
-            dash = <Dashboard confirmed={this.props.orders.Confirmed.length} clicked={this.handlepage} />
+        }
+        if(this.props.ordersLoading === false) {
+            dash = <Dashboard confirmed={this.props.orders.Confirmed.length} currentType={this.state.page} clicked={this.handlepage} />
         }
         let list= null;
-        if(this.props.orders !== 'null'){
+        if(this.props.orders !== 'null' && this.props.ordersLoading === false){
             switch(this.state.page){
                 case 'Confirmed':
                     list = this.props.orders.Confirmed;
@@ -65,7 +66,8 @@ class AdminHome extends Component {
 
 const mapStateToProps = (state) =>{
     return {
-        orders : state.orderReducer.orders
+        orders : state.orderReducer.orders,
+        ordersLoading : state.orderReducer.ordersLoading
     }
 }
 
