@@ -1,20 +1,32 @@
 import * as actionType from '../actions/authorAction'; 
 
 const initialState = {
-    authors: [{
-        id:1
-    }]
+    authors: [],
+    authorLoading: true
 }
 
 const reducer = (state = initialState , action) => {
 
-    if(action.type === actionType.GET_AUTHORS) {
-        return {
-            ...state,
-            authors: action.data.data
-        }
+
+    switch(action.type){
+        case actionType.GET_AUTHORS :
+            return {
+                ...state,
+                authors: action.data.data
+            }
+        case actionType.AUTHOR_LODING_TRUE :
+            return {
+                ...state,
+                authorLoading: true
+            }
+        case actionType.AUTHOR_LODING_FALSE :
+            return {
+                ...state,
+                authorLoading: false
+            }
+        default :
+            return state;
     }
-    return state;
 }
 
 export default reducer;

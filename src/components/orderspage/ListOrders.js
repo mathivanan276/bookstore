@@ -4,7 +4,6 @@ import classes from './ListOrders.module.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const timeConvertion = (date) => {
-    //time convertion
         let time = date.toTimeString().split(':');
         let hours = time[0];
         let meridian = '';
@@ -47,21 +46,12 @@ const ListOrders = (props) => {
                                         <td>{index+1}</td>
                                         <td>{list.itemQuantity}</td>
                                         <td>{list.userName}</td>
-                                        {/* <td>{date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()}</td> */}
                                         <td>
                                             {createdAtDate.toDateString()}
                                             <br/>
                                             {timeConvertion(createdAtDate)}
                                         </td>
-                                        {shippedAtDate}
-                                        {/* <td>{
-                                                shippedAtDate ? 
-                                                shippedAtDate.toDateString()+' '+
-                                                timeConvertion(shippedAtDate)
-                                                : '-' ;
-                                            }
-                                            
-                                        </td> */}
+                                            {shippedAtDate}
                                         <td>
                                             <Link to={`/admin/orders/${props.type}/${list.orderId}`} className={classes.Link}>View Order</Link>
                                         </td>

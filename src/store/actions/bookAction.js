@@ -4,29 +4,8 @@ import Axios from 'axios';
 export const GET_BOOKS_AUTHOR_GENRE_TITLE = 'GET_BOOKS_AUTHOR_GENRE_TITLE';
 export const GET_BOOK = 'GET_BOOK';
 export const GET_LOW_STOCK = 'GET_LOW_STOCK';
- 
-// const saveTitles = (data) => {
-//     return {
-//         type: GET_TITLES,
-//         data : data
-//     }
-// }
-
-// export const getTitles = (title) => {
-
-//     return (dispatch) => {
-//         Axios.get('books/searchbook/'+title)
-//         .then(res => {
-//             console.log(res.data);
-//             if(res.data !== null){
-//               return dispatch(saveTitles(res.data));
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         })
-//     }
-// }
+export const TITLE_LOADING_TRUE = 'TITLE_LOADING_TRUE';
+export const TITLE_LOADING_FALSE = 'TITLE_LOADING_FALSE';
 
 const bookTitlesArray=(data)=>{
     return{
@@ -35,24 +14,38 @@ const bookTitlesArray=(data)=>{
     }
 }
 
+const titleLoadingTrue = () => {
+    return {
+        type:TITLE_LOADING_TRUE
+    }
+}
+
+const titleLoadingFalse = () => {
+    return {
+        type:TITLE_LOADING_FALSE
+    }
+}
+
 export const getBooksTitlesArray = (authorId,genreId) => {
     // console.log(authorId,genreId);
     return (dispatch) => {
-                Axios.post('books/adminsearch',{
-                    authorId,
-                    genreId})
-                .then(res => {
-                    if(res.data.response === true ){
-                        // console.log(res.data);
-                      return dispatch(bookTitlesArray(res.data.data));
-                    }
-                })
+        dispatch(titleLoadingTrue());
+        Axios.post('books/adminsearch',{
+            authorId,
+            genreId})
+            .then(res => {
+                if(res.data.response === true ){
+                    // console.log(res.data);
+                    dispatch(bookTitlesArray(res.data.data));
+                    dispatch(titleLoadingFalse());
+                }
+            })
                 .catch(err => {
                     console.log(err);
                 })
             }
-}
-
+        }
+        
 const lowstocks = (data) => {
     return({
         type : GET_LOW_STOCK,
@@ -68,7 +61,7 @@ export const getLowStockBooks = () => {
             console.log(res)
             if(res.data.response === true ){
                 console.log(res.data);
-              return dispatch(lowstocks(res.data.data));
+                return dispatch(lowstocks(res.data.data));
             }
         })
         .catch(err => {
@@ -98,4 +91,27 @@ export const getBook = (bookId) => {
             console.log(err);
         })
     }
+    
+    // const saveTitles = (data) => {
+    //     return {
+    //         type: GET_TITLES,
+    //         data : data
+    //     }
+    // }
+    
+    // export const getTitles = (title) => {
+    
+    //     return (dispatch) => {
+    //         Axios.get('books/searchbook/'+title)
+    //         .then(res => {
+    //             console.log(res.data);
+    //             if(res.data !== null){
+    //               return dispatch(saveTitles(res.data));
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    //     }
+    // }
 }

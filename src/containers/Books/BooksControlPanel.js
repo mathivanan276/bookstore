@@ -9,7 +9,7 @@ import * as authorActionTypes from '../../store/actions/authorAction';
 import * as genreActionTypes from '../../store/actions/genreAction';
 import * as bookActionTypes from '../../store/actions/bookAction';
 import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 
 class BooksControlPanel extends Component {
 
@@ -288,16 +288,16 @@ class BooksControlPanel extends Component {
                             </div>
                         </form>
         }
-        if(this.props.authors[0].id === 1 && this.state.updating && this.props.genre[0].id === 1){
+        if(this.props.authorLoading && this.state.updating && this.props.genreLoading){
             form1 = <p>Loding....</p>
         }
-        if(this.props.authors[0].id !== 1 && this.state.updating && this.props.genre[0].id !== 1){
+        if( !this.props.authorLoading && this.state.updating && !this.props.genreLoading){
             this.updating();
         }
-        if(this.state.titleUpdate && this.props.title[0].id === 1){
+        if(this.props.titleLoading){
             form2 = <p>Loding....</p>
         }
-        if(this.state.titleUpdate && this.props.title[0].id !== 1){
+        if(!this.props.titleLoading){
             this.updateTitle();
         }
         return (
@@ -319,8 +319,11 @@ class BooksControlPanel extends Component {
 const mapStateToProps = (state) =>{
     return {
         authors : state.authorReducer.authors,
+        authorLoading : state.authorReducer.authorLoading,
         genre : state.genreReducer.genre,
-        title : state.bookReducer.bookstitle
+        genreLoading : state.genreReducer.genreLoading,
+        title : state.bookReducer.bookstitle,
+        titleLoading : state.bookReducer.bookstitleLoading
     }
 }
 

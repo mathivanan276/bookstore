@@ -1,20 +1,31 @@
 import * as actionType from '../actions/genreAction'; 
 
 const initialState = {
-    genre: [{
-        id:1
-    }]
+    genre: [],
+    genreLoading : true
 }
 
 const reducer = (state = initialState , action) => {
 
-    if(action.type === actionType.GET_GENRE) {
-        return {
-            ...state,
-            genre: action.data.data
-        }
+    switch(action.type){
+        case actionType.GET_GENRE :
+            return {
+                ...state,
+                genre: action.data.data
+            }
+        case actionType.GENRE_LODING_TRUE :
+            return {
+                ...state,
+                genreLoading: true
+            }
+        case actionType.GENRE_LODING_FALSE :
+            return {
+                ...state,
+                genreLoading: false
+            }
+        default :
+            return state;
     }
-    return state;
 }
 
 export default reducer;
