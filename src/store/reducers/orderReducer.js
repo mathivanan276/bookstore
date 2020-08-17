@@ -2,7 +2,8 @@ import * as orderActionType from '../actions/orderAction';
 
 const initialState = {
     orders : [],
-    ordersLoading : true
+    ordersLoading : true,
+    orderSummary : {}
 }
 
 const reducer = (state = initialState , action ) => {
@@ -11,6 +12,11 @@ const reducer = (state = initialState , action ) => {
             return {
                 ...state,
                 orders: action.data
+            }
+        case (orderActionType.GET_ORDER_SUMMARY) :
+            return {
+                ...state,
+                orderSummary: action.data
             }
         case (orderActionType.ORDERS_LOADING_TRUE):
                 return {

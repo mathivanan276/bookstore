@@ -53,10 +53,10 @@ class App extends Component{
             <Route path='/admin/book/view/:bookId' component={ViewBook} />
             <Route path='/admin/book/add' component={AddBook} />
             <Route path='/admin/book' component={BookControl} />
-            <Route path='/admin/orders/confirmed/:orderId' component={Confirmed} />
-            <Route path='/admin/orders/shipping/:orderId' component={Confirmed} />
-            <Route path='/admin/orders/shipped/:orderId' component={Confirmed} />
-            <Route path='/admin/orders/cancelled/:orderId' component={Confirmed} />
+            <Route path='/admin/orders/confirmed/:cartId' component={Confirmed} />
+            <Route path='/admin/orders/shipping/:cartId' component={Confirmed} />
+            <Route path='/admin/orders/shipped/:cartId' component={Confirmed} />
+            <Route path='/admin/orders/cancelled/:cartId' component={Confirmed} />
             <Route path='/admin/home' component={AdminHome} />
             <Route path='/home' component={()=>{ return <h1>home page</h1> } } />
             {/* <Route path="*" component={() =>{ return <h1>home page</h1>}} /> */}

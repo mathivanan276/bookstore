@@ -4,7 +4,6 @@ import * as bookActionTypes from '../../store/actions/bookAction';
 import { Redirect } from 'react-router-dom';
 
 import classes from './Stocks.module.css';
-import Input from '../../components/UI/form/input/Input';
 import Axios from 'axios';
 import SearchUpdate from './Search/SearchUpdate';
 

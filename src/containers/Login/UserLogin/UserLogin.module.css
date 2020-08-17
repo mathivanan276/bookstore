@@ -45,3 +45,8 @@
     max-width: 300px;
     font-size: 1rem !important;
 }
+@media only screen and (max-width:768px){
+    .Main {
+        height: 84vh;
+    }
+}

@@ -54,13 +54,13 @@ const lowstocks = (data) => {
 }
 
 export const getLowStockBooks = () => {
-    console.log('getting');
+    // console.log('getting');
     return (dispatch) => {
         Axios.get('books/lowstock')
         .then(res => {
-            console.log(res)
+            // console.log(res)
             if(res.data.response === true ){
-                console.log(res.data);
+                // console.log(res.data);
                 return dispatch(lowstocks(res.data.data));
             }
         })

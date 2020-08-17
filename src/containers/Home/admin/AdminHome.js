@@ -1,13 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 import classes from './AdminHome.module.css';
-import Input from '../../../components/UI/form/input/Input';
-import Button from '../../../components/UI/form/button/button';
 import { connect } from 'react-redux';
-
-import * as authorActionTypes from '../../../store/actions/authorAction';
-import * as genreActionTypes from '../../../store/actions/genreAction';
-import * as bookActionTypes from '../../../store/actions/bookAction';
 import * as orderActionTypes from '../../../store/actions/orderAction';
 import Dashboard from '../../../components/orderspage/ordersdashboard/Dashboard';
 import ListOrders from '../../../components/orderspage/ListOrders';
@@ -29,6 +24,10 @@ class AdminHome extends Component {
         this.props.getOrders();
     }
     render(){
+        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
+        if(!adminData){
+            return <Redirect to='/admin/login' />
+        }
         let dash = null;
         if(this.props.ordersLoading){
             dash = <h2>Loading..</h2>

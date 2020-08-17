@@ -1,8 +1,7 @@
 import React from 'react';
 
 import classes from './ListOrders.module.css';
-import { Link, Route } from 'react-router-dom/cjs/react-router-dom.min';
-import Confirmed from './confirmed/Confirmed';
+import { Link } from 'react-router-dom';
 
 const timeConvertion = (date) => {
         let time = date.toTimeString().split(':');
@@ -10,11 +9,12 @@ const timeConvertion = (date) => {
         let meridian = '';
         if(time[0] > 12){
             let hour = time[0]%12;
-            hours = 12+hour;
+            hours = hour;
             meridian = 'pm';
         } else {
             meridian ='am';
         }
+        time[0] = hours;
         time[2] = time[2].split(' ').shift();
         let finalTime = time.join(':')+ ' '+meridian;
         return finalTime;
@@ -54,7 +54,7 @@ const ListOrders = (props) => {
                                         </td>
                                             {shippedAtDate}
                                         <td>
-                                            <Link to={`/admin/orders/${props.type}/${list.orderId}`} className={classes.Link}>View Order</Link>
+                                            <Link to={`/admin/orders/${props.type}/${list.cartId}`} className={classes.Link}>View Order</Link>
                                         </td>
                                     </tr>
                         })

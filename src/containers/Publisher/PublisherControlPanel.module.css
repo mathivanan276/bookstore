@@ -13,6 +13,7 @@
     padding: 2rem;
     font-size: 2.5rem;
     color: #f4f4f4;
+    text-align: center;
 }
 
 .Forms  form {
@@ -65,5 +66,8 @@
 @media only screen and (max-width:768px){
     .Greetings {
         height:85vh;
+    }
+    .Greetings h1 {
+        font-size: 1.75rem;
     }
 }
