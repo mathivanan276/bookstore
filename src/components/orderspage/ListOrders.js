@@ -35,12 +35,21 @@ const ListOrders = (props) => {
                         props.ordersArr.map( (list,index) => {
                             let createdAtDate = new Date(list.createdAt);
                             let shippedAtDate = <td>-</td>;
+                            let deliveredAtDate = <td>-</td>;
                             if(list.shippedAt){
                                 shippedAtDate = new Date(list.shippedAt);
                                 shippedAtDate = <td>
                                                     {shippedAtDate.toDateString()}
                                                     <br/>
                                                     {timeConvertion(shippedAtDate)}
+                                                </td>
+                            }
+                            if(list.deliveredAt){
+                                deliveredAtDate = new Date(list.deliveredAt);
+                                deliveredAtDate = <td>
+                                                    {deliveredAtDate.toDateString()}
+                                                    <br/>
+                                                    {timeConvertion(deliveredAtDate)}
                                                 </td>
                             }
                             return <tr key={list.orderId}>
@@ -53,8 +62,9 @@ const ListOrders = (props) => {
                                             {timeConvertion(createdAtDate)}
                                         </td>
                                             {shippedAtDate}
+                                        {deliveredAtDate}
                                         <td>
-                                            <Link to={`/admin/orders/${props.type}/${list.cartId}`} className={classes.Link}>View Order</Link>
+                                            <Link to={`/admin/orders/${props.type}/${list.cartId}/${list.orderId}`} className={classes.Link}>View Order</Link>
                                         </td>
                                     </tr>
                         })

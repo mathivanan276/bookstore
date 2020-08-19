@@ -38,10 +38,11 @@ class AddBookCover extends Component {
         const formData = new FormData();
         
         formData.append('image',file)
-        
+        const token = JSON.parse(localStorage.getItem('userDetails')).token;
         return  await Axios.post('/books/uploadimg/'+this.props.match.params.bookId, formData,{
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                'HTTP_AUTHORIZATION' : token
             }
         })
         .then(res=>{
@@ -67,9 +68,13 @@ class AddBookCover extends Component {
     }
 
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         // if(this.props.book.title === 'getting'){
         //     return(
@@ -106,7 +111,8 @@ class AddBookCover extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        book : state.bookReducer.book
+        book : state.bookReducer.book,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

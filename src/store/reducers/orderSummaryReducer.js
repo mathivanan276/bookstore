@@ -1,4 +1,4 @@
-import * as orderActionType from '../actions/orderAction';
+import * as orderActionType from '../actions/orderSummaryAction';
 
 const initialState = {
     orderSummary : {},
@@ -7,21 +7,20 @@ const initialState = {
 
 const reducer = (state = initialState , action ) => {
     switch(action.type){
-        case (orderActionType.GET_ORDERS) : 
+        case (orderActionType.GET_ORDER_SUMMARY) :
             return {
                 ...state,
-                orders: action.data
+                orderSummary: action.data
             }
-
-        case (orderActionType.ORDERS_LOADING_TRUE):
+        case (orderActionType.ORDERS_SUMMARY_LOADING_TRUE):
                 return {
                     ...state,
-                    ordersLoading:true
+                    ordersSummaryLoading:true
                 }
-        case (orderActionType.ORDERS_LOADING_FALSE):
+        case (orderActionType.ORDERS_SUMMARY_LOADING_FALSE):
                 return {
                     ...state,
-                    ordersLoading:false
+                    ordersSummaryLoading:false
                 }
         
         default :

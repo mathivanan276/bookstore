@@ -102,9 +102,15 @@ class EditAuthor extends Component {
                 authorName:this.state.editform.author.value
             }
             // console.log(data);
-            Axios.post('authors/edit/'+this.props.authorName[this.props.match.params.authorIndex].authorId,data)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios({
+                method: 'post',
+                url:'authors/edit/'+this.props.authorName[this.props.match.params.authorIndex].authorId,
+                data: data,
+                headers: {'HTTP_AUTHORIZATION' : token }
+            })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if(res.data.response){
                     alert('Author Edited');
                     this.props.history.push('/admin/author');
@@ -125,9 +131,13 @@ class EditAuthor extends Component {
     }
 
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         if(this.props.authorName[0].id === 1){
             return(
@@ -184,7 +194,8 @@ class EditAuthor extends Component {
 
 const mapStateToProps = (state) =>{
     return {
-        authorName : state.authorReducer.authors
+        authorName : state.authorReducer.authors,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

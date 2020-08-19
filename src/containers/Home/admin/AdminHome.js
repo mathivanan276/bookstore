@@ -24,9 +24,13 @@ class AdminHome extends Component {
         this.props.getOrders();
     }
     render(){
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         let dash = null;
         if(this.props.ordersLoading){
@@ -66,7 +70,8 @@ class AdminHome extends Component {
 const mapStateToProps = (state) =>{
     return {
         orders : state.orderReducer.orders,
-        ordersLoading : state.orderReducer.ordersLoading
+        ordersLoading : state.orderReducer.ordersLoading,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

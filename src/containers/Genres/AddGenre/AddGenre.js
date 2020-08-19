@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import classes from './AddGenre.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
+import {connect} from 'react-redux';
 
 class AddGenre extends Component {
 
@@ -100,7 +101,13 @@ class AddGenre extends Component {
                 genreName:this.state.addform.genre.value
             }
             // console.log(data);
-            Axios.post('genres/add',data)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios({
+                method: 'post',
+                url:'genres/add',
+                data:data,
+                headers: {'HTTP_AUTHORIZATION' : token }
+            })
             .then(res => {
                 // console.log(res);
                 if(res.data.response){
@@ -123,9 +130,13 @@ class AddGenre extends Component {
     }
 
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         let error = null;   
         if(this.state.error){
@@ -174,6 +185,11 @@ class AddGenre extends Component {
         )
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        loggedIn : state.loginReducer.loggedIn
+    }
+}
 
 
-export default AddGenre;
+export default connect(mapStateToProps)(AddGenre);

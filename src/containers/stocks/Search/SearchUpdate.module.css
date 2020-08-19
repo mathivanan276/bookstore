@@ -17,6 +17,7 @@
     border-radius: 5px 0px 0px 5px;
     font-family: monospace;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .SearchBar input:focus,.SearchBar button:focus{

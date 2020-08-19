@@ -102,7 +102,13 @@ class EditPublisher extends Component {
                 publisherName:this.state.editform.publisher.value
             }
             // console.log(data);
-            Axios.post('publishers/edit/'+this.props.publisher[this.props.match.params.publisherIndex].publisherId,data)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios({ 
+                method:'post',
+                url : 'publishers/edit/'+this.props.publisher[this.props.match.params.publisherIndex].publisherId ,
+                data:data,
+                headers: {'HTTP_AUTHORIZATION' : token }
+            })
             .then(res => {
                 console.log(res);
                 if(res.data.response){
@@ -125,9 +131,13 @@ class EditPublisher extends Component {
     }
 
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         if(this.props.publisher[0].id === 1){
             return(
@@ -183,7 +193,8 @@ class EditPublisher extends Component {
 }
 const mapStateToProps = (state) =>{
     return {
-        publisher : state.publisherReducer.publisher
+        publisher : state.publisherReducer.publisher,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

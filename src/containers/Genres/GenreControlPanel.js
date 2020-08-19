@@ -70,9 +70,13 @@ class GenreControlPanel extends Component {
         }
     }
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         let error = null;   
         if(this.state.error){
@@ -120,7 +124,8 @@ class GenreControlPanel extends Component {
 const mapStateToProps = (state) =>{
     return {
         genre : state.genreReducer.genre,
-        genreLoading : state.genreReducer.genreLoading
+        genreLoading : state.genreReducer.genreLoading,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

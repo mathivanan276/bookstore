@@ -25,6 +25,11 @@ import EditGenre from './containers/Genres/EditGenre/EditGenre';
 import Stock from './containers/Books/AddStock/Stock';
 import Stocks from './containers/stocks/Stocks';
 import Confirmed from './components/orderspage/confirmed/Confirmed';
+import Shipping from './components/orderspage/shipping/Shipping';
+import Shipped from './components/orderspage/shipped/Shipped';
+import Cancelled from './components/orderspage/cancelled/Cancelled';
+
+import Home from './containers/Home/user/Home';
 
 class App extends Component{
 
@@ -34,6 +39,7 @@ class App extends Component{
       <div>
           <Navigation/>
           <Switch>
+            {/* Admin Routes */}
             <Route path='/login' component={UserLogin} />
             <Route path='/admin/login' component={AdminLogin} />
             <Route path='/register' component={UserRegister} />
@@ -53,13 +59,20 @@ class App extends Component{
             <Route path='/admin/book/view/:bookId' component={ViewBook} />
             <Route path='/admin/book/add' component={AddBook} />
             <Route path='/admin/book' component={BookControl} />
-            <Route path='/admin/orders/confirmed/:cartId' component={Confirmed} />
-            <Route path='/admin/orders/shipping/:cartId' component={Confirmed} />
-            <Route path='/admin/orders/shipped/:cartId' component={Confirmed} />
-            <Route path='/admin/orders/cancelled/:cartId' component={Confirmed} />
+            <Route path='/admin/orders/confirmed/:cartId/:orderId' component={Confirmed} />
+            <Route path='/admin/orders/shipping/:cartId/:orderId' component={Shipping} />
+            <Route path='/admin/orders/shipped/:cartId/:orderId' component={Shipped} />
+            <Route path='/admin/orders/cancelled/:cartId/:orderId' component={Cancelled} />
             <Route path='/admin/home' component={AdminHome} />
-            <Route path='/home' component={()=>{ return <h1>home page</h1> } } />
-            {/* <Route path="*" component={() =>{ return <h1>home page</h1>}} /> */}
+
+            {/* User Routes */}
+            <Route path='/categories' component={()=><h1>This is Categories page</h1>} />
+            <Route path='/address' component={()=><h1>This is address page</h1>} />
+            <Route path='/profile' component={()=><h1>This is profile page</h1>} />
+            <Route path='/orders' component={()=><h1>This is orders page</h1>} />
+            <Route path='/cart' component={()=><h1>This is Cart page</h1>} />
+            <Route path='/new-arivals' component={Home} />
+            <Route path='/home' component={Home} />
             <Route path='/' component={ () => {
               return <h1>404 - Page Not Found</h1>
             }} />

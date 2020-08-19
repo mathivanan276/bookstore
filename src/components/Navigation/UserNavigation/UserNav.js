@@ -2,6 +2,7 @@ import React,{ useState } from 'react';
 
 import classes from './UserNav.module.css';
 import UserNavItems from './UserNavItems/UserNavItems';
+import Dropmenu from '../Dropmenu/Dropmenu';
 
 const UserNav = (props) => {
 
@@ -13,8 +14,11 @@ const UserNav = (props) => {
     let login = <UserNavItems link='/login' clicked={()=>setMenuButton(!menuButton)}>LogIn</UserNavItems>
     let register = <UserNavItems link='/register' clicked={()=>setMenuButton(!menuButton)}>Register</UserNavItems>
     if(props.isLogged === true){
-        login = <p onClick={()=>{ props.logout();
-                                  setMenuButton(!menuButton)}} className={classes.Logout}>LogOut</p>;
+        login = <>
+                    <UserNavItems link='/cart' clicked={()=>setMenuButton(!menuButton)}>Cart</UserNavItems>
+                    <Dropmenu clicked={()=>setMenuButton(!menuButton)}/>
+                    <p onClick={()=>{ props.logout();setMenuButton(!menuButton)}} className={classes.Logout}>LogOut</p>
+                </>
         register = null;
     }
     return (

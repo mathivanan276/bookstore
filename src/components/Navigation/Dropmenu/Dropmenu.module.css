@@ -1,0 +1,67 @@
+.Dropmenu {
+    display: block;
+    padding: 1rem;
+    margin: 0px;
+}
+.Menu {
+    display: inline-block;
+    z-index: 200;
+}
+.Desktop {
+    display: block;
+}
+.Mobile{
+    display: none;
+}
+.Dropmenu .DropItems{
+    display: none;
+    position: absolute;
+    margin-top: 1rem;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    /* padding: 1rem; */
+    flex-direction: column;
+    margin: 0px;
+}
+.DropItems a {
+    padding: 1rem 2rem;
+}
+.Active{
+    background-color: #ffed47;
+}
+.Dropmenu:hover .DropItems{
+    display: flex;
+}
+
+@media only screen and (max-width:768px){
+    .Dropmenu {
+        text-align: center;
+        padding: 1rem 0rem;
+    }
+    .Mobile{
+        display: block;
+        height: 3rem;
+    }
+    .Desktop {
+        display: none;
+    }
+   .DropItems{
+        display: flex;
+        position: sticky;
+        /* transition: transform 0.5s ease-in-out; */
+        margin-top: 0rem;
+        background-color: #f9f9f9;
+        width: 100%;
+        z-index: 1;
+        flex-direction: column;
+    }
+    .Open{
+        transform: translateY(0%);
+        z-index: 100;
+    }
+    .Close {
+        transform: translateY(-600%);
+    }
+}

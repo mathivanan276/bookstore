@@ -127,7 +127,8 @@ class UserLogin extends Component {
             .then( res => {
                 console.log(res);
                 if(res.data.id){
-                    this.props.login(res.data.id,res.data.name,res.data.email,res.data.role)
+                    this.props.login(res.data.id,res.data.name,res.data.email,res.data.role,res.data.token);
+                    window.location.reload(false);
                 } else {
                     // const updatedState = {...this.state};
                     // updatedState['loginErr'] = true;
@@ -218,7 +219,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (id,username,email,role) => dispatch(actionType.userlogin(id,username,email,role)) // data:{ id:id, username:username, email:email,role:role }})
+        login: (id,username,email,role,token) => dispatch(actionType.userlogin(id,username,email,role,token)) // data:{ id:id, username:username, email:email,role:role }})
     }
 }
 

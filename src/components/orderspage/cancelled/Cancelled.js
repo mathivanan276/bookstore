@@ -1,28 +1,13 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter,Redirect } from 'react-router-dom';
 
-import classes from './Confirmed.module.css';
+import classes from './Cancelled.module.css';
 import * as orderSummaryActionTypes from "../../../store/actions/orderSummaryAction";
-import Button from '../../UI/form/button/button';
-import Axios from 'axios';
 
-class Confirmed extends Component {
-
+class Cancelled extends Component {
     componentDidMount(){
         this.props.getOrderSummary(this.props.match.params.cartId);
-    }
-
-    handleShipping = () => {
-        Axios.get('orders/startshippment/'+this.props.match.params.orderId)
-        .then( res => {
-            if(res.data.response === true){
-                this.props.history.push('/admin/home');
-            }
-        })
-        .catch( err => {
-            console.log(err);
-        })
     }
 
     render(){
@@ -46,7 +31,7 @@ class Confirmed extends Component {
             items2 = <p>Loading..</p>
         }
         if(this.props.ordersLoading === false){
-            if(this.props.orderSummary.shipping !== 'Confirmed'){
+            if(this.props.orderSummary.shipping !== 'Cancelled'){
                 return <Redirect to='/admin/home' />;
             }
             items = this.props.orderSummary.items.map( (data,index) => 
@@ -118,7 +103,6 @@ class Confirmed extends Component {
                         {items3}
                     <h3>Address</h3>
                         {items4}
-                    <Button type='submit' clicked={(event) => this.handleShipping(event)}>Ship Now</Button>
                 </div>
             </div>
             </div>
@@ -139,5 +123,4 @@ const mapDispatchToProps = dispatch => {
         getOrderSummary : (cartId) => dispatch(orderSummaryActionTypes.getOrderSummary(cartId))
     }
 }
-
-export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Confirmed));
+export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Cancelled));

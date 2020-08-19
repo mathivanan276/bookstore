@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
+import {Redirect } from 'react-router-dom';
 
 import classes from './Stock.module.css';
 import Axios from 'axios';
+import { connect } from 'react-redux';
 
 class Stock extends Component {
     state = {
@@ -77,6 +79,14 @@ class Stock extends Component {
         }
     }
     render() {
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
+        }
         let error = null;
         if(this.state.error){
             error =  <div className={classes.Error}>
@@ -105,5 +115,10 @@ class Stock extends Component {
         )
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        loggedIn : state.loginReducer.loggedIn
+    }
+}
 
-export default Stock;
+export default connect(mapStateToProps)(Stock);

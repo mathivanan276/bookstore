@@ -231,7 +231,13 @@ class EditBook extends Component {
                 description : data.description.value,
                 binding : data.bindingOption.value
             }
-            Axios.post('/books/edit',bookData)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios({
+                method: 'post',
+                url:'/books/edit',
+                data: bookData,
+                headers: {'HTTP_AUTHORIZATION' : token }
+            })
             .then(res => {
                 console.log(res);
                 if(res.data.response === true){
@@ -286,9 +292,13 @@ class EditBook extends Component {
     }
 
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         if(this.props.book.title === 'getting'){
             return(
@@ -322,10 +332,10 @@ class EditBook extends Component {
                     changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
               ))
         );
-        if(this.props.authors[0].id === 1 && this.state.authorUpdating && this.props.publisher[0].id === 1 && this.props.genre[0].id === 1){
+        if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading){
             form = <p>Loding....</p>
         }
-        if(this.props.authors[0].id !== 1 && this.state.authorUpdating && this.props.publisher[0].id !== 1 && this.props.genre[0].id !== 1){
+        if(!this.props.authorLoading && this.state.authorUpdating && !this.props.publisherLoading&& !this.props.genreLoading){
             this.updating();
         }
         let editform = (<form>
@@ -348,9 +358,13 @@ class EditBook extends Component {
 const mapStateToProps = (state) =>{
     return {
         authors : state.authorReducer.authors,
+        authorLoading : state.authorReducer.authorLoading,
         publisher : state.publisherReducer.publisher,
+        publisherLoading : state.publisherReducer.publisherLoading,
         genre : state.genreReducer.genre,
-        book : state.bookReducer.book
+        genreLoading : state.genreReducer.genreLoading,
+        book : state.bookReducer.book,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

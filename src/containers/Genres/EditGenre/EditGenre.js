@@ -102,7 +102,13 @@ class EditGenre extends Component {
                 genreName:this.state.editform.genre.value
             }
             // console.log(data);
-            Axios.post('genres/edit/'+this.props.genre[this.props.match.params.genreIndex].genreId,data)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios({ 
+                method:'post',
+                url : 'genres/edit/'+this.props.genre[this.props.match.params.genreIndex].genreId,
+                data:data,
+                headers: {'HTTP_AUTHORIZATION' : token }
+            })
             .then(res => {
                 console.log(res);
                 if(res.data.response){
@@ -125,9 +131,13 @@ class EditGenre extends Component {
     }
 
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         if(this.props.genre[0].id === 1){
             return(
@@ -183,7 +193,8 @@ class EditGenre extends Component {
 }
 const mapStateToProps = (state) =>{
     return {
-        genre : state.genreReducer.genre
+        genre : state.genreReducer.genre,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

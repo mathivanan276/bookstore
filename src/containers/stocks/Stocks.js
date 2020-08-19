@@ -30,8 +30,12 @@ class Stocks extends Component {
     }
     handleSubmit = (event,bookId) => {
         event.preventDefault();
-        if(this.state.quantity > 20){
-            Axios.post('/books/changestock/'+bookId,{quantity : this.state.stock.value})
+        console.log(this.state.quantity);
+        if(this.state.quantity >= 20){
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios.post('/books/changestock/'+bookId,{quantity : this.state.quantity},{
+                headers:{'HTTP_AUTHORIZATION' : token}
+            })
             .then( res => {
                 window.location.reload(false);
             })
@@ -45,7 +49,8 @@ class Stocks extends Component {
         }
     }
     handleChange = (event) => {
-        const [name,value] = event.target;
+        const {name,value} = event.target;
+        // console.log(name,value);
         this.setState({
             [name] : value
         })
@@ -55,9 +60,13 @@ class Stocks extends Component {
         this.props.getlowstock();
     }
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         let loading = null;    
         if( this.props.lowstock !== 'loading' && this.props.lowstock.count === 0){
@@ -88,10 +97,10 @@ class Stocks extends Component {
                                 <td>{data.title}</td>
                                 <td><input
                                      placeholder={data.quantity}
-                                     value={this.state.value}
+                                     value={this.state.quantity}
                                      name='quantity'
                                      type='number' 
-                                     changed = {(event)=>this.handleChange(event)} /></td>
+                                     onChange = {(event)=>this.handleChange(event)} /></td>
                                 <td><p onClick={(event)=>this.handleSubmit(event,data.bookId)}>Update</p></td>
                             </tr>
                         )
@@ -118,7 +127,8 @@ class Stocks extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        lowstock : state.bookReducer.lowStock
+        lowstock : state.bookReducer.lowStock,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

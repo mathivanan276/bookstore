@@ -1,20 +1,19 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter,Redirect } from 'react-router-dom';
+import classes from './Shipping.module.css';
 
-import classes from './Confirmed.module.css';
 import * as orderSummaryActionTypes from "../../../store/actions/orderSummaryAction";
 import Button from '../../UI/form/button/button';
 import Axios from 'axios';
 
-class Confirmed extends Component {
-
+class Shipping extends Component {
     componentDidMount(){
         this.props.getOrderSummary(this.props.match.params.cartId);
     }
 
     handleShipping = () => {
-        Axios.get('orders/startshippment/'+this.props.match.params.orderId)
+        Axios.get('orders/completeorder/'+this.props.match.params.orderId)
         .then( res => {
             if(res.data.response === true){
                 this.props.history.push('/admin/home');
@@ -46,7 +45,7 @@ class Confirmed extends Component {
             items2 = <p>Loading..</p>
         }
         if(this.props.ordersLoading === false){
-            if(this.props.orderSummary.shipping !== 'Confirmed'){
+            if(this.props.orderSummary.shipping !== 'Shipping'){
                 return <Redirect to='/admin/home' />;
             }
             items = this.props.orderSummary.items.map( (data,index) => 
@@ -118,7 +117,7 @@ class Confirmed extends Component {
                         {items3}
                     <h3>Address</h3>
                         {items4}
-                    <Button type='submit' clicked={(event) => this.handleShipping(event)}>Ship Now</Button>
+                    <Button type='submit' clicked={(event) => this.handleShipping(event)}>Completed</Button>
                 </div>
             </div>
             </div>
@@ -140,4 +139,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Confirmed));
+export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Shipping));

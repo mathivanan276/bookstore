@@ -240,10 +240,17 @@ class AddBook extends Component {
                 description : data.description.value,
                 binding : data.bindingOption.value
             }
-            Axios.post('/books/add',bookData)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios({
+                method:'post',
+                url:'/books/add',
+                data: bookData,
+                headers: {'HTTP_AUTHORIZATION' : token }
+
+            })
             .then(res => {
-                console.log(res);
-                console.log(this.props)
+                // console.log(res);
+                // console.log(this.props)
                 if(res.data.response === true){
                     alert('Book Created Successfully');
                     // window.location.reload(false);
@@ -297,9 +304,13 @@ class AddBook extends Component {
 
     render() {
         // this.props.histroy.push(`/admin/book/cover/ `);
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         let error = null;   
         if(this.state.error){
@@ -357,7 +368,8 @@ const mapStateToProps = (state) =>{
         genre : state.genreReducer.genre,
         authorLoading : state.authorReducer.authorLoading,
         publisherLoading : state.publisherReducer.publisherLoading,
-        genreLoading : state.genreReducer.genreLoading
+        genreLoading : state.genreReducer.genreLoading,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

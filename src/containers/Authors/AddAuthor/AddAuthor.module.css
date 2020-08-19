@@ -4,6 +4,7 @@
     border: 1px solid rgb(247, 252, 184);
     box-shadow: 2px 2px 5px #ffd931;
     text-align: center;
+    height: 70vh;
 }
 
 .Section h1 {
@@ -53,6 +54,11 @@
 }
 
 @media only screen and (max-width:500px){
+    .Section{
+        height: 81vh;
+        border: none;
+        box-shadow: none;
+    }
     .Form {
         display: block;
     }

@@ -92,12 +92,12 @@ class BooksControlPanel extends Component {
         })
     }
     updateTitle = () => {
-        console.log('updating title...');
+        // console.log('updating title...');
         let updatedState = {...this.state}
         let updatedselectformElement = {...updatedState['selectForm']};
         let updatedTitleElement = {...updatedselectformElement['title']};
         updatedTitleElement.elementConfig.options = this.props.title.map(titles => {
-            console.log(titles)
+            // console.log(titles)
             return {
                 value: titles.bookId,
                 dispVal: titles.title
@@ -105,7 +105,7 @@ class BooksControlPanel extends Component {
         });
         updatedState.titleUpdate = false;
         updatedState.selectForm = updatedselectformElement;
-        console.log(updatedState);
+        // console.log(updatedState);
         // this.setState({
         //     state:updatedState
         // })
@@ -196,7 +196,7 @@ class BooksControlPanel extends Component {
     }
     handleSubmit = () => {
         // console.log(this.formValidation())
-        if(this.formValidation()){
+        if(this.state.selectForm.title.value !== 'Loading...'){
             this.props.history.push('/admin/book/view/'+this.state.searchForm.title.value);
         } else {
             this.setState({
@@ -205,9 +205,13 @@ class BooksControlPanel extends Component {
         }
     }
     render() {
-        const adminData = JSON.parse(localStorage.getItem('adminDetails'));
-        if(!adminData){
-            return <Redirect to='/admin/login' />
+        if(this.props.loggedIn){
+            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+            if(adminData !== 'admin'){
+                return <Redirect to='/admin/login' />
+            }
+        } else {
+            return <Redirect to='/home' />
         }
         let error = null;   
         if(this.state.error){
@@ -268,7 +272,6 @@ class BooksControlPanel extends Component {
         if(this.state.step2){
             formdisp = null;
             formdisp = <form>
-                            {error}
                             {form2}
                             <div className={classes.Button}>
                                 <Button type="button" clicked={this.handleSubmit}>Get Books</Button> 
@@ -281,7 +284,6 @@ class BooksControlPanel extends Component {
         else {
             formdisp = null;
             formdisp = <form>
-                            {error}
                             {form1}
                             <div className={classes.Button}>
                                 <Button type="button" clicked={this.handleGetbook}>Get Books</Button> 
@@ -304,6 +306,7 @@ class BooksControlPanel extends Component {
             <div>
                 <div className={classes.Greetings}>
                     <h1>Select A Book</h1>
+                    {error}
                     <div className={classes.Forms}>
                         {formdisp}
                     </div> 
@@ -323,7 +326,8 @@ const mapStateToProps = (state) =>{
         genre : state.genreReducer.genre,
         genreLoading : state.genreReducer.genreLoading,
         title : state.bookReducer.bookstitle,
-        titleLoading : state.bookReducer.bookstitleLoading
+        titleLoading : state.bookReducer.bookstitleLoading,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 
