@@ -4,6 +4,7 @@ import ProfileInfoView from './profileComponents/ProfileInfoView';
 import AddressComponent from './AddressComponent/AddressComponent';
 import { connect } from 'react-redux';
 import * as personalInfoActionTypes from '../../store/actions/personalInfoAction';
+import * as addressActionTypes from '../../store/actions/addressAction';
 import Spinner from '../../components/UI/spinner/Spinner';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
@@ -134,6 +135,7 @@ class Profile extends Component {
     }
     componentDidMount(){
         this.props.getPersonalInfo();
+        this.props.getAddress();
     }
     updating = () => {
         const updatedForm = {...this.state.profileForm};
@@ -146,6 +148,12 @@ class Profile extends Component {
             loading:false
         })
     }
+    editAddress = (addressId) => {
+        this.props.history.push('/address/edit/'+addressId);
+    }
+    addAddress = () => {
+        this.props.history.push('/address/add');
+    }
     render() {
         if(!localStorage.getItem('userDetails')){
             return <Redirect to='/home' />
@@ -156,21 +164,25 @@ class Profile extends Component {
         
         if(this.state.spinner){
             return(
+                <div className={classes.Section}>
                 <Spinner />
+                </div>
             );
         }
-        if(this.props.personalInfoLoading){
+        if(this.props.personalInfoLoading && this.props.addressLoading){
             return(
-                <Spinner />
+                <div className={classes.Section}>
+                    <Spinner />
+                </div>
             );
         }
-        if(this.state.loading && !this.props.personalInfoLoading){
+        if(this.state.loading && !this.props.personalInfoLoading && !this.props.addressLoading){
             this.updating();
         }
         return (
             <div className={classes.Section}>
                 <ProfileInfoView profileForm={this.state.profileForm} changed={this.handleChange} error={this.state.error} submitted={this.handleSubmit} />
-                <AddressComponent />
+                <AddressComponent address={this.props.address} edit={this.editAddress} add={this.addAddress} />
             </div>
         )
     }
@@ -181,13 +193,16 @@ const mapStateToProps = (state) => {
         personalInfo : state.personalInfoReducer.personalInfo,
         personalInfoLoading : state.personalInfoReducer.personalInfoLoading,
         userDetails : state.loginReducer.userDetails,
-        loggedIn : state.loginReducer.loggedIn
+        loggedIn : state.loginReducer.loggedIn,
+        address : state.addressReducer.address,
+        addressLoading : state.addressReducer.addressLoading
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        getPersonalInfo : () => dispatch(personalInfoActionTypes.getPersonalInfo())
+        getPersonalInfo : () => dispatch(personalInfoActionTypes.getPersonalInfo()),
+        getAddress : () => dispatch(addressActionTypes.getAddress())
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Profile);

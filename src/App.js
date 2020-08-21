@@ -32,6 +32,8 @@ import Cancelled from './components/orderspage/cancelled/Cancelled';
 
 import Home from './containers/Home/user/Home';
 import Profile from './containers/profile/Profile';
+import EditAddress from './containers/address/edit/EditAddress';
+import AddAddress from './containers/address/add/AddAddress';
 
 class App extends Component{
 
@@ -72,7 +74,8 @@ class App extends Component{
 
             {/* User Routes */}
             <Route path='/categories' component={()=><h1>This is Categories page</h1>} />
-            <Route path='/address' component={()=><h1>This is address page</h1>} />
+            <Route path='/address/edit/:addressId' component={EditAddress} />
+            <Route path='/address/add' component={AddAddress} />
             <Route path='/profile' component={Profile} />
             <Route path='/orders' component={()=><h1>This is orders page</h1>} />
             <Route path='/cart' component={()=><h1>This is Cart page</h1>} />

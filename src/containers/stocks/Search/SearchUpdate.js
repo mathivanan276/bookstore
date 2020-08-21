@@ -54,7 +54,8 @@ class SearchUpdate extends Component {
             loading:true
         })
         if(this.state.searchText !== '' && this.state.touched){
-            Axios.get('/books/bookstock/'+this.state.searchText)
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios.get('/books/bookstock/'+this.state.searchText,{headers:{'HTTP_AUTHORIZATION' : token}})
             .then(res => {
                 if(res.data.response === true){
                     this.setState({
