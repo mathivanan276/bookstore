@@ -10,6 +10,7 @@ import * as genreActionTypes from '../../store/actions/genreAction';
 import * as bookActionTypes from '../../store/actions/bookAction';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 class BooksControlPanel extends Component {
 
@@ -268,6 +269,18 @@ class BooksControlPanel extends Component {
                 }
               )
         );
+        if(this.props.authorLoading && this.state.updating && this.props.genreLoading){
+            form1 = <Spinner />
+        }
+        if( !this.props.authorLoading && this.state.updating && !this.props.genreLoading){
+            this.updating();
+        }
+        if(this.props.titleLoading){
+            form2 = <Spinner />
+        }
+        if(!this.props.titleLoading){
+            this.updateTitle();
+        }
         let formdisp = null;
         if(this.state.step2){
             formdisp = null;
@@ -289,18 +302,6 @@ class BooksControlPanel extends Component {
                                 <Button type="button" clicked={this.handleGetbook}>Get Books</Button> 
                             </div>
                         </form>
-        }
-        if(this.props.authorLoading && this.state.updating && this.props.genreLoading){
-            form1 = <p>Loding....</p>
-        }
-        if( !this.props.authorLoading && this.state.updating && !this.props.genreLoading){
-            this.updating();
-        }
-        if(this.props.titleLoading){
-            form2 = <p>Loding....</p>
-        }
-        if(!this.props.titleLoading){
-            this.updateTitle();
         }
         return (
             <div>

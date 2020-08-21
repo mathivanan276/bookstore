@@ -1,0 +1,73 @@
+.Section{
+    display: flex;
+    margin: 1rem auto;
+    max-width: 600px;
+    flex-direction: column;
+}
+.Section h3{
+    display: inline;
+    color: #6e6e6e;
+}
+.Section p {
+    display: inline;
+    text-align: right;
+    cursor: pointer;
+    color: rgb(0, 110, 255);
+}
+.Section button {
+    width: 200px;
+    margin: auto;
+}
+.Section div {
+    margin: 1rem;
+}
+.Section div label{
+    display: inline-block;
+    min-width: 200px;
+}
+.Section div input{
+    padding: 0.75rem 0.75rem;
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+} 
+.Section div input:focus{
+    outline: none; 
+}
+.Error {
+    box-sizing: border-box;
+    background-color: #ffa9a9;
+    border: red;
+    border-radius: 5px;
+    color: #222;
+    margin: 0.2rem auto 0rem auto;
+    max-width: 300px;
+    font-size: 1rem !important;
+}
+@media only screen and (max-width:768px){
+    .Section{
+        display: flex;
+        margin: 1rem auto;
+        max-width: 600px;
+        flex-direction: column;
+        text-align: center;
+    }
+    .Section div {
+        margin: 0.25rem auto;
+    }
+    .Section p {
+        display: inline;
+        text-align: center;
+        cursor: pointer;
+        color: rgb(92, 92, 92);
+        margin: 0.75rem;
+    }
+    .Section div label{
+        display: inline-block;
+        margin: 0.5rem auto;
+        min-width: 200px;
+    }
+    .Section button {
+        width: 200px;
+        margin: 0.5rem auto;
+    }
+}

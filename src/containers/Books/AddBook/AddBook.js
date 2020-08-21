@@ -11,6 +11,7 @@ import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import { withRouter } from 'react-router-dom';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 
 class AddBook extends Component {
@@ -340,7 +341,7 @@ class AddBook extends Component {
               ))
         );
         if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading){
-            form = <p>Loding....</p>
+            form = <Spinner />
         }
         if(!this.props.authorLoading && this.state.authorUpdating && !this.props.publisherLoading && !this.props.genreLoading){
             this.updatingTheAuthors();

@@ -20,16 +20,12 @@ const Dropmenu = (props) => {
                     </div>
                 </div>
                 <div className={classes.Mobile}>
-                    <div className={classes.Dropmenu}>
-                        <p onClick={()=>setDropdown(!dropdown)}>Account Setting</p>
-                    </div>
-                    <div className={dropdown ? Opened : Closed}>
-                            <NavLink to='/profile' 
-                            activeClassName={classes.Active} 
-                            onClick={()=>{setDropdown(!dropdown); props.clicked()}}
-                            >Profile</NavLink>
-                            <NavLink to='/orders' activeClassName={classes.Active} onClick={()=>{setDropdown(!dropdown); props.clicked()}}>Orders</NavLink>
-                    </div>
+                    {/* <div className={classes.DropItems}> */}
+                            <UserNavItems link='/profile' 
+                            clicked={props.clicked}
+                            >Profile</UserNavItems>
+                            <UserNavItems link='/orders' clicked={props.clicked} activeClassName={classes.Active} onClick={props.clicked}>Orders</UserNavItems>
+                    {/* </div> */}
                 </div>
             </div>
         )

@@ -6,6 +6,7 @@ import * as genreActionTypes from '../../store/actions/genreAction';
 import classes from './GenreControlPanel.module.css';
 import Input from '../../components/UI/form/input/Input';
 import Button from '../../components/UI/form/button/button';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 class GenreControlPanel extends Component {
 
@@ -102,7 +103,7 @@ class GenreControlPanel extends Component {
 
         if(this.props.genreLoading){
             form = null;
-            form = <p>Loding....</p>
+            form = <Spinner />
         }
         if(!this.props.genreLoading && this.state.updating){
             this.updating();

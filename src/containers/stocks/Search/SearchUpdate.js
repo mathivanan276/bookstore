@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './SearchUpdate.module.css';
 import Axios from 'axios';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class SearchUpdate extends Component {
     state = {
@@ -9,7 +10,9 @@ class SearchUpdate extends Component {
         touched : false,
         searchedbook : {},
         result:false,
+        notFound: false,
         error: false,
+        loading: false
     }
     handleChange = (event) => {
         this.setState({
@@ -46,6 +49,10 @@ class SearchUpdate extends Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
+        this.setState({
+            ...this.state,
+            loading:true
+        })
         if(this.state.searchText !== '' && this.state.touched){
             Axios.get('/books/bookstock/'+this.state.searchText)
             .then(res => {
@@ -53,12 +60,15 @@ class SearchUpdate extends Component {
                     this.setState({
                         ...this.state,
                         searchedbook: res.data.data,
-                        result:true
+                        result:true,
+                        loading:false,
+                        notFound:false
                     })
                 } else {
                     this.setState({
                         ...this.state,
-                        result:false
+                        notFound:true,
+                        loading:false
                     })
                 }
             })
@@ -70,9 +80,12 @@ class SearchUpdate extends Component {
     render() {
         let result = null;
         if(!this.state.result){
-            result = <div>
+            result = <div className={classes.Section}>
                 <h3>Search Book</h3>
             </div>
+        }
+        if(this.state.loading){
+            result = <Spinner />
         }
         let error = null;
         if(this.state.error){
@@ -103,7 +116,12 @@ class SearchUpdate extends Component {
                             </tr>
                         </table>
                        </div> 
-        }      
+        } 
+        if(this.state.notFound) {
+            result = <div className={classes.Section}>
+            <h3>0 Book Matched</h3>
+        </div>
+        }     
         return (
             <div className={classes.SearchBar}>
                 <form onSubmit={this.handleSubmit}> 

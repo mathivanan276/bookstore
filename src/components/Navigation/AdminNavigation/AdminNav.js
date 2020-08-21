@@ -2,6 +2,8 @@ import React,{ useState } from 'react';
 
 import classes from './AdminNav.module.css';
 import AdminNavItems from './AdminNavItems/AdminNavItems';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const AdminNav = (props) =>{
 
@@ -13,7 +15,7 @@ const AdminNav = (props) =>{
             <div>
                 <div className={classes.MobileNav}>
                     <h1>Readers.com</h1>
-                    <div><p onClick={()=>setMenuButton(!menuButton)}>menu</p></div>
+                    <div><p onClick={()=>setMenuButton(!menuButton)}><FontAwesomeIcon icon={faBars} /></p></div>
                 </div>
             </div>
             <div className={menuButton ? Opened : Closed}>

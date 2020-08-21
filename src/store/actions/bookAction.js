@@ -6,6 +6,8 @@ export const GET_BOOK = 'GET_BOOK';
 export const GET_LOW_STOCK = 'GET_LOW_STOCK';
 export const TITLE_LOADING_TRUE = 'TITLE_LOADING_TRUE';
 export const TITLE_LOADING_FALSE = 'TITLE_LOADING_FALSE';
+export const BOOK_LOADING_TRUE = 'BOOK_LOADING_TRUE';
+export const BOOK_LOADING_FALSE = 'BOOK_LOADING_FALSE'
 
 const bookTitlesArray=(data)=>{
     return{
@@ -23,6 +25,18 @@ const titleLoadingTrue = () => {
 const titleLoadingFalse = () => {
     return {
         type:TITLE_LOADING_FALSE
+    }
+}
+
+const bookLoadingTrue = () => {
+    return {
+        type:BOOK_LOADING_TRUE
+    }
+}
+
+const bookLoadingFalse = () => {
+    return {
+        type:BOOK_LOADING_FALSE
     }
 }
 
@@ -80,11 +94,13 @@ const saveBook = (data) => {
 export const getBook = (bookId) => {
     // console.log(bookId);
     return (dispatch) => {
+        dispatch(bookLoadingTrue());
         Axios.get('books/read/'+bookId)
         .then(res => {
             // console.log(res);
             if(res.data !== null){
-                return dispatch(saveBook(res.data));
+                dispatch(saveBook(res.data));
+                dispatch(bookLoadingFalse());
             }
         })
         .catch(err => {

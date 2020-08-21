@@ -6,6 +6,7 @@ import * as publisherActionTypes from '../../store/actions/publisherAction';
 import classes from './PublisherControlPanel.module.css';
 import Input from '../../components/UI/form/input/Input';
 import Button from '../../components/UI/form/button/button';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 class PublisherControlPanel extends Component {
 
@@ -102,7 +103,7 @@ class PublisherControlPanel extends Component {
 
         if(this.props.publisherLoading){
             form = null;
-            form = <p>Loding....</p>
+            form = <Spinner />
         }
         if(!this.props.publisherLoading && this.state.updating){
             this.updating();

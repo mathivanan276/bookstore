@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as orderActionTypes from '../../../store/actions/orderAction';
 import Dashboard from '../../../components/orderspage/ordersdashboard/Dashboard';
 import ListOrders from '../../../components/orderspage/ListOrders';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class AdminHome extends Component {
 
@@ -34,7 +35,7 @@ class AdminHome extends Component {
         }
         let dash = null;
         if(this.props.ordersLoading){
-            dash = <h2>Loading..</h2>
+            dash = <Spinner />
         }
         if(this.props.ordersLoading === false) {
             dash = <Dashboard confirmed={this.props.orders.Confirmed.length} currentType={this.state.page} clicked={this.handlepage} />

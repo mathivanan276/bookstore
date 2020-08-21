@@ -3,6 +3,8 @@ import React,{ useState } from 'react';
 import classes from './UserNav.module.css';
 import UserNavItems from './UserNavItems/UserNavItems';
 import Dropmenu from '../Dropmenu/Dropmenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const UserNav = (props) => {
 
@@ -25,7 +27,7 @@ const UserNav = (props) => {
         <>
             <div className={classes.MobileNav}>
                 <h1>Readers.com</h1>
-                <div><p onClick={()=>setMenuButton(!menuButton)}>menu</p></div>
+                <div><p onClick={()=>setMenuButton(!menuButton)}><FontAwesomeIcon icon={faBars} /></p></div>
             </div>
             <div className={menuButton ? Opened : Closed}>
                 <nav className={classes.MobileNavbar}>

@@ -5,11 +5,13 @@
     height: 61vh;
     overflow: auto;
     scroll-behavior: smooth;
+    text-align: center;
 }
 
 .Section h3 {
     text-align: center;
     margin-top: 3rem;
+    color: #fff;
 }
 
 .Table{

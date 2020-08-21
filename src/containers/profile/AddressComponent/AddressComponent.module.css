@@ -1,0 +1,21 @@
+.Section {
+    max-width: 700px;
+    margin: 1rem auto;
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+.Address{
+    display: flex;
+}
+.Address .AddressCard {
+    display: block;
+    width: 400px;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--primary-background);
+    border-radius: 5px;
+    text-align: center;
+    
+}

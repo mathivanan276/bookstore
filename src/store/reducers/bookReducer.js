@@ -3,7 +3,8 @@ import * as actionType from '../actions/bookAction';
 const initialState = {
     bookstitle: [],
     bookstitleLoading : true,
-    book: {title:"getting"},
+    bookLoading: true,
+    book: {},
     lowStock: 'loading'
 }
 
@@ -25,6 +26,16 @@ const reducer = (state = initialState , action) => {
         return {
             ...state,   
             bookstitleLoading:false
+        };
+        case (actionType.BOOK_LOADING_TRUE) : 
+        return {
+            ...state,   
+            bookLoading:true
+        };
+        case (actionType.BOOK_LOADING_FALSE) : 
+        return {
+            ...state,   
+            bookLoading:false
         };
         case (actionType.GET_BOOK) : 
         return {

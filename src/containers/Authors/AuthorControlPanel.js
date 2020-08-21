@@ -6,6 +6,7 @@ import * as authorActionTypes from '../../store/actions/authorAction';
 import classes from './AuthorControlPanel.module.css';
 import Input from '../../components/UI/form/input/Input';
 import Button from '../../components/UI/form/button/button';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 class AuthorControlPanel extends Component {
 
@@ -102,7 +103,7 @@ class AuthorControlPanel extends Component {
 
         if(this.props.authorLoading === 1){
             form = null;
-            form = <p>Loding....</p>
+            form = <Spinner />
         }
         if(!this.props.authorLoading && this.state.updating){
             this.updating();

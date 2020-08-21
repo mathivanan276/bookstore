@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import classes from './Stocks.module.css';
 import Axios from 'axios';
 import SearchUpdate from './Search/SearchUpdate';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 class Stocks extends Component {
 
@@ -85,7 +86,7 @@ class Stocks extends Component {
                             <th>S.NO</th>
                             <th>BOOK ID</th>
                             <th>TITLE</th>
-                            <th>QUANTITY(>20)</th>
+                            <th>QUANTITY({'>'}20)</th>
                             <th></th>
                         </tr>   
                     </thead>
@@ -112,7 +113,7 @@ class Stocks extends Component {
         if(this.props.lowstock === 'loading'){
             loading = (
                 <div className={classes.Section}>
-                    loding...
+                   <Spinner />
                 </div>
             )
         }

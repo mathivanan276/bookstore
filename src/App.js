@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import * as loginActionType from './store/actions/loginActions';
 
 import Navigation from './containers/Navigation/Navigation';
 import { Route, Switch } from 'react-router-dom';
@@ -30,9 +31,13 @@ import Shipped from './components/orderspage/shipped/Shipped';
 import Cancelled from './components/orderspage/cancelled/Cancelled';
 
 import Home from './containers/Home/user/Home';
+import Profile from './containers/profile/Profile';
 
 class App extends Component{
 
+  componentDidMount(){
+    this.props.checkLogged()
+  }
 
   render(){
     return(
@@ -68,7 +73,7 @@ class App extends Component{
             {/* User Routes */}
             <Route path='/categories' component={()=><h1>This is Categories page</h1>} />
             <Route path='/address' component={()=><h1>This is address page</h1>} />
-            <Route path='/profile' component={()=><h1>This is profile page</h1>} />
+            <Route path='/profile' component={Profile} />
             <Route path='/orders' component={()=><h1>This is orders page</h1>} />
             <Route path='/cart' component={()=><h1>This is Cart page</h1>} />
             <Route path='/new-arivals' component={Home} />
@@ -83,4 +88,10 @@ class App extends Component{
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return{
+    checkLogged : () => dispatch(loginActionType.checkLoggedIn())
+  }
+}
+
+export default connect(null,mapDispatchToProps)(App);

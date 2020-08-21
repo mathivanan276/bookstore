@@ -7,6 +7,7 @@ import Button from '../../../components/UI/form/button/button';
 import classes from './UserLogin.module.css';
 import * as actionType from '../../../store/actions/loginActions';
 import axios from 'axios';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class UserLogin extends Component {
 
@@ -122,28 +123,29 @@ class UserLogin extends Component {
                 password: this.state.loginForm.password.value,
                 email: this.state.loginForm.email.value
             }
+            this.props.login(userdata.email,userdata.password);
             // alert('succes')
-            axios.post('/users/login', userdata)
-            .then( res => {
-                console.log(res);
-                if(res.data.id){
-                    this.props.login(res.data.id,res.data.name,res.data.email,res.data.role,res.data.token);
-                    window.location.reload(false);
-                } else {
-                    // const updatedState = {...this.state};
-                    // updatedState['loginErr'] = true;
-                    // updatedState['emailErr'] = res.data.emailErr;
-                    // updatedState['passwordErr'] =res.data.passwordErr;
-                    this.setState({
-                        loginErr:true,
-                        emailErr : res.data.emailErr,
-                        passwordErr : res.data.passwordErr
-                    })
-                }
-            })
-            .catch( err => {
-                console.log(err);
-            })
+            // axios.post('/users/login', userdata)
+            // .then( res => {
+            //     console.log(res);
+            //     if(res.data.id){
+            //         this.props.login(res.data.id,res.data.name,res.data.email,res.data.role,res.data.token);
+            //         window.location.reload(false);
+            //     } else {
+            //         // const updatedState = {...this.state};
+            //         // updatedState['loginErr'] = true;
+            //         // updatedState['emailErr'] = res.data.emailErr;
+            //         // updatedState['passwordErr'] =res.data.passwordErr;
+            //         this.setState({
+            //             loginErr:true,
+            //             emailErr : res.data.emailErr,
+            //             passwordErr : res.data.passwordErr
+            //         })
+            //     }
+            // })
+            // .catch( err => {
+            //     console.log(err);
+            // })
         } else {
             this.setState({
                 error: true
@@ -154,7 +156,7 @@ class UserLogin extends Component {
 
     render(){
         if(this.props.islogged === true){
-           return <Redirect to="/" />
+           return <Redirect to="/home" />
         }
         let error = null;   
         if(this.state.error){
@@ -162,14 +164,14 @@ class UserLogin extends Component {
                         <p>Validation Failed </p>
                     </div>
         }
-        if(this.state.loginErr){
-            if(this.state.emailErr !== ''){
+        if(this.props.loginError){
+            if(this.props.errorType.emailErr !== ''){
                 error =  <div className={classes.Error}>
-                            <p>{this.state.emailErr}</p>
+                            <p>{this.props.errorType.emailErr}</p>
                         </div>
             }else{
                 error =  <div className={classes.Error}>
-                            <p>{this.state.passwordErr}</p>
+                            <p>{this.props.errorType.passwordErr}</p>
                         </div>  
             }
         }
@@ -182,7 +184,7 @@ class UserLogin extends Component {
             })
         }
 
-        const form = (
+        let form = (
               formElement.map(formElement => (
                 <Input 
                     key={formElement.id}
@@ -193,6 +195,9 @@ class UserLogin extends Component {
                     changed = {(event)=>this.inputChangeHandeler(event,formElement.id)} />
               ))
         );
+        if(this.props.loading){
+            form = <Spinner />
+        }
 
         return (
             <div className={classes.Main}>
@@ -213,13 +218,17 @@ class UserLogin extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        islogged : state.loginReducer.loggedIn
+        islogged : state.loginReducer.loggedIn,
+        loginError: state.loginReducer.error,
+        errorType: state.loginReducer.errorType,
+        loading: state.loginReducer.isLoading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (id,username,email,role,token) => dispatch(actionType.userlogin(id,username,email,role,token)) // data:{ id:id, username:username, email:email,role:role }})
+        // login: (id,username,email,role,token) => dispatch(actionType.userlogin(id,username,email,role,token)) // data:{ id:id, username:username, email:email,role:role }})
+        login : (email,password) => dispatch(actionType.userlogin(email,password))
     }
 }
 

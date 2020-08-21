@@ -11,6 +11,7 @@ import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionsType from '../../../store/actions/bookAction';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 
 class EditBook extends Component {
@@ -300,7 +301,7 @@ class EditBook extends Component {
         } else {
             return <Redirect to='/home' />
         }
-        if(this.props.book.title === 'getting'){
+        if(this.props.bookLoading){
             return(
                 <Redirect to='/admin/home' />
             )
@@ -333,7 +334,7 @@ class EditBook extends Component {
               ))
         );
         if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading){
-            form = <p>Loding....</p>
+            form = <Spinner />
         }
         if(!this.props.authorLoading && this.state.authorUpdating && !this.props.publisherLoading&& !this.props.genreLoading){
             this.updating();
@@ -364,6 +365,7 @@ const mapStateToProps = (state) =>{
         genre : state.genreReducer.genre,
         genreLoading : state.genreReducer.genreLoading,
         book : state.bookReducer.book,
+        bookLoading : state.bookReducer.bookLoading,
         loggedIn : state.loginReducer.loggedIn
     }
 }

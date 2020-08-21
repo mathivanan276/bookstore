@@ -1,5 +1,6 @@
 .Nav {
     position: sticky;
+    z-index: 100;
 }
 
 @media only screen and (max-width:768px){

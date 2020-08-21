@@ -36,33 +36,19 @@
 }
 
 @media only screen and (max-width:768px){
-    .Dropmenu {
-        text-align: center;
-        padding: 1rem 0rem;
-    }
     .Mobile{
         display: block;
-        height: 3rem;
+        height: fit-content;
     }
     .Desktop {
         display: none;
     }
    .DropItems{
         display: flex;
-        position: sticky;
-        /* transition: transform 0.5s ease-in-out; */
-        margin-top: 0rem;
-        background-color: #d1d1d1;
+        position: relative;
+        background-color: #f1f0f0;
         width: 100%;
-        z-index: 1;
         text-align: center;
         flex-direction: column;
-    }
-    .Open{
-        transform: translateY(0%);
-        z-index: 100;
-    }
-    .Close {
-        transform: translateY(-600%);
     }
 }

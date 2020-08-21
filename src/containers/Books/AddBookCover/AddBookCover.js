@@ -6,6 +6,7 @@ import Axios from 'axios';
 import classes from './AddBookCover.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class AddBookCover extends Component {
 
@@ -20,11 +21,16 @@ class AddBookCover extends Component {
         },
         file:'',
         preview : '',
-        error:false
+        error:false,
+        uploading:false
     }
     handleSubmit = async (event)=> {
         event.preventDefault() 
-        console.log(this.state)
+        // console.log(this.state)
+        this.setState({
+            ...this.state,
+            uploading:true
+        })
         if(this.state.image.touched){
             await this.uploadFile(this.state.file);
         }
@@ -47,6 +53,10 @@ class AddBookCover extends Component {
         })
         .then(res=>{
           if(res.data.response === true){
+            this.setState({
+                ...this.state,
+                uploading:false
+            })
             alert("Cover Uploaded Successfully")
             this.props.history.push('/admin/book');
           }
@@ -91,6 +101,9 @@ class AddBookCover extends Component {
         if(this.state.preview !== ''){
             image = null;
             image = <img src={this.state.preview} alt="Preview cover" className={classes.Cover} width='150px' height='200px' />;
+        }
+        if(this.state.uploading){
+            image = <Spinner />
         }
         return (
             <div className={classes.Section}>
