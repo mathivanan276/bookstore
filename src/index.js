@@ -21,8 +21,8 @@ import OrderSummaryReducer from './store/reducers/orderSummaryReducer';
 import PersonalInfoReducer from './store/reducers/personalInfoReducer';
 import AddressReducer from './store/reducers/addressReducer';
 
-axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
-// axios.defaults.baseURL = 'https://b9fc563b38ef.ngrok.io/bookstore_mvc';
+// axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
+axios.defaults.baseURL = 'https://2dcd7b078322.ngrok.io/bookstore_mvc';
 
 const rootReducer = combineReducers(
   {
