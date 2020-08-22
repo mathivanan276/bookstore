@@ -1,13 +1,9 @@
-import React,{ useState } from 'react'
+import React from 'react'
 import classes from './Dropmenu.module.css';
 import UserNavItems from '../UserNavigation/UserNavItems/UserNavItems';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Dropmenu = (props) => {
-    const [dropdown,setDropdown] = useState(false);
-    
-    const Opened = classes.DropItems+' '+classes.Open;
-    const Closed = classes.DropItems+' '+ classes.Close;
         return (
             <div>
                 <div className={classes.Desktop}>
@@ -20,12 +16,10 @@ const Dropmenu = (props) => {
                     </div>
                 </div>
                 <div className={classes.Mobile}>
-                    {/* <div className={classes.DropItems}> */}
                             <UserNavItems link='/profile' 
                             clicked={props.clicked}
                             >Profile</UserNavItems>
                             <UserNavItems link='/orders' clicked={props.clicked} activeClassName={classes.Active} onClick={props.clicked}>Orders</UserNavItems>
-                    {/* </div> */}
                 </div>
             </div>
         )

@@ -7,7 +7,10 @@ export const GET_LOW_STOCK = 'GET_LOW_STOCK';
 export const TITLE_LOADING_TRUE = 'TITLE_LOADING_TRUE';
 export const TITLE_LOADING_FALSE = 'TITLE_LOADING_FALSE';
 export const BOOK_LOADING_TRUE = 'BOOK_LOADING_TRUE';
-export const BOOK_LOADING_FALSE = 'BOOK_LOADING_FALSE'
+export const BOOK_LOADING_FALSE = 'BOOK_LOADING_FALSE';
+export const GET_SEARCHED_BOOK = 'GET_SEARCHED_BOOK';
+export const SEARCHED_BOOK_LOADING_TRUE = 'SEARCHED_BOOK_LOADING_TRUE';
+export const SEARCHED_BOOK_LOADING_FALSE = 'SEARCHED_BOOK_LOADING_FALSE';
 
 const bookTitlesArray=(data)=>{
     return{
@@ -91,6 +94,45 @@ const saveBook = (data) => {
     }
 }
 
+const saveSearchedBooks = (data) => {
+    return {
+        type:GET_SEARCHED_BOOK,
+        data
+    }
+}
+
+const searchedBookLoadingTrue = () => {
+    return {
+        type:SEARCHED_BOOK_LOADING_TRUE
+    }
+}
+const searchedBookLoadingFalse = () => {
+    return {
+        type:SEARCHED_BOOK_LOADING_FALSE
+    }
+}
+
+export const searchbook = (keyword) => {
+    return(dispatch) => {
+        dispatch(searchedBookLoadingTrue());
+        Axios.get('books/searchbook/'+keyword)
+        .then(res => {
+            // console.log(res.data);
+            if(res.data.response === true){
+                // console.log(res.data)
+                dispatch(saveSearchedBooks(res.data.data))
+                dispatch(searchedBookLoadingFalse());
+            } else {
+                dispatch(searchedBookLoadingFalse());
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(searchedBookLoadingFalse());
+        })
+    }
+}
+
 export const getBook = (bookId) => {
     // console.log(bookId);
     return (dispatch) => {
@@ -107,27 +149,4 @@ export const getBook = (bookId) => {
             console.log(err);
         })
     }
-    
-    // const saveTitles = (data) => {
-    //     return {
-    //         type: GET_TITLES,
-    //         data : data
-    //     }
-    // }
-    
-    // export const getTitles = (title) => {
-    
-    //     return (dispatch) => {
-    //         Axios.get('books/searchbook/'+title)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             if(res.data !== null){
-    //               return dispatch(saveTitles(res.data));
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    //     }
-    // }
 }

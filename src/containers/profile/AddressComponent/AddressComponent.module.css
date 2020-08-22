@@ -31,7 +31,7 @@ h3{
     .Address .AddressCard {
         display: block;
         max-width: 300px;
-        margin: 1rem;
+        margin: 1rem auto;
         padding: 1rem;
         border: 1px solid var(--primary-background);
         border-radius: 5px;

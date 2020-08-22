@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './AddressComponent.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAddressCard, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 const AddressComponent = (props) => {   
     let address = null;
     if(props.address.length > 1){

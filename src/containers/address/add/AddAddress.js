@@ -182,7 +182,7 @@ class AddAddress extends Component {
                     </div>
         }
         if(!this.props.addressLoading){
-            if(this.props.address.length == 2){
+            if(this.props.address.length === 2){
                 return <Redirect to='/profile' />
             }
         }

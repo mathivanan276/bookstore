@@ -18,14 +18,15 @@ class Stock extends Component {
             value : this.props.match.params.quantity,
             validation:{
                 required: true,
-                maxvalue: 6,
+                maxvalue: 20,
                 isNumber: true
             },
             touched: false,
             isvalid: true,
             name:"title"
         },
-        error : false
+        error : false,
+        loading : true
     }
 
     checkValidity = (value,rule) => {
@@ -37,7 +38,7 @@ class Stock extends Component {
             isvalid = value !== '' ? true : false && isvalid;
         }
         if(rule.maxvalue){
-            isvalid = value > rule.maxvalue ? true : false && isvalid;
+            isvalid = value >= rule.maxvalue ? true : false && isvalid;
         }
         if(rule.isNumber){
             const pattern = /^\d+$/;
@@ -59,22 +60,38 @@ class Stock extends Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
+        this.setState({
+            ...this.state,
+            loading : true
+        })
         if(this.state.stock.value !== '' && this.state.stock.isvalid){
-            Axios.post('/books/changestock/'+this.props.match.params.bookId,{quantity:this.state.stock.value})
+            const token = JSON.parse(localStorage.getItem('userDetails')).token;
+            Axios.post('/books/changestock/'+this.props.match.params.bookId,{quantity:this.state.stock.value},{
+                headers:{'HTTP_AUTHORIZATION' : token}
+            })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if(res.data.response === true){
+                    this.setState({
+                        ...this.state,
+                        loading : false
+                    })
                     alert('quatity updated');
                     this.props.history.push('/admin/book');
                 }
             })
             .catch( err => {
+                this.setState({
+                    ...this.state,
+                    loading : false
+                })
                 console.log(err);
             })
         } else {
             this.setState({
                 ...this.state,
-                error:true
+                error:true,
+                loading:false
             })
         }
     }

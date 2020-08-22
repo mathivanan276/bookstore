@@ -7,7 +7,6 @@ import Button from '../../../components/UI/form/button/button';
 import classes from './AdminLogin.module.css';
 import * as actionType from '../../../store/actions/loginActions';
 import Spinner from '../../../components/UI/spinner/Spinner';
-import axios from 'axios';
 
 class UserLogin extends Component {
 

@@ -18,7 +18,7 @@ class EditGenre extends Component {
                     placeholder: "genre NAME",
                     type:"text"
                 },
-                value : this.props.genre[this.props.match.params.genreIndex].genreName,
+                value : this.props.genre.filter(data => data.genreId === this.props.match.params.genreId).pop().genreName,
                 validation:{
                     required: true
                 },
@@ -105,7 +105,7 @@ class EditGenre extends Component {
             const token = JSON.parse(localStorage.getItem('userDetails')).token;
             Axios({ 
                 method:'post',
-                url : 'genres/edit/'+this.props.genre[this.props.match.params.genreIndex].genreId,
+                url : 'genres/edit/'+this.props.match.params.genreId,
                 data:data,
                 headers: {'HTTP_AUTHORIZATION' : token }
             })

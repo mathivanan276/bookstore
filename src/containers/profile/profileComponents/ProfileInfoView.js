@@ -39,7 +39,9 @@ const ProfileInfoView = (props) => {
             <div className={classes.Section}>
                 <h3>Personal Info</h3>
                 <p onClick={()=>{setDisable(!disable)}}><FontAwesomeIcon icon={faUserEdit} /> Edit</p>
+                <form>
                 {form}
+                </form>
                 <Button show={disable} clicked={props.submitted}>Edit</Button>
             </div>
         </div>

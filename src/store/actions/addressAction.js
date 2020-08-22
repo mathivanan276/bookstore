@@ -20,7 +20,7 @@ const addressLoadingFalse = () => {
 const saveAddress = (data) => {
     return {
         type:GET_ADDRESS,
-        data
+        data:data
     }
 }
 

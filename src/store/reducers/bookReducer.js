@@ -5,6 +5,8 @@ const initialState = {
     bookstitleLoading : true,
     bookLoading: true,
     book: {},
+    searchedBooksLoading: true,
+    searchedBooks: [],
     lowStock: 'loading'
 }
 
@@ -12,21 +14,21 @@ const reducer = (state = initialState , action) => {
 
     switch(action.type){
 
-        case (actionType.GET_BOOKS_AUTHOR_GENRE_TITLE) : 
-            return {
-                ...state,
-                bookstitle:action.data
-            };
-        case (actionType.TITLE_LOADING_TRUE) : 
-        return {
-            ...state,
-            bookstitleLoading:true
-        };
-        case (actionType.TITLE_LOADING_FALSE) : 
-        return {
-            ...state,   
-            bookstitleLoading:false
-        };
+        // case (actionType.GET_BOOKS_AUTHOR_GENRE_TITLE) : 
+        //     return {
+        //         ...state,
+        //         bookstitle:action.data
+        //     };
+        // case (actionType.TITLE_LOADING_TRUE) : 
+        // return {
+        //     ...state,
+        //     bookstitleLoading:true
+        // };
+        // case (actionType.TITLE_LOADING_FALSE) : 
+        // return {
+        //     ...state,   
+        //     bookstitleLoading:false
+        // };
         case (actionType.BOOK_LOADING_TRUE) : 
         return {
             ...state,   
@@ -46,6 +48,22 @@ const reducer = (state = initialState , action) => {
             return{
                 ...state,
                 lowStock:action.data
+            }
+
+        case (actionType.GET_SEARCHED_BOOK) :
+            return{
+                ...state,
+                searchedBooks:action.data
+            }
+        case (actionType.SEARCHED_BOOK_LOADING_TRUE) :
+            return{
+                ...state,
+                searchedBooksLoading:true
+            }
+        case (actionType.SEARCHED_BOOK_LOADING_FALSE) :
+            return{
+                ...state,
+                searchedBooksLoading:false
             }
         // case (actionType.GET_TITLES):
         //     return{

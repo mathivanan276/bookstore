@@ -18,7 +18,7 @@ class EditAuthor extends Component {
                     placeholder: "AUTHOR NAME",
                     type:"text"
                 },
-                value : this.props.authorName[this.props.match.params.authorIndex].authorName,
+                value : this.props.authors.filter(data => data.authorId === this.props.match.params.authorIndex).pop().authorName,
                 validation:{
                     required: true
                 },
@@ -139,7 +139,7 @@ class EditAuthor extends Component {
         } else {
             return <Redirect to='/home' />
         }
-        if(this.props.authorName[0].id === 1){
+        if(this.props.authors[0].id === 1){
             return(
                 <Redirect to='/admin/author/home' />
             )
@@ -178,7 +178,7 @@ class EditAuthor extends Component {
         );
         return (
             <div className={classes.Section}>
-                <h1>Add Author</h1>
+                <h1>Edit Author</h1>
                 {error}
                 <form >
                     <div className={classes.Form}>
@@ -194,7 +194,7 @@ class EditAuthor extends Component {
 
 const mapStateToProps = (state) =>{
     return {
-        authorName : state.authorReducer.authors,
+        authors : state.authorReducer.authors,
         loggedIn : state.loginReducer.loggedIn
     }
 }

@@ -13,14 +13,14 @@ import AdminHome from "./containers/Home/admin/AdminHome";
 import AddBookCover from './containers/Books/AddBookCover/AddBookCover';
 import ViewBook from './components/adminviewbook/Viewbook';
 import AdminLogin from './containers/Login/AdminLogin/AdminLogin';
-import BookControl from './containers/Books/BooksControlPanel';
-import AuthorControlPanel from './containers/Authors/AuthorControlPanel';
+import BookControl from './containers/Books/BookControl';
+import AuthorControl from './containers/Authors/AuthorControl';
 import AddAuthor from './containers/Authors/AddAuthor/AddAuthor';
 import EditAuthor from './containers/Authors/EditAuthor/EditAuthor';
-import PublisherControlPanel from './containers/Publisher/PublisherControlPanel';
+import PublisherControl from './containers/Publisher/PublisherControl';
 import AddPublisher from './containers/Publisher/AddPublisher/AddPublisher';
 import EditPublisher from './containers/Publisher/EditPublisher/EditPublisher';
-import GenreControlPanel from './containers/Genres/GenreControlPanel';
+import GenreControl from './containers/Genres/GenreControl';
 import AddGenre from './containers/Genres/AddGenre/AddGenre';
 import EditGenre from './containers/Genres/EditGenre/EditGenre';
 import Stock from './containers/Books/AddStock/Stock';
@@ -34,6 +34,7 @@ import Home from './containers/Home/user/Home';
 import Profile from './containers/profile/Profile';
 import EditAddress from './containers/address/edit/EditAddress';
 import AddAddress from './containers/address/add/AddAddress';
+import Userorders from './containers/userorders/Userorders';
 
 class App extends Component{
 
@@ -52,14 +53,14 @@ class App extends Component{
             <Route path='/register' component={UserRegister} />
             <Route path='/admin/stocks' component={Stocks} />
             <Route path='/admin/genre/add' component={AddGenre} />
-            <Route path='/admin/genre/edit/:genreIndex' component={EditGenre} />
-            <Route path='/admin/genre' component={GenreControlPanel} />
+            <Route path='/admin/genre/edit/:genreId' component={EditGenre} />
+            <Route path='/admin/genre' component={GenreControl} />
             <Route path='/admin/publisher/add' component={AddPublisher} />
             <Route path='/admin/publisher/edit/:publisherIndex' component={EditPublisher} />
-            <Route path='/admin/publisher' component={PublisherControlPanel} />
+            <Route path='/admin/publisher' component={PublisherControl} />
             <Route path='/admin/author/add' component={AddAuthor} />
             <Route path='/admin/author/edit/:authorIndex' component={EditAuthor} />
-            <Route path='/admin/author' component={AuthorControlPanel} />
+            <Route path='/admin/author' component={AuthorControl} />
             <Route path='/admin/book/cover/:bookId' component={AddBookCover} />
             <Route path='/admin/book/stock/:bookId/:quantity' component={Stock} />
             <Route path='/admin/book/edit/:bookId' component={EditBook} />
@@ -77,7 +78,7 @@ class App extends Component{
             <Route path='/address/edit/:addressId' component={EditAddress} />
             <Route path='/address/add' component={AddAddress} />
             <Route path='/profile' component={Profile} />
-            <Route path='/orders' component={()=><h1>This is orders page</h1>} />
+            <Route path='/orders' component={Userorders} />
             <Route path='/cart' component={()=><h1>This is Cart page</h1>} />
             <Route path='/new-arivals' component={Home} />
             <Route path='/home' component={Home} />

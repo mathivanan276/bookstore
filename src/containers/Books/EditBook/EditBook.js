@@ -303,7 +303,9 @@ class EditBook extends Component {
         }
         if(this.props.bookLoading){
             return(
-                <Redirect to='/admin/home' />
+                <div className={classes.Section}>
+                    <Spinner />
+                </div>
             )
         }
         let error = null;   

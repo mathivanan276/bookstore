@@ -54,6 +54,9 @@
     .Section div {
         margin: 0.25rem auto;
     }
+    .Section form {
+        max-width: 700px;
+    }
     .Section p {
         display: inline;
         text-align: center;
