@@ -78,19 +78,12 @@ class AddBookCover extends Component {
     }
 
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
         }
-        // if(this.props.book.title === 'getting'){
-        //     return(
-        //         <Redirect to='/admin/home' />
-        //     )
-        // }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>

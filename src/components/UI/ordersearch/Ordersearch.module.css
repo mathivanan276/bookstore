@@ -1,0 +1,43 @@
+.Section{
+    width: 90%;
+    margin-top: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0.2rem;
+    background-color: rgba(255, 255, 255, 0.692);
+}
+.Section h3{
+    color: #fff;
+    margin:1rem 2rem;
+    padding-top: 0.25rem;
+}
+.Section div {
+    margin-left: 1rem;
+    margin-right: 4rem;
+}
+.Section .Error{
+    border: 1px solid red;
+}
+.Section p {
+    cursor: pointer;
+    display: inline;    
+}
+.Section input {
+    margin: 1rem auto;
+    border:none;
+    padding:0.5rem 0.75rem;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+}
+.Section div select {
+    width: 150px;
+    margin: 1rem 0rem 1rem 1rem;
+    background-color: rgb(255, 255, 255);
+    padding: 0.6rem 0.75rem;
+    border:none;
+    border-radius: 5px;
+    outline: none;
+}

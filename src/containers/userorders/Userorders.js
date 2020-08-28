@@ -1,32 +1,81 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './Userorders.module.css';
 import Orderslist from './orderslist/Orderslist';
+import Userordersort from '../../components/UI/userordersort/Userordersort';
+import * as userOrdersActionType from '../../store/actions/userOrdersAction';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Redirect } from 'react-router-dom';
 
 class Userorders extends Component {
     state = {
-        listType: 'Confirmed'
+        sortKey: new Date().getFullYear()+'-'+(new Date().getMonth()+1 > 10 ? new Date().getMonth()+1 : '0'+(new Date().getMonth()+1)),
+        searchKeyWord : ''
     }
-    handleListType = (event) => {
+    getSort = (sortKey) => {
+        // console.log(sortKey)
+        this.props.sortedOrders(sortKey)
         this.setState({
             ...this.state,
-            listType: event.target.value
+            sortKey
         })
     }
+    search = (event) => {
+        event.preventDefault();
+        this.props.searchorders(this.state.searchKeyWord);
+    }
+    handleChange = (event) => {
+        this.setState({
+            ...this.state,
+            searchKeyWord:event.target.value
+        })
+    }
+    componentDidMount(){
+        this.props.sortedOrders(this.state.sortKey)
+    }
     render() {
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+            return <Redirect to='/login' />
+        }
         return (
             <div className={classes.Section}>
-                <h3>Your Orders</h3>
-                <select defaultValue={this.state.listType} name='listType' onChange={this.handleListType}>
-                    <option value='Confirmed'>Confirmed</option>
-                    <option value='Shipping'>Shipping</option>
-                    <option value='Delivered'>Delivered</option>
-                    <option value='Cancelled'>Cancelled</option>
-                </select>
-                <Orderslist listType={this.state.listType} />
+                <div className={classes.Header}>
+                    <h3>Your Orders</h3>
+                    <div className={classes.Sort}>
+                        <p>Sort By</p>
+                        <Userordersort getSort={this.getSort} />
+                    </div>
+                </div>
+                <div className={classes.Searchbar}>
+                    <form onSubmit={this.search}>
+                        <input type='text' placeholder='Enter Title' onChange={ this.handleChange } />
+                        <span className={classes.Icon}><FontAwesomeIcon icon={faSearch} /></span>
+                        <input type='submit' hidden />
+                    </form>
+                </div>
+                <Orderslist orders={this.props.orders} ordersLoading={this.props.ordersLoading} />
             </div>
         )
     }
 }
 
-export default Userorders;
+const mapStateToProps = (state) => {
+    return {
+        ordersLoading : state.userOrderReducer.ordersLoading,
+        orders : state.userOrderReducer.orders
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        sortedOrders : (sortkey) => dispatch(userOrdersActionType.sortedOrder(sortkey)),
+        searchorders : (keyword) => dispatch(userOrdersActionType.searchorder(keyword))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Userorders);

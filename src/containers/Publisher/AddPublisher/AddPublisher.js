@@ -6,6 +6,7 @@ import classes from './AddPublisher.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
 import { connect } from 'react-redux';
+import * as publisherActionTypes from '../../../store/actions/publisherAction';
 
 class AddPublisher extends Component {
 
@@ -112,7 +113,9 @@ class AddPublisher extends Component {
                 // console.log(res);
                 if(res.data.response){
                     alert('publisher Added');
-                    this.props.history.push('/admin/publisher');
+                    this.props.getPublisher();
+                    this.props.history.goBack();
+                    // this.props.history.push('/admin/publisher');
                 } else {
                     this.setState({
                         publisherNameErr: res.data.dataErr
@@ -130,13 +133,11 @@ class AddPublisher extends Component {
     }
 
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         let error = null;   
         if(this.state.error){
@@ -191,4 +192,10 @@ const mapStateToProps = (state) =>{
     }
 }
 
-export default connect(mapStateToProps)(AddPublisher);
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getPublisher : () => dispatch(publisherActionTypes.getPublisher())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddPublisher);

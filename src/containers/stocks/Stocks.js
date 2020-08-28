@@ -61,13 +61,11 @@ class Stocks extends Component {
         this.props.getlowstock();
     }
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         let loading = null;    
         if( this.props.lowstock !== 'loading' && this.props.lowstock.count === 0){

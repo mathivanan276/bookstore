@@ -5,8 +5,9 @@ import { Redirect,Link } from 'react-router-dom';
 import classes from './EditAuthor.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
-
+import * as authorActionTypes from '../../../store/actions/authorAction';
 import { connect } from 'react-redux';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class EditAuthor extends Component {
 
@@ -18,7 +19,7 @@ class EditAuthor extends Component {
                     placeholder: "AUTHOR NAME",
                     type:"text"
                 },
-                value : this.props.authors.filter(data => data.authorId === this.props.match.params.authorIndex).pop().authorName,
+                value : '',
                 validation:{
                     required: true
                 },
@@ -28,7 +29,8 @@ class EditAuthor extends Component {
             }
         },
         authorNameErr:'',
-        error:false
+        error:false,
+        updating: true
     }
     checkValidation = (value, rule) =>{
         let isvalid = true;
@@ -105,7 +107,7 @@ class EditAuthor extends Component {
             const token = JSON.parse(localStorage.getItem('userDetails')).token;
             Axios({
                 method: 'post',
-                url:'authors/edit/'+this.props.authorName[this.props.match.params.authorIndex].authorId,
+                url:'authors/edit/'+this.props.match.params.authorId,
                 data: data,
                 headers: {'HTTP_AUTHORIZATION' : token }
             })
@@ -113,7 +115,9 @@ class EditAuthor extends Component {
                 // console.log(res);
                 if(res.data.response){
                     alert('Author Edited');
-                    this.props.history.push('/admin/author');
+                    this.props.getAuthors();
+                    // this.props.history.push('/admin/author');
+                    this.props.history.goBack();
                 } else {
                     this.setState({
                         authorNameErr: res.data.dataErr
@@ -130,19 +134,36 @@ class EditAuthor extends Component {
         }
     }
 
+    updateAuthorName = () => {
+        const updatedEditForm = {...this.state.editform};
+        updatedEditForm.author.value = this.props.authors.filter(data => 
+           data.authorId === this.props.match.params.authorId
+        ).pop().authorName;
+        // console.log(updatedEditForm)
+        this.setState({
+            ...this.state,
+            editform: updatedEditForm,
+            updating: false
+        })
+    }
+    componentDidMount(){
+        this.props.getAuthors();
+    }
+
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
         }
-        if(this.props.authors[0].id === 1){
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
+        }
+        if(this.props.authorsLoading){
             return(
-                <Redirect to='/admin/author/home' />
+                <Spinner />
             )
+        }
+        if(!this.props.authorsLoading && this.state.updating){
+            this.updateAuthorName()
         }
         let error = null;   
         if(this.state.error){
@@ -195,8 +216,13 @@ class EditAuthor extends Component {
 const mapStateToProps = (state) =>{
     return {
         authors : state.authorReducer.authors,
+        authorsLoading : state.authorReducer.authorLoading,
         loggedIn : state.loginReducer.loggedIn
     }
 }
-
-export default connect(mapStateToProps)(EditAuthor);
+const mapDispatchToProps = dispatch =>{
+    return{
+        getAuthors : () => dispatch(authorActionTypes.getAuthors())
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(EditAuthor);

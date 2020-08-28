@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SearchBox from '../../components/searchbox/SearchBox';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -43,13 +42,11 @@ class AuthorControl extends Component {
         this.props.getAuthors();
     }
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         let suggestion = null;
         if(this.props.authorLoading){
@@ -78,16 +75,19 @@ class AuthorControl extends Component {
                                         })
                                     }
                                 </table>
-        }
+        }     
         return (
             <div className={classes.Greetings}>
                 <h2>Search Author Name</h2>
                {/* <SearchBox changed={this.handleChange} submit={this.handleSubmit} value={this.state.searchText} isvalid={this.state.isvalid} /> */}
-               <input 
-                value={this.state.searchText}
-                onChange={this.handleChange} 
-                placeholder='Enter Author Name'
-                />
+                 <input 
+                    value={this.state.searchText}
+                    onChange={this.handleChange} 
+                    placeholder='Enter Author Name'
+                    />
+                {/* <div>
+                    <AutoComplete  data={this.props.options}/>
+                </div> */}
                 <div>
                     <Link to='/admin/author/add' className={classes.Link}>Add New Author</Link>
                 </div> 

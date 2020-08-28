@@ -6,6 +6,7 @@ import classes from './AddGenre.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
 import {connect} from 'react-redux';
+import * as genreActionTypes from '../../../store/actions/genreAction';
 
 class AddGenre extends Component {
 
@@ -61,25 +62,6 @@ class AddGenre extends Component {
         }
         return isvalid;
     }
-
-    // formValidation = () => {
-    //     let validating = false;
-    //     let formElement = [];
-    //     for(let key in this.state.addform){
-    //         formElement.push({
-    //             id : key,
-    //             config : this.state.addform[key]
-    //         })
-    //     }
-    //     validating = formElement.map( element => {
-    //         if(element.config.touched && element.config.isvalid){
-    //             return true;
-    //         }else{
-    //             return false;
-    //         }
-    //     })
-    //     return validating.pop();
-    // }  
     
     inputChangeHandeler = (event,identifier) =>{        
         const updatedAddForm = {...this.state.addform};
@@ -112,6 +94,7 @@ class AddGenre extends Component {
                 // console.log(res);
                 if(res.data.response){
                     alert('Genre Added');
+                    this.props.getGenre();
                     this.props.history.push('/admin/genre');
                 } else {
                     this.setState({
@@ -129,14 +112,16 @@ class AddGenre extends Component {
         }
     }
 
+    componentDidMount(){
+        this.props.getGenre();
+    }
+
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         let error = null;   
         if(this.state.error){
@@ -191,5 +176,10 @@ const mapStateToProps = (state) =>{
     }
 }
 
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getGenre : () => dispatch(genreActionTypes.getGenre())
+    }
+}
 
-export default connect(mapStateToProps)(AddGenre);
+export default connect(mapStateToProps,mapDispatchToProps)(AddGenre);

@@ -22,12 +22,14 @@ const saveUserOrders = (data) => {
         data
     }
 }
-
-export const getUserOrders = () => {
+export const sortedOrder = (sortKey) => {
     return (dispatch) => {
         dispatch(userOrdersLoadingTrue());
+        if(localStorage.getItem('userDetails')){
         const token = JSON.parse(localStorage.getItem('userDetails')).token;
-        Axios.get('orders/userorders',{
+        Axios.post('orders/userorders',{
+            month:sortKey
+        },{
             headers:{'HTTP_AUTHORIZATION' : token}
         })
         .then (res => {
@@ -35,10 +37,40 @@ export const getUserOrders = () => {
             if(res.data.response === true){
                 dispatch(saveUserOrders(res.data.data));
                 dispatch(userOrdersLoadingFalse());
+            } else{
+                dispatch(saveUserOrders({}));
+                dispatch(userOrdersLoadingFalse());
             }
         }) 
         .catch(err => {
             console.log(err);
         })
+    }
+}
+}
+export const searchorder = (keyword) => {
+    return (dispatch) => {
+        dispatch(userOrdersLoadingTrue());
+        if(localStorage.getItem('userDetails')){
+        const token = JSON.parse(localStorage.getItem('userDetails')).token;
+        Axios.post('orders/userordersearch',{
+            keyword
+        },{
+            headers:{'HTTP_AUTHORIZATION' : token}
+        })
+        .then (res => {
+            // console.log(res.data);
+            if(res.data.response === true){
+                dispatch(saveUserOrders(res.data.data));
+                dispatch(userOrdersLoadingFalse());
+            } else{
+                dispatch(saveUserOrders({}));
+                dispatch(userOrdersLoadingFalse());
+            }
+        }) 
+        .catch(err => {
+            console.log(err);
+        })
+    }
     }
 }

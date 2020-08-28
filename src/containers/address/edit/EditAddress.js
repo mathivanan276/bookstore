@@ -6,6 +6,7 @@ import Axios from 'axios';
 import Button from '../../../components/UI/form/button/button';
 import * as addressActionTypes from '../../../store/actions/addressAction';
 import Spinner from '../../../components/UI/spinner/Spinner';
+import { Redirect } from 'react-router-dom';
 
 class EditAddress extends Component {
     state = {
@@ -162,6 +163,12 @@ class EditAddress extends Component {
         }
     }
     render() {
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+            return <Redirect to='/login' />
+        }
         let error = null;   
         if(this.state.error){
             error =  <div className={classes.Error}>
@@ -169,7 +176,7 @@ class EditAddress extends Component {
                     </div>
         }
         if(!this.props.addressLoading && this.state.updating){
-            const address = this.props.address.map(address => {
+            this.props.address.map(address => {
                 // console.log(this.props.match.params.addressId)
                 // console.log(address.addressId);
                 if(address.addressId === this.props.match.params.addressId){

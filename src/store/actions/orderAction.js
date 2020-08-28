@@ -23,10 +23,57 @@ const ordersLoadingFalse = () => {
     }
 }
 
+export const sortedOrders = (sortDate) => {
+    return (dispatch) => {
+        dispatch(ordersLoadingTrue());
+        if(localStorage.getItem('userDetails')){
+        let token = JSON.parse(localStorage.getItem('userDetails')).token
+        Axios.post('/orders/specificdate',{date:sortDate},
+        {
+            headers:{'HTTP_AUTHORIZATION':token}
+        })
+        .then(res => {
+            console.log(res);
+            if(res.data.response === true){
+                dispatch(saveOrders(res.data.data));
+                dispatch(ordersLoadingFalse());
+            }else {
+                dispatch(saveOrders(res.data.data));
+                dispatch(ordersLoadingFalse());
+            }
+        })
+    }
+    }   
+}   
+export const rangedOrders = (date1,date2) => {
+    return (dispatch) => {
+        dispatch(ordersLoadingTrue());
+        if(localStorage.getItem('userDetails')){
+        let token = JSON.parse(localStorage.getItem('userDetails')).token
+        Axios.post('/orders/range',{date1,date2},
+        {
+            headers:{'HTTP_AUTHORIZATION':token}
+        })
+        .then(res => {
+            console.log(res);
+            if(res.data.response === true){
+                dispatch(saveOrders(res.data.data));
+                dispatch(ordersLoadingFalse());
+            }else {
+                dispatch(saveOrders(res.data.data));
+                dispatch(ordersLoadingFalse());
+            }
+        })
+        }
+    }
+}
 export const getorders = () => {
     return (dispatch) => {
         dispatch(ordersLoadingTrue());
-        Axios.get('/orders/getallorders')
+        let token = JSON.parse(localStorage.getItem('userDetails')).token
+        Axios.get('/orders/lastsevendays',{
+            headers:{'HTTP_AUTHORIZATION':token}
+        })
         .then(res => {
             // console.log(res);
             if(res.data.response === true){

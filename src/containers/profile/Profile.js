@@ -7,7 +7,7 @@ import * as personalInfoActionTypes from '../../store/actions/personalInfoAction
 import * as addressActionTypes from '../../store/actions/addressAction';
 import Spinner from '../../components/UI/spinner/Spinner';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Redirect } from 'react-router-dom';
 
 class Profile extends Component {
     state = {
@@ -155,11 +155,11 @@ class Profile extends Component {
         this.props.history.push('/address/add');
     }
     render() {
-        if(!localStorage.getItem('userDetails')){
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/login' />
         }
         if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
-            return <Redirect to='/home' />
+            return <Redirect to='/login' />
         }
         
         if(this.state.spinner){

@@ -1,8 +1,8 @@
 import * as orderActionType from '../actions/orderAction';
 
 const initialState = {
-    orderSummary : {},
-    orderSummaryLoading: true
+    orders : {},
+    ordersLoading: true
 }
 
 const reducer = (state = initialState , action ) => {

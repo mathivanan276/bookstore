@@ -1,0 +1,21 @@
+.Section {
+    width: 400px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.2rem;
+    background-color: rgba(255, 255, 255, 0.692);
+}
+.Section select {
+    width: 100px;
+    margin: 1rem 0rem 1rem 1rem;
+    background-color: rgb(255, 255, 255);
+    padding: 0.6rem 0.75rem;
+    border:1px solid var(--primary-background);
+    border-radius: 5px;
+    outline: none;
+}
+.Section p {
+    margin-top: 1rem;
+}

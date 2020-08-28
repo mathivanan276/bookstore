@@ -1,0 +1,6 @@
+.Suggestion{
+    position: absolute;
+}
+.Suggestion li a{
+    color: blue;
+}

@@ -26,7 +26,11 @@ const saveOrderSummary = (data) => {
 export const getOrderSummary = (cartId) => {
     return (dispatch) => {
         dispatch(ordersSummaryLoadingTrue());
-        Axios.get('/orders/ordersummary/'+cartId)
+        if(localStorage.getItem('userDetails')){
+            let token = JSON.parse(localStorage.getItem('userDetails')).token
+        Axios.get('/orders/ordersummary/'+cartId,{
+            headers:{'HTTP_AUTHORIZATION':token}
+        })
         .then(res => {
             if(res.data.response === true){
                 // console.log(res.data)
@@ -34,5 +38,6 @@ export const getOrderSummary = (cartId) => {
                 dispatch(ordersSummaryLoadingFalse());
             }
         })
+    }
     }
 }

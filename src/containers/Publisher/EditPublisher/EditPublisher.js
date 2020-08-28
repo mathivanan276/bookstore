@@ -5,8 +5,10 @@ import { Redirect,Link } from 'react-router-dom';
 import classes from './EditPublisher.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
+import * as publisherActionTypes from '../../../store/actions/publisherAction';
 
 import { connect } from 'react-redux';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class EditPublisher extends Component {
 
@@ -18,7 +20,7 @@ class EditPublisher extends Component {
                     placeholder: "PUBLISHER NAME",
                     type:"text"
                 },
-                value : this.props.publisher[this.props.match.params.publisherIndex].publisherName,
+                value :'',
                 validation:{
                     required: true
                 },
@@ -28,7 +30,8 @@ class EditPublisher extends Component {
             }
         },
         publisherNameErr:'',
-        error:false
+        error:false,
+        updating:true,
     }
     checkValidation = (value, rule) =>{
         let isvalid = true;
@@ -62,25 +65,6 @@ class EditPublisher extends Component {
         }
         return isvalid;
     }
-
-    // formValidation = () => {
-    //     let validating = false;
-    //     let formElement = [];
-    //     for(let key in this.state.addform){
-    //         formElement.push({
-    //             id : key,
-    //             config : this.state.addform[key]
-    //         })
-    //     }
-    //     validating = formElement.map( element => {
-    //         if(element.config.touched && element.config.isvalid){
-    //             return true;
-    //         }else{
-    //             return false;
-    //         }
-    //     })
-    //     return validating.pop();
-    // }  
     
     inputChangeHandeler = (event,identifier) =>{        
         const updatedAddForm = {...this.state.editform};
@@ -105,7 +89,7 @@ class EditPublisher extends Component {
             const token = JSON.parse(localStorage.getItem('userDetails')).token;
             Axios({ 
                 method:'post',
-                url : 'publishers/edit/'+this.props.publisher[this.props.match.params.publisherIndex].publisherId ,
+                url : 'publishers/edit/'+this.props.match.params.publisherId,
                 data:data,
                 headers: {'HTTP_AUTHORIZATION' : token }
             })
@@ -113,7 +97,9 @@ class EditPublisher extends Component {
                 console.log(res);
                 if(res.data.response){
                     alert('publisher Edited');
-                    this.props.history.push('/admin/publisher');
+                    this.props.getPublisher();
+                    this.props.history.goBack();
+                    // this.props.history.push('/admin/publisher');
                 } else {
                     this.setState({
                         publisherNameErr: res.data.dataErr
@@ -129,20 +115,32 @@ class EditPublisher extends Component {
             })
         }
     }
-
+    updating = () => {
+        const updatedEditform = {...this.state.editform};
+        updatedEditform.publisher.value =  this.props.publisher.filter(data => data.publisherId === this.props.match.params.publisherId).pop().publisherName;
+        this.setState({
+            ...this.state,
+            editform: updatedEditform,
+            updating:false
+        })
+    }
+    componentDidMount(){
+        this.props.getPublisher();
+    }
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
         }
-        if(this.props.publisher[0].id === 1){
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
+        }
+        if(this.props.publisherLoading){
             return(
-                <Redirect to='/admin/publisher/home' />
+                <Spinner />
             )
+        }
+        if(!this.props.publisherLoading && this.state.updating){
+            this.updating();
         }
         let error = null;   
         if(this.state.error){
@@ -194,8 +192,15 @@ class EditPublisher extends Component {
 const mapStateToProps = (state) =>{
     return {
         publisher : state.publisherReducer.publisher,
+        publisherLoading : state.publisherReducer.publisherLoading,
         loggedIn : state.loginReducer.loggedIn
     }
 }
 
-export default connect(mapStateToProps)(EditPublisher);
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getPublisher : () => dispatch(publisherActionTypes.getPublisher())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(EditPublisher);

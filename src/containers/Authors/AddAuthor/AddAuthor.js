@@ -6,7 +6,7 @@ import classes from './AddAuthor.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
 import { connect } from 'react-redux';
-
+import * as authorActionTypes from '../../../store/actions/authorAction';
 class AddAuthor extends Component {
 
     state = {
@@ -61,25 +61,6 @@ class AddAuthor extends Component {
         }
         return isvalid;
     }
-
-    // formValidation = () => {
-    //     let validating = false;
-    //     let formElement = [];
-    //     for(let key in this.state.addform){
-    //         formElement.push({
-    //             id : key,
-    //             config : this.state.addform[key]
-    //         })
-    //     }
-    //     validating = formElement.map( element => {
-    //         if(element.config.touched && element.config.isvalid){
-    //             return true;
-    //         }else{
-    //             return false;
-    //         }
-    //     })
-    //     return validating.pop();
-    // }  
     
     inputChangeHandeler = (event,identifier) =>{        
         const updatedAddForm = {...this.state.addform};
@@ -95,6 +76,7 @@ class AddAuthor extends Component {
     }
 
     handleSubmit = (event) => {
+        // this.props.history.goBack();
         event.preventDefault();
         if(this.state.addform.author.isvalid && this.state.addform.author.touched){
             const data={
@@ -112,7 +94,9 @@ class AddAuthor extends Component {
                 // console.log(res);
                 if(res.data.response === true){
                     alert('Author Added');
-                    this.props.history.push('/admin/author');
+                    // this.props.history.push('/admin/author');
+                    this.props.getAuthors();
+                    this.props.history.goBack();
                 } else {
                     this.setState({
                         authorNameErr: res.data.dataErr
@@ -130,13 +114,11 @@ class AddAuthor extends Component {
     }
 
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         let error = null;   
         if(this.state.error){
@@ -190,5 +172,9 @@ const mapStateToProps = (state) =>{
         loggedIn : state.loginReducer.loggedIn
     }
 }
-
-export default connect(mapStateToProps)(AddAuthor);
+const mapDispatchToProps = dispatch =>{
+    return{
+        getAuthors : () => dispatch(authorActionTypes.getAuthors())
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(AddAuthor);

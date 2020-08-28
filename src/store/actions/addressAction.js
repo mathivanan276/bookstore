@@ -27,6 +27,7 @@ const saveAddress = (data) => {
 export const getAddress = () => {
     return (dispatch) => {
         dispatch(addressLoadingTrue());
+        if(localStorage.getItem('userDetails')){
         const token = JSON.parse(localStorage.getItem('userDetails')).token;
         Axios.get('address/read',{
             headers:{'HTTP_AUTHORIZATION' : token}
@@ -38,4 +39,5 @@ export const getAddress = () => {
             }
         })
     }
+}
 }

@@ -7,10 +7,11 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 export const LOGGED_IN_VERIFY = 'LOGGED_IN_VERIFY';
 
-const saveUserDetails = (data) => {
+const saveUserDetails = (data,time) => {
     return{
         type: USER_LOGIN,
-        data
+        data,
+        time
     }
 }
 
@@ -52,7 +53,7 @@ export const userlogin = (email,password) =>{
         .then(res => {
             // console.log(res.data);
             if(res.data.response === true){
-                dispatch(saveUserDetails(res.data.data));
+                dispatch(saveUserDetails(res.data.data,new Date(new Date().getTime()+res.data.data.expiresIn*1000)));
                 dispatch(loginLoadingFalse());
             } else {
                 dispatch(loginError(res.data.error));
@@ -75,7 +76,7 @@ export const adminlogin = (email,password) =>{
         .then(res => {
             // console.log(res.data);
             if(res.data.response === true){
-                dispatch(saveUserDetails(res.data.data));
+                dispatch(saveUserDetails(res.data.data,new Date(new Date().getTime()+res.data.data.expiresIn*1000)));
                 dispatch(loginLoadingFalse());
             } else {
                 dispatch(loginError(res.data.error));

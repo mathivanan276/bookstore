@@ -15,12 +15,12 @@ const reducer = (state = initialState , action ) => {
         case (orderActionType.ORDERS_SUMMARY_LOADING_TRUE):
                 return {
                     ...state,
-                    ordersSummaryLoading:true
+                    orderSummaryLoading:true
                 }
         case (orderActionType.ORDERS_SUMMARY_LOADING_FALSE):
                 return {
                     ...state,
-                    ordersSummaryLoading:false
+                    orderSummaryLoading:false
                 }
         
         default :

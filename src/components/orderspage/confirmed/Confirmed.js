@@ -129,7 +129,7 @@ class Confirmed extends Component {
 const mapStatesToProps = state => {
     return{
         orderSummary : state.orderSummaryReducer.orderSummary,
-        ordersLoading : state.orderSummaryReducer.ordersSummaryLoading,
+        ordersLoading : state.orderSummaryReducer.orderSummaryLoading,
         loggedIn : state.loginReducer.loggedIn
     }
 }

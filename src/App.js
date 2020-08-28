@@ -35,6 +35,9 @@ import Profile from './containers/profile/Profile';
 import EditAddress from './containers/address/edit/EditAddress';
 import AddAddress from './containers/address/add/AddAddress';
 import Userorders from './containers/userorders/Userorders';
+import Cancelorder from './containers/userorders/cancelorder/Cancelorder';
+import Vieworder from './containers/userorders/vieworder/Vieworder';
+import Cart from './containers/cart/Cart';
 
 class App extends Component{
 
@@ -56,10 +59,10 @@ class App extends Component{
             <Route path='/admin/genre/edit/:genreId' component={EditGenre} />
             <Route path='/admin/genre' component={GenreControl} />
             <Route path='/admin/publisher/add' component={AddPublisher} />
-            <Route path='/admin/publisher/edit/:publisherIndex' component={EditPublisher} />
+            <Route path='/admin/publisher/edit/:publisherId' component={EditPublisher} />
             <Route path='/admin/publisher' component={PublisherControl} />
             <Route path='/admin/author/add' component={AddAuthor} />
-            <Route path='/admin/author/edit/:authorIndex' component={EditAuthor} />
+            <Route path='/admin/author/edit/:authorId' component={EditAuthor} />
             <Route path='/admin/author' component={AuthorControl} />
             <Route path='/admin/book/cover/:bookId' component={AddBookCover} />
             <Route path='/admin/book/stock/:bookId/:quantity' component={Stock} />
@@ -78,8 +81,10 @@ class App extends Component{
             <Route path='/address/edit/:addressId' component={EditAddress} />
             <Route path='/address/add' component={AddAddress} />
             <Route path='/profile' component={Profile} />
+            <Route path='/orders/vieworder/:cartId' component={Vieworder} />
+            <Route path='/orders/cancelorder/:cartId' component={Cancelorder} />
             <Route path='/orders' component={Userorders} />
-            <Route path='/cart' component={()=><h1>This is Cart page</h1>} />
+            <Route path='/cart' component={Cart} />
             <Route path='/new-arivals' component={Home} />
             <Route path='/home' component={Home} />
             <Route path='/' component={ () => {

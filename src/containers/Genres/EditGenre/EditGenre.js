@@ -5,8 +5,9 @@ import { Redirect,Link } from 'react-router-dom';
 import classes from './EditGenre.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
-
+import * as genreActionTypes from '../../../store/actions/genreAction';
 import { connect } from 'react-redux';
+import Spinner from '../../../components/UI/spinner/Spinner';
 
 class EditGenre extends Component {
 
@@ -18,7 +19,7 @@ class EditGenre extends Component {
                     placeholder: "genre NAME",
                     type:"text"
                 },
-                value : this.props.genre.filter(data => data.genreId === this.props.match.params.genreId).pop().genreName,
+                value : '',
                 validation:{
                     required: true
                 },
@@ -28,7 +29,8 @@ class EditGenre extends Component {
             }
         },
         genreNameErr:'',
-        error:false
+        error:false,
+        updating:true
     }
     checkValidation = (value, rule) =>{
         let isvalid = true;
@@ -62,25 +64,6 @@ class EditGenre extends Component {
         }
         return isvalid;
     }
-
-    // formValidation = () => {
-    //     let validating = false;
-    //     let formElement = [];
-    //     for(let key in this.state.addform){
-    //         formElement.push({
-    //             id : key,
-    //             config : this.state.addform[key]
-    //         })
-    //     }
-    //     validating = formElement.map( element => {
-    //         if(element.config.touched && element.config.isvalid){
-    //             return true;
-    //         }else{
-    //             return false;
-    //         }
-    //     })
-    //     return validating.pop();
-    // }  
     
     inputChangeHandeler = (event,identifier) =>{        
         const updatedAddForm = {...this.state.editform};
@@ -113,7 +96,9 @@ class EditGenre extends Component {
                 console.log(res);
                 if(res.data.response){
                     alert('Genre Edited');
-                    this.props.history.push('/admin/genre');
+                    this.props.getGenre();
+                    this.props.history.goBack();
+                    // this.props.history.push('/admin/genre');
                 } else {
                     this.setState({
                         genreNameErr: res.data.dataErr
@@ -129,20 +114,32 @@ class EditGenre extends Component {
             })
         }
     }
-
+    updating = () => {
+        const updatedEditForm = {...this.state.editform};
+        updatedEditForm.genre.value = this.props.genre.filter(data => data.genreId === this.props.match.params.genreId).pop().genreName;
+        this.setState({
+            ...this.state,
+            editform: updatedEditForm,
+            updating:false
+        })
+    }
+    componentDidMount(){
+        this.props.getGenre();
+    }
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
         }
-        if(this.props.genre[0].id === 1){
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
+        }
+        if(this.props.genreLoading){
             return(
-                <Redirect to='/admin/genre/home' />
+                <Spinner />
             )
+        }
+        if(!this.props.genreLoading && this.state.updating){
+            this.updating();
         }
         let error = null;   
         if(this.state.error){
@@ -194,8 +191,15 @@ class EditGenre extends Component {
 const mapStateToProps = (state) =>{
     return {
         genre : state.genreReducer.genre,
+        genreLoading : state.genreReducer.genreLoading,
         loggedIn : state.loginReducer.loggedIn
     }
 }
 
-export default connect(mapStateToProps)(EditGenre);
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getGenre : () => dispatch(genreActionTypes.getGenre())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(EditGenre);

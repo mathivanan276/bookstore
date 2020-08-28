@@ -7,6 +7,7 @@ import * as orderActionTypes from '../../../store/actions/orderAction';
 import Dashboard from '../../../components/orderspage/ordersdashboard/Dashboard';
 import ListOrders from '../../../components/orderspage/ListOrders';
 import Spinner from '../../../components/UI/spinner/Spinner';
+import Ordersearch from '../../../components/UI/ordersearch/Ordersearch';
 
 class AdminHome extends Component {
 
@@ -24,6 +25,12 @@ class AdminHome extends Component {
     componentDidMount(){
         this.props.getOrders();
     }
+    getSearch = (sortDate) => {
+        this.props.sortedOrders(sortDate)
+    }
+    getRange = (date1,date2) => {
+        this.props.rangeOrders(date1,date2)
+    }
     render(){
         if(this.props.loggedIn){
             const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
@@ -37,9 +44,10 @@ class AdminHome extends Component {
         if(this.props.ordersLoading){
             dash = <Spinner />
         }
-        if(this.props.ordersLoading === false) {
-            dash = <Dashboard confirmed={this.props.orders.Confirmed.length} currentType={this.state.page} clicked={this.handlepage} />
+        if(this.props.orders === 'No Records Found'){
+            dash = <h3>No Records Found</h3>
         }
+        
         let list= null;
         if(this.props.orders !== 'null' && this.props.ordersLoading === false){
             switch(this.state.page){
@@ -59,10 +67,20 @@ class AdminHome extends Component {
                     list = this.props.orders.Confirmed;
             }
         }
+        if(this.props.ordersLoading === false && this.props.orders !== 'No Records Found') {
+            let count = {
+                Confirmed : this.props.orders.Confirmed.length,
+                Shipping : this.props.orders.Shipping.length,
+                Shipped : this.props.orders.Shipped.length,
+                Cancelled : this.props.orders.Cancelled.length,
+            }
+            dash =  <> <Dashboard ordersCount={count} currentType={this.state.page} clicked={this.handlepage} />
+                        <ListOrders ordersArr={list ? list : []} type={this.state.page.toLowerCase()}/></>
+        }
         return(
            <div className={classes.Section}>
+                <Ordersearch getsearch={this.getSearch} getRange={this.getRange}/>
                 {dash}
-                <ListOrders ordersArr={list ? list : []} type={this.state.page.toLowerCase()}/>
            </div>
         )
     }
@@ -78,7 +96,9 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = (dispatch) =>{
     return{
-        getOrders: () => dispatch(orderActionTypes.getorders())
+        getOrders: () => dispatch(orderActionTypes.getorders()),
+        sortedOrders: (sortDate) => dispatch(orderActionTypes.sortedOrders(sortDate)),
+        rangeOrders: (date1,date2) => dispatch(orderActionTypes.rangedOrders(date1,date2))
     }
 }
 

@@ -57,7 +57,7 @@ const Input = (props) => {
                         props.elementConfig.buttons.map( (option,index) => {
                             return <React.Fragment key={index}>
                                 <label key={option.label} className={classes.Label}>{option.label}</label>
-                                <input key={index} type='radio' value={option.value} name={option.name} className={classes.Input} onChange={props.changed}/>
+                                <input key={index} type='radio' value={option.value} name={option.name} checked={option.value === props.value} className={classes.Input} onChange={props.changed}/>
                             </React.Fragment>
                         })
                     }

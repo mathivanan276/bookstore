@@ -1,0 +1,72 @@
+.Section {
+    height: 80vh;
+    overflow: auto;
+}
+.Section h2{
+    margin: 1rem;
+    text-align: center;
+    color:#444;
+}
+
+.Section h3 {
+    color: #4f4f44;
+}
+
+.Section .Table{
+    margin: auto;
+    width: 500px;
+    text-align: center;
+    border: 1px solid var(--primary-background);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+.Section .Table tr td{
+    padding: 0.75rem;
+}
+.Section textarea{
+    border: 1px solid var(--primary-background);
+    border-radius: 5px;
+    width: 500px;
+    padding: 1rem 1rem;
+    font-family: monospace;
+    outline: none;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.Section button {
+    display: block;
+    padding: 0.5rem 1rem;
+    margin: auto auto 2rem auto;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-background);
+    width: 200px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.Error {
+    box-sizing: border-box;
+    background-color: #ffa9a9;
+    border: red;
+    border-radius: 5px;
+    color: #222;
+    margin: 0.2rem auto 0rem auto;
+    max-width: 300px;
+    font-size: 0.75rem !important;
+    padding: 0.75rem 1rem;
+}
+
+@media only screen and (max-width:768px){
+
+}
+
+@media only screen and (max-width:499px){
+    .Section .Table{
+        width: 300px;
+    }
+    .Section textarea{
+        width: 300px;
+    }
+}

@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import { Redirect } from 'react-router-dom';
 import classes from './ProfileInfoView.module.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,10 +35,15 @@ const ProfileInfoView = (props) => {
         if(props.error){
             error = <p className={classes.Error}>Something Went Wrong!!</p>
         }
+    const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
+    if(adminData !== 'user'){
+        return <Redirect to='/login' />
+    }
     return (
         <div>
             <div className={classes.Section}>
                 <h3>Personal Info</h3>
+                {error}
                 <p onClick={()=>{setDisable(!disable)}}><FontAwesomeIcon icon={faUserEdit} /> Edit</p>
                 <form>
                 {form}

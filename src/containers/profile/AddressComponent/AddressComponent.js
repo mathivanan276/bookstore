@@ -16,7 +16,7 @@ const AddressComponent = (props) => {
                     <p>Click To Edit</p>
                     </div>
         })
-    } else if(props.address.length == 1){
+    } else if(props.address.length === 1){
         address =   <>
                     <div className={classes.AddressCard} onClick={()=>props.edit(props.address[0].addressId)}>
                         <address>

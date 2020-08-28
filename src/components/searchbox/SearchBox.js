@@ -4,7 +4,6 @@ import classes from './SearchBox.module.css';
 export default function SearchBox(props) {
     return (
         <div className={classes.SearchBar}>
-            <form> 
                 <input 
                     autoComplete='off'
                     type='text' 
@@ -15,7 +14,6 @@ export default function SearchBox(props) {
                     value={props.value}
                     onChange={props.changed}  />
                 <button type='button' onClick={props.submit}>search</button>
-            </form>
         </div>
     )
 }

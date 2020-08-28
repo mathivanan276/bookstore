@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './ListOrders.module.css';
 import { Link } from 'react-router-dom';
 
-const timeConvertion = (date) => {
+export const timeConvertion = (date) => {
         let time = date.toTimeString().split(':');
         let hours = time[0];
         let meridian = '';

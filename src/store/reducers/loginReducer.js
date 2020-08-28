@@ -46,7 +46,7 @@ const reducer = ( state = initialState, action ) => {
             }
         case (actionTypes.USER_LOGIN) :
             localStorage.setItem('userDetails',JSON.stringify(action.data));
-            localStorage.setItem('expireDate',new Date(new Date().getTime()+(3600*1000)))
+            localStorage.setItem('expireDate',action.time)
             return{
                 ...state,
                 loggedIn:true,

@@ -8,6 +8,11 @@
     box-shadow: 1px 1px 3px #333;
 }
 
+.Section h3 {
+    margin: 1rem auto;
+    color: #fff;
+}
+
 @media only screen and (max-width:768px){
     .Section {
         height:85vh;

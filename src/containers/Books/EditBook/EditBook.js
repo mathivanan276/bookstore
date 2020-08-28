@@ -11,6 +11,7 @@ import * as authorActionTypes from '../../../store/actions/authorAction';
 import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import * as bookActionsType from '../../../store/actions/bookAction';
+import AutoComplete from '../../../components/UI/select/AutoComplete';
 import Spinner from '../../../components/UI/spinner/Spinner';
 
 
@@ -23,7 +24,7 @@ class EditBook extends Component {
                     placeholder: "TITLE",
                     type:"text"
                 },
-                value : this.props.book.title,
+                value : '',
                 validation:{
                     required: true
                 },
@@ -35,7 +36,7 @@ class EditBook extends Component {
                     placeholder: "ISBN",
                     type:"text"
                 },
-                value : this.props.book.isbn,
+                value : '',
                 validation:{
                     required: true
                 },
@@ -84,34 +85,22 @@ class EditBook extends Component {
                 name:"language"
             },
             author : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.authors
-                },
-                value : this.props.book.authorId,
-                validation:false,
-                isvalid: true,
-                name:"author"
+                options:[],
+                value:this.props.book.authorId,
+                placeholder:'Enter Author Name',
+                isvalid: true
             },
             publisher : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.publisher
-                },
-                value : this.props.book.publisherId,
-                validation:false,
+                options:[],
+                value:this.props.book.publisherId,
+                placeholder:'Enter Publisher Name',
                 isvalid: true,
-                name:"publisher"
             },
             genre : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.genre
-                },
-                value : this.props.book.genreId,
-                validation:false,
-                isvalid: true,
-                name:"genre"
+                options:[],
+                value:this.props.book.genreId,
+                placeholder:'Enter Genre Name',
+                isvalid: true
             },
             returnOption:{
                 value:this.props.book.returnable,
@@ -120,7 +109,8 @@ class EditBook extends Component {
                     buttons: [{id:1,value:'true',label:'returnable',name:'returnOption'},{id:2,value:'false',label:'non-returnable',name:'returnOption'}]
                 },
                 touched:false,
-                validation:false
+                validation:false,
+                isvalid: true,
                 },
             bindingOption:{
                 value:this.props.book.returnable,
@@ -129,7 +119,8 @@ class EditBook extends Component {
                     buttons: [{id:1,value:'Hardcover',label:'Hard Cover',name:'bindingOption'},{id:2,value:'Softcover',label:'Soft Cover',name:'bindingOption'}]
                 },
                 touched:false,
-                validation:false
+                validation:false,
+                isvalid: true
                 },
             description :{
                 elementType: "textarea",
@@ -200,7 +191,7 @@ class EditBook extends Component {
             }
         })
         console.log(validating);
-        return validating.pop();
+        return validating.filter(data => data === false);
     }  
     inputChangeHandeler = (event,identifier,check) =>{        
         const updatededitform = {...this.state.editform};
@@ -217,7 +208,7 @@ class EditBook extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const data = this.state.editform;
-        if(this.formValidation()){
+        if(this.formValidation().length === 0){
             const bookData = {
                 bookId: this.props.match.params.bookId,
                 title : data.title.value,
@@ -268,38 +259,60 @@ class EditBook extends Component {
         let updatedPublisherElement = {...updatededitformElement['publisher']}
         let updatedGenreElement = {...updatededitformElement['genre']}
         let updatedAuthorElement = {...updatededitformElement['author']};
-        updatedAuthorElement.elementConfig.options = this.props.authors.map(authorname => {
+        updatededitformElement.title.value = this.props.book.title;
+        updatededitformElement.author.value = this.props.book.authorId;
+        updatededitformElement.publisher.value = this.props.book.publisherId;
+        updatededitformElement.genre.value = this.props.book.genreId;
+        updatededitformElement.isbn.value = this.props.book.isbn;
+        updatededitformElement.publishedOn.value = this.props.book.publishedOn;
+        updatededitformElement.price.value = this.props.book.price;
+        updatededitformElement.language.value = this.props.book.language;
+        updatededitformElement.description.value = this.props.book.description; 
+        updatededitformElement.returnOption.value = this.props.book.returnable;
+        updatededitformElement.bindingOption.value = this.props.book.binding;
+        updatedAuthorElement.options = this.props.authors.map(authorname => {
+            // console.log(authorname)
             return {
-                value: authorname.authorId,
-                dispVal: authorname.authorName
+                id: authorname.authorId,
+                value: authorname.authorName
             }
         });
-        updatedPublisherElement.elementConfig.options = this.props.publisher.map(publishername => {
+        updatedPublisherElement.options = this.props.publisher.map(publishername => {
             return {
-                value: publishername.publisherId,
-                dispVal: publishername.publisherName
+                id: publishername.publisherId,
+                value: publishername.publisherName
             }
         });
-        updatedGenreElement.elementConfig.options = this.props.genre.map(genrename => {
+        updatedGenreElement.options = this.props.genre.map(genrename => {
             return {
-                value: genrename.genreId,
-                dispVal: genrename.genreName
+                id: genrename.genreId,
+                value: genrename.genreName
             }
         });
+        updatededitformElement['author'] = updatedAuthorElement;
+        updatededitformElement['publisher'] = updatedPublisherElement;
+        updatededitformElement['genre'] = updatedGenreElement;
         this.setState({
             editform:updatededitformElement,
             authorUpdating: false
         })
     }
+    getvalues = (name,value) => {
+        console.log(name)
+        const updateState = {...this.state};
+        const updatededitformElement = {...updateState['editform']};
+        updatededitformElement[name].value=value;
+        this.setState({
+            ...updateState
+        })
+    }
 
     render() {
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         if(this.props.bookLoading){
             return(
@@ -317,6 +330,7 @@ class EditBook extends Component {
         const formElement = [];
 
         for(let key in this.state.editform){
+            // console.log(this.state.editform[key])
             formElement.push({
                 id : key,
                 config : this.state.editform[key]
@@ -324,21 +338,51 @@ class EditBook extends Component {
         }
 
         let form = (
-                formElement.map(formElement => (
-                <Input
-                    key={formElement.id}
-                    elementType = {formElement.config.elementType}
-                    elementConfig = {formElement.config.elementConfig}
-                    value = {formElement.config.value}
-                    isvalid = {formElement.config.isvalid}
-                    label = {formElement.config.label}
-                    changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
-              ))
-        );
-        if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading){
+                formElement.map(formElement => {
+                    switch(formElement.id){
+                        case 'author': 
+                        // console.log(formElement);
+                            return <AutoComplete
+                                    linkto='/admin/author/add'
+                                    data={formElement.config.options} 
+                                    placeholder={formElement.config.placeholder}
+                                    value={formElement.config.value}
+                                    displayValue={this.props.book.authorName}
+                                    name={formElement.id}
+                                    selected={this.getvalues}/>
+                        case 'publisher':
+                            return <AutoComplete
+                                    linkto='/admin/publisher/add'
+                                    data={formElement.config.options} 
+                                    placeholder={formElement.config.placeholder}
+                                    value={formElement.config.value}
+                                    name={formElement.id}
+                                    displayValue={this.props.book.publisherName}
+                                    selected={this.getvalues}/>
+                        case 'genre':
+                            return <AutoComplete
+                                    linkto='/admin/genre/add'
+                                    data={formElement.config.options} 
+                                    placeholder={formElement.config.placeholder}
+                                    value={formElement.config.value}
+                                    name={formElement.id}
+                                    displayValue={this.props.book.genreName}
+                                    selected={this.getvalues}/>
+                        default:
+                            return <Input
+                            key={formElement.id}
+                            elementType = {formElement.config.elementType}
+                            elementConfig = {formElement.config.elementConfig}
+                            value = {formElement.config.value}
+                            isvalid = {formElement.config.isvalid}
+                            label = {formElement.config.label}
+                            changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
+                    }
+                }));
+        if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading && this.props.bookLoading){
             form = <Spinner />
         }
-        if(!this.props.authorLoading && this.state.authorUpdating && !this.props.publisherLoading&& !this.props.genreLoading){
+        if(!this.props.authorLoading && this.state.authorUpdating && !this.props.publisherLoading && !this.props.genreLoading && !this.props.bookLoading){
             this.updating();
         }
         let editform = (<form>

@@ -12,6 +12,7 @@ import * as publisherActionTypes from '../../../store/actions/publisherAction';
 import * as genreActionTypes from '../../../store/actions/genreAction';
 import { withRouter } from 'react-router-dom';
 import Spinner from '../../../components/UI/spinner/Spinner';
+import AutoComplete from '../../../components/UI/select/AutoComplete';
 
 
 class AddBook extends Component {
@@ -91,37 +92,19 @@ class AddBook extends Component {
                 name:"language"
             },
             author : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.authors
-                },
-                value : "--null--",
-                validation:false,
-                touched: false,
-                isvalid: true,
-                name:"author"
+                options:[],
+                value:'',
+                placeholder:'Enter Author Name'
             },
             publisher : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.publisher
-                },
-                value : "--null--",
-                validation:false,
-                touched: false,
-                isvalid: true,
-                name:"publisher"
+                options:[],
+                value:'',
+                placeholder:'Enter Publisher Name'
             },
             genre : {
-                elementType: "select",
-                elementConfig:{
-                    options: this.props.genre
-                },
-                value : "--null--",
-                validation:false,
-                touched: false,
-                isvalid: true,
-                name:"genre"
+                options:[],
+                value:'',
+                placeholder:'Enter Genre Name'
             },
             returnOption:{
                 value:false,
@@ -279,39 +262,50 @@ class AddBook extends Component {
         let updatedPublisherElement = {...updatedAddformElement['publisher']}
         let updatedGenreElement = {...updatedAddformElement['genre']}
         let updatedAuthorElement = {...updatedAddformElement['author']};
-        updatedAuthorElement.elementConfig.options = this.props.authors.map(authorname => {
+        updatedAuthorElement.options = this.props.authors.map(authorname => {
+            // console.log(authorname)
             return {
-                value: authorname.authorId,
-                dispVal: authorname.authorName
+                id: authorname.authorId,
+                value: authorname.authorName
             }
         });
-        updatedPublisherElement.elementConfig.options = this.props.publisher.map(publishername => {
+        updatedPublisherElement.options = this.props.publisher.map(publishername => {
             return {
-                value: publishername.publisherId,
-                dispVal: publishername.publisherName
+                id: publishername.publisherId,
+                value: publishername.publisherName
             }
         });
-        updatedGenreElement.elementConfig.options = this.props.genre.map(genrename => {
+        updatedGenreElement.options = this.props.genre.map(genrename => {
             return {
-                value: genrename.genreId,
-                dispVal: genrename.genreName
+                id: genrename.genreId,
+                value: genrename.genreName
             }
         });
+        updatedAddformElement['author'] = updatedAuthorElement;
+        updatedAddformElement['publisher'] = updatedPublisherElement;
+        updatedAddformElement['genre'] = updatedGenreElement;
         this.setState({
             addform:updatedAddformElement,
             authorUpdating: false
         })
     }
 
+    getvalues = (name,value) => {
+        console.log(name)
+        const updateState = {...this.state};
+        const updatedAddFormElement = {...updateState['addform']};
+        updatedAddFormElement[name].value=value;
+        this.setState({
+            ...updateState
+        })
+    }
+
     render() {
-        // this.props.histroy.push(`/admin/book/cover/ `);
-        if(this.props.loggedIn){
-            const adminData = JSON.parse(localStorage.getItem('userDetails')).role;
-            if(adminData !== 'admin'){
-                return <Redirect to='/admin/login' />
-            }
-        } else {
-            return <Redirect to='/home' />
+        if(localStorage.getItem('userDetails') === null){
+            return <Redirect to='/admin/login' />
+        }
+        if(JSON.parse(localStorage.getItem('userDetails')).role !== 'admin'){
+            return <Redirect to='/admin/login' />
         }
         let error = null;   
         if(this.state.error){
@@ -328,18 +322,44 @@ class AddBook extends Component {
             })
         }
 
-        let form = (
-                formElement.map(formElement => (
-                <Input
-                    key={formElement.id}
-                    elementType = {formElement.config.elementType}
-                    elementConfig = {formElement.config.elementConfig}
-                    value = {formElement.config.value}
-                    isvalid = {formElement.config.isvalid}
-                    label = {formElement.config.label}
-                    changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
-              ))
-        );
+        let form = 
+                formElement.map(formElement => {
+                    switch(formElement.id){
+                        case 'author': 
+                            return <AutoComplete
+                                    linkto='/admin/author/add'
+                                    data={formElement.config.options} 
+                                    placeholder={formElement.config.placeholder}
+                                    value={formElement.config.value}
+                                    name={formElement.id}
+                                    selected={this.getvalues}/>
+                        case 'publisher':
+                            return <AutoComplete
+                                    linkto='/admin/publisher/add'
+                                    data={formElement.config.options} 
+                                    placeholder={formElement.config.placeholder}
+                                    value={formElement.config.value}
+                                    name={formElement.id}
+                                    selected={this.getvalues}/>
+                        case 'genre':
+                            return <AutoComplete
+                                    linkto='/admin/genre/add'
+                                    data={formElement.config.options} 
+                                    placeholder={formElement.config.placeholder}
+                                    value={formElement.config.value}
+                                    name={formElement.id}
+                                    selected={this.getvalues}/>
+                        default:
+                            return <Input
+                            key={formElement.id}
+                            elementType = {formElement.config.elementType}
+                            elementConfig = {formElement.config.elementConfig}
+                            value = {formElement.config.value}
+                            isvalid = {formElement.config.isvalid}
+                            label = {formElement.config.label}
+                            changed = {(event)=>this.inputChangeHandeler(event,formElement.id)}  />
+                    }
+            })
         if(this.props.authorLoading && this.state.authorUpdating && this.props.publisherLoading && this.props.genreLoading){
             form = <Spinner />
         }

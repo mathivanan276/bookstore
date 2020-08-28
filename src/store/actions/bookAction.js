@@ -123,6 +123,7 @@ export const searchbook = (keyword) => {
                 dispatch(saveSearchedBooks(res.data.data))
                 dispatch(searchedBookLoadingFalse());
             } else {
+                dispatch(saveSearchedBooks({}))
                 dispatch(searchedBookLoadingFalse());
             }
         })
