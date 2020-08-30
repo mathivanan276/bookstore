@@ -1,35 +1,23 @@
-.Section {
-    text-align: center;
-    height: fit-content;
-}
-.Section a {
-    padding:0.75rem 2rem;
-    background-color: var(--primary-background);
-    border: none;
-    border-radius: 5px;
-    margin: 1rem;
-}
-.Section .Empty {
-    height: 75vh;
-}
-
-.Section .Empty h2{
-    margin:2rem;
-    color: #333;
-}
-.Section .Empty p{
+.Section{
+    display: flex;
     margin: 1rem auto;
-    color: #444;
-    width: fit-content;
-    cursor: pointer;
+    max-width: 600px;
+    flex-direction: column;
 }
-.Section .Empty a {
-    color: rgb(10, 74, 248);
-    padding:0rem;
-    background-color: #fff;
-    border: none;
+.Section .Buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.Section .Buttons button{
+    width: 200px;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--primary-background);
+    border:none;
     border-radius: 5px;
-    margin: 0rem;
+    outline: none;
+}
+.Section .Buttons button:hover{
+    font-weight: bold;
 }
 .Bookcard{
     display: grid;
@@ -119,6 +107,18 @@
     background-color: #d8d8d8;
 }
 
+.Table2 {
+    /* margin: 1rem; */
+    width: 600px;
+    border-radius: 5px;
+    margin: 1rem auto;
+    border: 1px solid var(--primary-background);
+    background-color: rgba(255, 255, 255, 0.808);
+}
+.Table2 tr td {
+    padding: 0.75rem 1.2rem;
+}
+
 .Bookcard .Bookdetails button{
     padding: 0.75rem 0.75rem;
     width: 100px;
@@ -134,11 +134,20 @@
     .Section {
         padding: 1rem;
     }
+    .Bookcard .Bookdetails .Inputs {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .Bookcard .Bookdetails .Updatebox {
+        margin: auto;
+    }
     .Bookcard{
         display: flex;
         /* grid-template-columns: 1fr 2fr; */
         flex-direction: column;
-        max-width: 400px;
+        width: 300px;
         margin: 1rem auto;
         background-color: #ffffffb9;
         border-radius: 5px;
@@ -146,12 +155,16 @@
         cursor: pointer;    
         border: 1px solid #1f1f1f;
     }
+    .Bookcover img {
+        width: 75px;
+        height: 100px;
+    }
     .Status{
         text-align: center;
     }
     .Bookcard .Bookdetails p {
         font-size: 0.8rem;
-        line-height: 2rem;
+        line-height: 1rem;
         text-align: center;
     }
     .Bookcard .Bookdetails h3{
@@ -161,6 +174,41 @@
     .Bookcard .Bookdetails a {
         margin:auto;
         width: 80%;
+    }
+    .Bookcard .Bookdetails input{
+        width: 25px;
+    }
+    .Icon {
+        padding: 8px 9px 8px 9px;
+        border: 1px solid #333;
+        border-left: none;
+        border-radius: 0px 5px 5px 0px;
+    }
+    .Bookcard .Bookdetails button{
+        padding: 0.5rem;
+        width: 75px;
+        border-radius: 5px;
+        border:none;
+        background-color: var(--primary-background);
+        margin: 0.5rem 0rem;
+    }
+    .Section .Buttons button{
+        width: 150px;
+        padding: 0.5rem 0.75rem;
+        background-color: var(--primary-background);
+        border:none;
+        border-radius: 5px;
+        outline: none;
+    }
+    .Table2 {
+        width: 300px;
+        border-radius: 5px;
+        margin: 1rem auto;
+        border: 1px solid var(--primary-background);
+        background-color: rgba(255, 255, 255, 0.808);
+    }
+    .Table2 tr td {
+        padding: 0.75rem 1.2rem;
     }
     .Icon {
         padding: 7px 9px 9px 9px;

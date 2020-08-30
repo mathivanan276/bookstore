@@ -38,6 +38,8 @@ import Userorders from './containers/userorders/Userorders';
 import Cancelorder from './containers/userorders/cancelorder/Cancelorder';
 import Vieworder from './containers/userorders/vieworder/Vieworder';
 import Cart from './containers/cart/Cart';
+import Placeorder from './containers/buybook/Placeorder';
+
 
 class App extends Component{
 
@@ -84,6 +86,7 @@ class App extends Component{
             <Route path='/orders/vieworder/:cartId' component={Vieworder} />
             <Route path='/orders/cancelorder/:cartId' component={Cancelorder} />
             <Route path='/orders' component={Userorders} />
+            <Route path='/buy' component={Placeorder} />
             <Route path='/cart' component={Cart} />
             <Route path='/new-arivals' component={Home} />
             <Route path='/home' component={Home} />

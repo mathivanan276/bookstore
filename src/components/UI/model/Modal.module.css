@@ -1,0 +1,30 @@
+.Modal .BackDrop {
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.507);
+    width:100%;
+    height: 100%;
+}
+.Modal .Body {
+    position: fixed;
+    margin: 15% auto;
+    width: 100%;
+    text-align: center;
+}
+@media only Screen and (max-width:768px){
+    .Modal .BackDrop {
+        position: fixed;
+        top:0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.507);
+        width:100%;
+        height: 100%;
+    }
+    .Modal .Body {
+        position: fixed;
+        margin: 50% auto;
+        width: 100%;
+        text-align: center;
+    }
+}

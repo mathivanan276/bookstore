@@ -1,0 +1,22 @@
+.Section{
+    height: fit-content;
+}
+.Success {
+    margin:auto;
+    width: 50%;
+    height: 40%;
+    background-color: #fff;
+    text-align: center;
+    border:2px solid #333;
+}
+.Success h1{
+    color:green;
+    padding: 1rem;
+}
+.Success .Link {
+    font-size: 1rem;
+    padding: 2rem;
+}
+.Success .Link a{
+    color: blue;
+}
