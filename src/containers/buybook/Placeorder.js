@@ -148,10 +148,17 @@ class Placeorder extends Component {
                         </Model>
         }
         return (
+            <>
+            <div className={classes.StepBar}>
+                <div className={classes.Step1} style={this.state.currentStep >= 1 ? {backgroundColor: '#FFEB3B'} : null } ></div>
+                <div className={classes.Step2} style={this.state.currentStep >= 2 ? {backgroundColor: '#FFEB3B'} : null }></div>
+                <div className={classes.Step3} style={this.state.currentStep >= 3 ? {backgroundColor: '#FFEB3B'} : null }></div>
+            </div>
             <div className={classes.Section}>
                 {model}
                 {currentStep}
             </div>
+            </> 
         )
     }
 }

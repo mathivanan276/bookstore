@@ -11,6 +11,9 @@ export const BOOK_LOADING_FALSE = 'BOOK_LOADING_FALSE';
 export const GET_SEARCHED_BOOK = 'GET_SEARCHED_BOOK';
 export const SEARCHED_BOOK_LOADING_TRUE = 'SEARCHED_BOOK_LOADING_TRUE';
 export const SEARCHED_BOOK_LOADING_FALSE = 'SEARCHED_BOOK_LOADING_FALSE';
+export const NEW_BOOK_LOADING_TRUE = 'NEW_BOOK_LOADING_TRUE';
+export const NEW_BOOK_LOADING_FALSE = 'NEW_BOOK_LOADING_FALSE';
+export const GET_NEW_BOOKS = 'GET_NEW_BOOKS';
 
 const bookTitlesArray=(data)=>{
     return{
@@ -144,6 +147,42 @@ export const getBook = (bookId) => {
             if(res.data !== null){
                 dispatch(saveBook(res.data));
                 dispatch(bookLoadingFalse());
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+}
+
+const newBooksLoadingTrue = () => {
+    return {
+        type:NEW_BOOK_LOADING_TRUE
+    }
+}
+
+const newBooksLoadingFalse = () => {
+    return {
+        type:NEW_BOOK_LOADING_FALSE
+    }
+}
+
+const saveNewBooks = (data) => {
+    return {
+        type: GET_NEW_BOOKS,
+        data
+    }
+}
+
+export const newArrivals = () => {
+    return (dispatch) => {
+        dispatch(newBooksLoadingTrue());
+        Axios.get('books/newarrivals')
+        .then(res => {
+            // console.log(res);
+            if(res.data !== null){
+                dispatch(saveNewBooks(res.data.data));
+                dispatch(newBooksLoadingFalse());
             }
         })
         .catch(err => {

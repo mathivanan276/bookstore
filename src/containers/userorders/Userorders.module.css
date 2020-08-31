@@ -1,61 +1,61 @@
-.Section{
-    display: flex;
-    margin: 1rem auto;
-    max-width: 800px;
-    flex-direction: column;
+.Section {
+  display: flex;
+  margin: 1rem auto;
+  max-width: 800px;
+  flex-direction: column;
 }
-.Header{
-    display: flex;
-    justify-content: flex-end;
+.Header {
+  display: flex;
+  justify-content: flex-end;
 }
 .Sort {
-    margin-left: auto;
+  margin-left: auto;
 }
-.Section .Sort p{
-    display: inline;
-    padding-right: 1rem;
-    color:#333;
+.Section .Sort p {
+  display: inline;
+  padding-right: 1rem;
+  color: #333;
 }
 .Sort div {
-    display: inline;
+  display: inline;
 }
 .Section .Searchbar {
-    text-align: center;
+  text-align: center;
 }
 .Section .Searchbar .Icon {
-    border: 1px solid rgb(51, 51, 51);
-    padding: 9px 10px 12px 10px;
-    border-left: none;
-    border-radius: 0px 5px 5px 0px;
+  border: 1px solid rgb(51, 51, 51);
+  padding: 9px 10px 12px 10px;
+  border-left: none;
+  border-radius: 0px 5px 5px 0px;
 }
-.Section .Searchbar input{
-    padding: 0.75rem 0.75rem;
-    border: 1px solid #333;
-    border-radius: 5px 0px 0px 5px;
-    outline: none;
-    border-right: none;
+.Section .Searchbar input {
+  padding: 0.75rem 0.75rem;
+  border: 1px solid #333;
+  border-radius: 5px 0px 0px 5px;
+  outline: none;
+  border-right: none;
 }
-.Section .Header h3{
-    margin-left: 1rem;
-    max-width: 300px;
-    color: #6e6e6e;
-    align-self: center;
+.Section .Header h3 {
+  margin-left: 1rem;
+  max-width: 300px;
+  color: #6e6e6e;
+  align-self: center;
 }
 
-@media only screen and (max-width:768px){
-    .Header{
-        display: flex;
-        flex-direction: column;
-    }
-    .Sort {
-        margin: auto;
-    }
-    .Section .Sort p{
-        display: inline;
-        padding: 0rem 0rem 0rem 0.5rem;
-        color:#333;
-    }
-    .Section .Searchbar .Icon {
-        padding: 10px 10px 11px 10px;
-    }
+@media only screen and (max-width: 768px) {
+  .Header {
+    display: flex;
+    flex-direction: column;
+  }
+  .Sort {
+    margin: auto;
+  }
+  .Section .Sort p {
+    display: inline;
+    padding: 0rem 0rem 0rem 0.5rem;
+    color: #333;
+  }
+  .Section .Searchbar .Icon {
+    padding: 10px 10px 11px 10px;
+  }
 }

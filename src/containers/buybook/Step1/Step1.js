@@ -197,8 +197,8 @@ class Step1 extends React.Component {
                 {form}
             </div>
             <div className={classes.Buttons}>
-            <button type='button' onClick={this.props.Goback} className={classes.Back}>Back</button>
-            <button type='button' onClick={this.handleSubmit} className={classes.Next}>Next</button>
+                <button onClick={this.props.Goback} className={classes.Back}>Back</button>
+                <button onClick={this.handleSubmit} className={classes.Next}>Next</button>
             </div>
         </div>
     )

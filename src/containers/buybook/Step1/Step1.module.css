@@ -5,7 +5,6 @@
     flex-direction: column;
 }
 .Section h3{
-    display: inline;
     color: #6e6e6e;
 }
 
@@ -79,16 +78,21 @@
         flex-direction: column;
         text-align: center;
     }
-    .Section div {
-        margin: 0.25rem auto;
-    }
     .Section div label{
         display: inline-block;
         margin: 0.5rem auto;
         min-width: 200px;
     }
-    .Section button {
+    /* .Section button {
         width: 200px;
         margin: 0.5rem auto;
+    } */
+    .Section .Buttons button {
+        width: 150px; 
+        padding: 0.5rem 0.75rem;
+        background-color: var(--primary-background);
+        border:none;
+        border-radius: 5px;
+        outline: none;
     }
 }

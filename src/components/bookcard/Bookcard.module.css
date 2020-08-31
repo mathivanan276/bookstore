@@ -5,6 +5,7 @@
     margin: 1rem auto;
     background-color: #ffffffb9;
     border-radius: 5px;
+    border:1px solid var(--primary-background);
     padding: 0.75rem 1rem;
     cursor: pointer;
 }
@@ -46,10 +47,19 @@
         background-color: #ffffffb9;
         border-radius: 5px;
         padding: 0.5rem 0.5rem;
+        border:1px solid var(--primary-background);
         cursor: pointer;
+    }
+    .Bookcard .Bookcover img{
+        border: 1px solid var(--primary-background);
+        padding: 0.75rem;
+        background-color: #fff;
+        margin: auto;
+        width: 75px;
+        height: 100px;
     }
     .Bookcard .Bookdetails p {
         font-size: 0.8rem;
-        line-height: 2rem;
+        line-height: 1.5rem;
     }
 }

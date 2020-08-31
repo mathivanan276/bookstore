@@ -93,6 +93,15 @@
 .Bold {
     font-weight: bold;
 }
+.Bookcard .Bookdetails h3 a {
+    display: block;
+    width: 200px;
+    margin: 0rem 0rem 0.2rem 0rem;
+    padding: 0.5rem 0.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    text-align: center;
+}
 .Bookcard .Bookdetails a {
     display: block;
     width: 200px;

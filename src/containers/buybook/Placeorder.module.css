@@ -20,3 +20,31 @@
 .Success .Link a{
     color: blue;
 }
+
+.StepBar{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-radius: 10px;
+    height: 10px;
+    width: 80%;
+    margin-top: 1rem;
+    margin: 1rem auto;
+    background-color: #fff;
+}
+.StepBar .Step1{
+    height: 10px;
+    border:1px solid #FFEB3B;
+    border-radius: 3px 0px 0px 3px;
+}
+.StepBar .Step2{
+    height: 10px;
+    border: none;
+    border-top: 1px solid #FFEB3B;
+    border-bottom: 1px solid #FFEB3B;
+    border-radius: 0px;
+}
+.StepBar .Step3{
+    height: 10px;
+    border:1px solid #FFEB3B;
+    border-radius: 0px 10px 10px 0px;
+}

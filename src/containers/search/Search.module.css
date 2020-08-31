@@ -1,0 +1,14 @@
+.Section {
+    min-height: 81vh;
+}
+.Section h2{
+    text-align: center;
+    color: #333;
+    margin: 2rem;
+}
+.Section h4 {
+    text-align: center;
+    color: #333;
+    margin: 2rem;
+    cursor: pointer;
+}

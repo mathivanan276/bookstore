@@ -96,7 +96,6 @@ class Stocks extends Component {
                                 <td>{data.title}</td>
                                 <td><input
                                      placeholder={data.quantity}
-                                     value={this.state.quantity}
                                      name='quantity'
                                      type='number' 
                                      onChange = {(event)=>this.handleChange(event)} /></td>

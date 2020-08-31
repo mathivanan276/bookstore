@@ -3,13 +3,20 @@
     display: block;
     background-color: var(--primary-background);
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
 }
 
 .Navbar p {
     cursor: pointer;
 }
-
+.DesktopNav {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-background);
+}
+.DesktopNav h1{
+    padding: 0.5rem 0rem 0rem 1rem;
+}
 .Logout {
     text-decoration: none;
     color: black;

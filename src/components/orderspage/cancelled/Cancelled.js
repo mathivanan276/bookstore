@@ -26,6 +26,7 @@ class Cancelled extends Component {
         let items2 = null;
         let items3 = null;
         let items4 = null;
+        let feedback = null;
         if(this.props.ordersLoading){
             items = <p>Loading..</p>
             items2 = <p>Loading..</p>
@@ -79,7 +80,8 @@ class Cancelled extends Component {
                                 District:{this.props.orderSummary.addressInfo.District}<br/>
                                 State:{this.props.orderSummary.addressInfo.State}<br/>
                                 Pin:{this.props.orderSummary.addressInfo.PinCode}
-                        </address>
+                        </address>;
+                feedback = <div className={classes.Feedback}><p>{this.props.orderSummary.feedback}</p></div>
         }
         return (
             <div className={classes.Bg}>
@@ -103,6 +105,8 @@ class Cancelled extends Component {
                         {items3}
                     <h3>Address</h3>
                         {items4}
+                    <h3>Feedback</h3>
+                        {feedback}
                 </div>
             </div>
             </div>

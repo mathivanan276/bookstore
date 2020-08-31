@@ -1,0 +1,105 @@
+.Section {
+    margin:1rem;
+    width: 90%;
+    min-height: 80vh;
+}
+.Section .Body {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+.Section .Body .BookCover{
+    padding: 0.75rem;
+    border: 1px solid rgb(247, 252, 184);
+    box-shadow: 1px 1px 5px #ffd931,-1px -1px 5px #ffd931;
+    box-sizing: border-box;
+    margin: auto;
+}
+.Section.Body .Title{
+    padding: 1rem;
+    margin: auto;
+}
+.Section .Body .Title h1 {
+    margin-bottom: 0.75rem ;
+    color: #444;
+}
+.Section .Body .Title h4{
+    margin: 0.5rem 0rem;
+}
+.Section .Body .Title h5{
+    margin: 0.5rem 0rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+.Section .Body .Title .Buttons{
+    margin:1rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+.Section .Body .Title .Buttons button{
+    width: 200px;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--primary-background);
+    border:none;
+    border-radius: 5px;
+    outline: none;
+}
+.Section .Body .BookDetails {
+    grid-column: 1 / span 2;
+    padding: 3rem;
+}
+.Section .Body .BookDetails  h3{
+    text-align: left;
+    margin-left: 2rem ;
+}
+.Section .Body .BookDetails  p {
+    padding: 2rem;
+    line-height: 2rem;
+}
+
+.Section .BookDetails table{
+    width: 100%;    
+    margin: auto;
+}
+.Section .BookDetails table td{
+    text-align: center;
+    padding: 0.6rem 1rem;
+}
+.Spec{
+    font-size: 1.2rem;
+    font-style: italic;
+    padding: 0.75rem;
+}
+.Section .Button button {
+    width: 200px;
+    margin: auto;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--primary-background);
+    border:none;
+    border-radius: 5px;
+    outline: none;
+}
+
+@media only screen and (max-width:768px){
+    .Section .Body {
+        display: flex;
+        flex-direction: column;
+    }
+    .Section .Body .Title h1 {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    .Section .Button button {
+        width: 100px;
+    }
+    .Section .Body .Title .Buttons button{
+        width: 150px;
+    }
+    .Section .Body .BookDetails {
+        padding: 1rem;
+    }
+    .Section .Body .BookDetails  p {
+        padding: 0.25rem;
+        line-height: 1.5rem;
+    }
+}

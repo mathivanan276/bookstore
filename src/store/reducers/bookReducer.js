@@ -7,7 +7,9 @@ const initialState = {
     book: {},
     searchedBooksLoading: true,
     searchedBooks: [],
-    lowStock: 'loading'
+    lowStock: 'loading',
+    newBooks:{},
+    newBooksLoading:true
 }
 
 const reducer = (state = initialState , action) => {
@@ -39,6 +41,21 @@ const reducer = (state = initialState , action) => {
             ...state,   
             bookLoading:false
         };
+        case (actionType.NEW_BOOK_LOADING_TRUE) : 
+        return {
+            ...state,   
+            newBooksLoading:true
+        };
+        case (actionType.NEW_BOOK_LOADING_FALSE) : 
+        return {
+            ...state,   
+            newBooksLoading:false
+        };
+        case(actionType.GET_NEW_BOOKS) : 
+            return {
+                ...state,
+                newBooks:action.data
+            }
         case (actionType.GET_BOOK) : 
         return {
             ...state,

@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classes from './Vieworder.module.css';
 import * as orderSummaryActionTypes from "../../../store/actions/orderSummaryAction";
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import Spinner from '../../../components/UI/spinner/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
-import { timeConvertion } from '../../../components/orderspage/ListOrders';
 
 class Vieworder extends Component {
     componentDidMount(){
@@ -43,7 +42,7 @@ class Vieworder extends Component {
                         <img src={data.url} alt='book Cover' width='100px' height='125px' />
                     </div> 
                     <div className={classes.Bookdetails}>
-                        <h3>{data.title}</h3>
+                        <h3><Link to={'/View/'+data.bookId}>{data.title}</Link></h3>
                         <p><span className={classes.Bold}>Qty :</span>{data.quantity}</p>
                         <p><span className={classes.Bold}>Total Price :</span>{data.price}</p>
                     </div>

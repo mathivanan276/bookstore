@@ -32,16 +32,15 @@ const UserNav = (props) => {
             <div className={menuButton ? Opened : Closed}>
                 <nav className={classes.MobileNavbar}>
                     <UserNavItems link='/home' clicked={()=>setMenuButton(!menuButton)}>home</UserNavItems>
-                    <UserNavItems link='/new-arivals' clicked={()=>setMenuButton(!menuButton)}>New Arivals</UserNavItems>
                     <UserNavItems link='/categories' clicked={()=>setMenuButton(!menuButton)}>Categories</UserNavItems>
                     {login}
                     {register}
                 </nav>
             </div>
             <div className={classes.DesktopNav}>
+                <h1>Readers.com</h1>
                 <nav className={classes.Navbar}>
                     <UserNavItems link='/home'>home</UserNavItems>
-                    <UserNavItems link='/new-arivals'>New Arivals</UserNavItems>
                     <UserNavItems link='/categories'>Categories</UserNavItems>
                     {login}
                     {register}

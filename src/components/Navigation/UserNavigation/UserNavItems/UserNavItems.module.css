@@ -1,7 +1,7 @@
 .UserNavItems{
     text-decoration: none;
     color: black;
-    max-width: 200px;
+    max-width: 100px;
     padding: 1rem 2rem;
     border-radius: 0.2rem;
 }
@@ -10,6 +10,15 @@
     background-color: #ffed47;
 }
 
+@media only screen and (max-width: 900px){
+    .UserNavItems{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        max-width: 100px;
+        padding: 1rem;
+    }
+}
 
 @media only screen and (max-width:768px){
     .UserNavItems{

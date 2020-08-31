@@ -12,7 +12,7 @@ export default function Bookcard(props) {
                 <p><span className={classes.Bold}>Author :</span>{props.book.authorName}</p>
                 <p><span className={classes.Bold}>Genre :</span>{props.book.genreName}</p>
                 <p><span className={classes.Bold}>Publisher :</span>{props.book.publisherName}</p>
-                <p><span className={classes.Bold}>ISBN :</span>{props.book.isbn}</p>
+                <p><span className={classes.Bold}>Price :</span> Rs.{props.book.price}</p>
             </div>
         </div>
     )
