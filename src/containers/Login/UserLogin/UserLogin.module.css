@@ -1,5 +1,5 @@
 .Main{
-    height: 78vh;
+    min-height: 78vh;
 }
 
 .Container {
@@ -47,6 +47,6 @@
 }
 @media only screen and (max-width:768px){
     .Main {
-        height: 85vh;
+        min-height: 84vh;
     }
 }

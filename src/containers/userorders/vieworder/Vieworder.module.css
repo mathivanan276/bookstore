@@ -1,7 +1,7 @@
 .Section {
     max-width: 900px;
     margin: 2rem auto;
-    /* height: 71vh; */
+    min-height: 76vh;
     height: fit-content;
     text-align-last: center;
 }

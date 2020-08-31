@@ -1,14 +1,9 @@
 .Greetings {
-    height:81vh;
+    min-height:81vh;
     background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../../assets/welcome.jpg) center center/cover ;
-    /* display: flex;
-    flex-direction: column; */
-    /* align-items: center; */
     text-align: center;
     border-bottom: #333;
     box-shadow: 1px 1px 3px #333;
-    /* height: fit-content; */
-    /* overflow: auto; */
 }
 .Greetings h2 {
     padding: 2rem;
@@ -65,5 +60,21 @@
     overflow: auto;
 }
 @media only screen and (max-width:768px){
-    
+    .Greetings {
+        min-height:86vh;
+    }
+    .Greetings h2 {
+        padding: 1rem;
+        font-size: 1.8rem;
+    }
+    .Greetings .Table{
+        margin: 1rem auto;
+        background-color: rgba(255, 255, 255, 0.664);
+        border-radius: 5px;
+        min-width: 100%;
+    }
+    .Greetings .Table td {
+        padding: 0.5rem 0.5rem;
+        width: 100px;
+    }
 }

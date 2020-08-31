@@ -14,9 +14,9 @@ class Sidebar extends Component {
     render() {
         let SidebarClass = null;
         if(this.props.open){
-            SidebarClass = [classes.Sidebar,classes.Open];
+            SidebarClass = [classes.SidebarMobile,classes.Open];
         } else {
-            SidebarClass = [classes.Sidebar,classes.Close];
+            SidebarClass = [classes.SidebarMobile,classes.Close];
         }
         let categoryList = null;
         if(this.props.categoryLoading === false){
@@ -32,6 +32,7 @@ class Sidebar extends Component {
                             </ul>
         }
         return (
+            <>
             <div className={SidebarClass.join(' ')} onClick={this.props.close}>
                 <div className={classes.Section}>
                     <div style={{textAlign:'right',paddingRight:'0.75rem'}} onClick={this.props.close}><FontAwesomeIcon icon={faTimes} size='2x' /></div>
@@ -39,6 +40,13 @@ class Sidebar extends Component {
                     {categoryList}
                 </div>
             </div>
+            <div className={classes.Sidebar}>
+                <div className={classes.Section}>
+                    <h3>Select Category</h3>
+                    {categoryList}
+                </div>
+            </div>
+            </>
         )
     }
 }

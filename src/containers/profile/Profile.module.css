@@ -1,5 +1,5 @@
 .Section {
-    height: 81vh;
+    min-height: 81vh;
     height: fit-content;
     text-align: center;
 }

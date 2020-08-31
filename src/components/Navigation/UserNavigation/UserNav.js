@@ -19,11 +19,11 @@ const UserNav = (props) => {
         login = <>
                     <UserNavItems link='/cart' clicked={()=>setMenuButton(!menuButton)}>Cart</UserNavItems>
                     <Dropmenu clicked={()=>setMenuButton(!menuButton)}/>
-                    <p onClick={()=>{ props.logout();setMenuButton(!menuButton)}} className={classes.Logout}>LogOut</p>
+                    <p onClick={()=>{ props.logout(); window.location.reload(false) ;setMenuButton(!menuButton)}} className={classes.Logout}>LogOut</p>
                 </>
         register = null;
     }
-    return (
+    return (    
         <>
             <div className={classes.MobileNav}>
                 <h1>Readers.com</h1>

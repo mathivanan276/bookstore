@@ -1,0 +1,12 @@
+.Section{
+    text-align: center;
+    min-height: 76vh;
+}
+.Section h1 , .Section h4{
+    margin: 2rem ;
+    color:#333;
+}
+.Section p {
+    color: #333;
+    line-height: 2rem;
+}

@@ -63,11 +63,13 @@ class Home extends Component {
         }
         return (
             <>
-            <Sidebar open={this.state.sidebar} close={this.sidebar}/>
             <div className={classes.Section}>
+                <Sidebar open={this.state.sidebar} close={this.sidebar}/>
                 <div onClick={this.sidebar} className={classes.Sidebar}><FontAwesomeIcon icon={ faArrowCircleRight }/></div>
-                <SearchBox changed={this.handleChange} isvalid={this.state.isvalid} submit={this.handleSearch} value={this.state.searchText} isValid={this.state.isvalid} />
-                {list}
+                <div className={classes.Main}>
+                    <SearchBox changed={this.handleChange} isvalid={this.state.isvalid} submit={this.handleSearch} value={this.state.searchText} isValid={this.state.isvalid} />
+                    {list}
+                </div>
             </div>
             </>
         )

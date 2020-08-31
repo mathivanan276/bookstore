@@ -1,6 +1,7 @@
 .Section {
     text-align: center;
     height: fit-content;
+    min-height: 76vh;
 }
 .Section a {
     padding:0.75rem 2rem;
@@ -8,9 +9,6 @@
     border: none;
     border-radius: 5px;
     margin: 1rem;
-}
-.Section .Empty {
-    height: 75vh;
 }
 
 .Section .Empty h2{

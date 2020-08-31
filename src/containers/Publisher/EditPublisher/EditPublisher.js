@@ -176,7 +176,7 @@ class EditPublisher extends Component {
         );
         return (
             <div className={classes.Section}>
-                <h1>Add Book</h1>
+                <h1>Edit Publisher</h1>
                 {error}
                 <form >
                     <div className={classes.Form}>

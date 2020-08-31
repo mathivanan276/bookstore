@@ -1,12 +1,19 @@
 .Section{
     min-height: 81vh;
+    max-width: 100%;
 }
 .Section .Sidebar {
     display: none;
+}
+.Section .Main {
+    margin: auto auto auto 250px;
 }
 
 @media only screen and (max-width:768px){
     .Section .Sidebar {
         display: inline;
+    }
+    .Section .Main {
+        margin-left: auto;
     }
 }

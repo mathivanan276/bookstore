@@ -1,4 +1,4 @@
-.Sidebar{
+.SidebarMobile{
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -7,6 +7,9 @@
     top:52px;
     box-sizing: border-box;
     transition: transform 0.5s ease-in-out;
+}
+.Sidebar{
+    display: none;
 }
 .Open{
     transform: translateX(0);
@@ -40,7 +43,40 @@
 }
 
 @media only screen and (min-width:768px){
-    .Sidebar {
+    .SidebarMobile {
         display: none;
+    }
+    .Sidebar {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        width: 100%;
+        height: 90vh;
+        top:50px;
+        z-index: -1;
+    }
+    .Sidebar .Section{
+        position: absolute;
+        width: 200px;
+        height: 100%;
+        background-color: rgb(255, 255, 255);
+        padding-left: 0.75rem ;
+        border: 1px solid #333;
+        border-style: none solid none none;
+    }
+    .Section h2{
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .Section h3{
+        text-align: left;
+        margin-top: 1rem;
+    }
+    .Section ul li {
+        list-style: none;
+        padding: 0.2rem;
+    }
+    .Section ul li a{
+        color: #0591e2;
     }
 }
