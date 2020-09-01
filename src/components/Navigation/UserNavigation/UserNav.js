@@ -24,7 +24,7 @@ const UserNav = (props) => {
         register = null;
     }
     return (    
-        <>
+        <>  
             <div className={classes.MobileNav}>
                 <h1>Readers.com</h1>
                 <div><p onClick={()=>setMenuButton(!menuButton)}><FontAwesomeIcon icon={faBars} /></p></div>

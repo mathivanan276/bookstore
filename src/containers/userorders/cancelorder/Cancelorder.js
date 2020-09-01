@@ -51,11 +51,15 @@ class Cancelorder extends Component {
     }
 
     render() {
-        if(localStorage.getItem('userDetails') === null){
-            return <Redirect to='/login' />
-        }
-        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
-            return <Redirect to='/login' />
+        if(this.props.loggedIn){
+            if(localStorage.getItem('userDetails') === null){
+                return <Redirect to='/login' />
+            }
+            if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+                return <Redirect to='/login' />
+            }
+        }else {
+            return <Redirect to='/home' />
         }
         if(this.props.orderSummaryLoading){
             return  <div>
@@ -105,6 +109,7 @@ class Cancelorder extends Component {
 const mapStateToProps = state => {
     return {
         orderSummaryLoading : state.orderSummaryReducer.orderSummaryLoading,
+        loggedIn : state.loginReducer.loggedIn,
         orderSummary: state.orderSummaryReducer.orderSummary
     }
 }

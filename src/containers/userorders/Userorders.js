@@ -36,11 +36,15 @@ class Userorders extends Component {
         this.props.sortedOrders(this.state.sortKey)
     }
     render() {
-        if(localStorage.getItem('userDetails') === null){
-            return <Redirect to='/login' />
-        }
-        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
-            return <Redirect to='/login' />
+        if(this.props.loggedIn){
+            if(localStorage.getItem('userDetails') === null){
+                return <Redirect to='/login' />
+            }
+            if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+                return <Redirect to='/login' />
+            }
+        }else {
+            return <Redirect to='/home' />
         }
         return (
             <div className={classes.Section}>
@@ -67,6 +71,7 @@ class Userorders extends Component {
 const mapStateToProps = (state) => {
     return {
         ordersLoading : state.userOrderReducer.ordersLoading,
+        loggedIn : state.loginReducer.loggedIn,
         orders : state.userOrderReducer.orders
     }
 }

@@ -106,11 +106,15 @@ class Placeorder extends Component {
         }
     }
     render() {
-        if(localStorage.getItem('userDetails') === null){
-            return <Redirect to='/login' />
-        }
-        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
-            return <Redirect to='/login' />
+        if(this.props.loggedIn){
+            if(localStorage.getItem('userDetails') === null){
+                return <Redirect to='/login' />
+            }
+            if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+                return <Redirect to='/login' />
+            }
+        }else {
+            return <Redirect to='/home' />
         }
         if(this.props.addressLoading && this.props.cartLoading){
             return <div><Spinner /></div>
@@ -165,6 +169,7 @@ class Placeorder extends Component {
 
 const mapStateToProps = state => {
     return {
+        loggedIn : state.loginReducer.loggedIn,
         carts : state.cartReducer.cart,
         cartLoading : state.cartReducer.cartLoading,
         address : state.addressReducer.address,

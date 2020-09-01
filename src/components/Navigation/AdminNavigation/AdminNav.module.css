@@ -28,6 +28,13 @@
 }
 
 @media only screen and (max-width:768px){
+    .BackDrop{
+        position: fixed;
+        top:0;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+    }
     .Dropmenu{
         position: sticky;
         transition: transform 0.5s ease-in-out;

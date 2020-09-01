@@ -163,11 +163,15 @@ class EditAddress extends Component {
         }
     }
     render() {
-        if(localStorage.getItem('userDetails') === null){
-            return <Redirect to='/login' />
-        }
-        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
-            return <Redirect to='/login' />
+        if(this.props.loggedIn){
+            if(localStorage.getItem('userDetails') === null){
+                return <Redirect to='/login' />
+            }
+            if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+                return <Redirect to='/login' />
+            }
+        }else {
+            return <Redirect to='/home' />
         }
         let error = null;   
         if(this.state.error){
@@ -228,6 +232,7 @@ class EditAddress extends Component {
 const mapStateToProps = (state) => {
     return {
         address:state.addressReducer.address,
+        loggedIn : state.loginReducer.loggedIn,
         addressLoading : state.addressReducer.addressLoading
     }
 }

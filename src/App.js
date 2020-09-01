@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import AdminLogin from "./containers/Login/AdminLogin/AdminLogin";
 import NotFound from "./components/pagenotfound/NotFound";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import Axios from "axios";
 
 const AddBook = lazy(() => import("./containers/Books/AddBook/AddBook"));
 const EditBook = lazy(() => import("./containers/Books/EditBook/EditBook"));
@@ -72,7 +73,6 @@ class App extends Component {
   componentDidMount() {
     this.props.checkLogged();
   }
-
   render() {
     return (
       <div>

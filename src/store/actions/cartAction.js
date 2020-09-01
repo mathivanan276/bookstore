@@ -25,22 +25,24 @@ const saveCart = (data) => {
 export const getCart = (userId) => {
     return (dispatch) => {
         dispatch(cartLoadingTrue());
-        let token = JSON.parse(localStorage.getItem('userDetails')).token
-        Axios.get('carts/read',
-        {
-            headers:{'HTTP_AUTHORIZATION':token}
-        })
-        .then (res => {
-            // console.log(res.data)
-            if(res.data.response === true){
-                dispatch(saveCart(res.data.data));
-                dispatch(cartLoadingFalse());
-            } else {
-                dispatch(cartLoadingFalse());
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        if(localStorage.getItem('userDetails')){
+            let token = JSON.parse(localStorage.getItem('userDetails')).token
+            Axios.get('carts/read',
+            {
+                headers:{'HTTP_AUTHORIZATION':token}
+            })
+            .then (res => {
+                // console.log(res.data)
+                if(res.data.response === true){
+                    dispatch(saveCart(res.data.data));
+                    dispatch(cartLoadingFalse());
+                } else {
+                    dispatch(cartLoadingFalse());
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     }
 }

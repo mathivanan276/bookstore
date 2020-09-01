@@ -64,11 +64,15 @@ class Cart extends Component {
             })
     }
     render() {
-        if(localStorage.getItem('userDetails') === null){
-            return <Redirect to='/login' />
-        }
-        if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
-            return <Redirect to='/login' />
+        if(this.props.loggedIn){
+            if(localStorage.getItem('userDetails') === null){
+                return <Redirect to='/login' />
+            }
+            if(JSON.parse(localStorage.getItem('userDetails')).role === 'admin'){
+                return <Redirect to='/login' />
+            }
+        }else {
+            return <Redirect to='/home' />
         }
         let itemsList = null;
         let buy = null;
@@ -131,7 +135,8 @@ class Cart extends Component {
 const mapStateToProps = state => {
     return {
         carts : state.cartReducer.cart,
-        cartLoading : state.cartReducer.cartLoading
+        cartLoading : state.cartReducer.cartLoading,
+        loggedIn : state.loginReducer.loggedIn
     }
 }
 

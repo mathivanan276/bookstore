@@ -35,7 +35,7 @@ class Sidebar extends Component {
             <>
             <div className={SidebarClass.join(' ')} onClick={this.props.close}>
                 <div className={classes.Section}>
-                    <div style={{textAlign:'right',paddingRight:'0.75rem'}} onClick={this.props.close}><FontAwesomeIcon icon={faTimes} size='2x' /></div>
+                    <div style={{width:'fit-content',marginLeft:'auto',paddingRight:'0.75rem',cursor:'pointer'}} onClick={this.props.close}><FontAwesomeIcon icon={faTimes} size='2x' /></div>
                     <h3>Select Category</h3>
                     {categoryList}
                 </div>

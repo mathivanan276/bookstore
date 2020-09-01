@@ -10,8 +10,15 @@
 }
 
 @media only screen and (max-width:768px){
+    .Section{
+        min-height: 85vh;
+    }
     .Section .Sidebar {
         display: inline;
+        position: fixed;
+        top:50;
+        left: 0;
+        cursor: pointer;
     }
     .Section .Main {
         margin-left: auto;
