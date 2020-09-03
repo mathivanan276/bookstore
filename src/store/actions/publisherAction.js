@@ -31,7 +31,7 @@ export const getPublisher = () => {
             if(res.data.response === true){
                 dispatch(storePublisher(res.data))
                 dispatch(publisherLoadingFalse())
-            }
+            } 
         })
         .catch(err => {
             console.log(err);

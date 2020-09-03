@@ -36,7 +36,13 @@ export const getOrderSummary = (cartId) => {
                 // console.log(res.data)
                 dispatch(saveOrderSummary(res.data.data));
                 dispatch(ordersSummaryLoadingFalse());
-            }
+            }else if (res.data.error !== ''){
+                console.log(res.data);
+                alert('Your Session Is Closed');
+                localStorage.removeItem('userDetails');
+                localStorage.removeItem('expireDate');
+                window.location.reload(false);
+            } 
         })
     }
     }

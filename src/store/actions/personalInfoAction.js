@@ -34,7 +34,14 @@ export const getPersonalInfo = () => {
             if(res.data.response === true){
                 dispatch(savePersonalInfo(res.data.data));
                 dispatch(personalInfoLoadingFalse());
-            } else {
+            } else if (res.data.error !== ''){
+                console.log(res.data);
+                alert('Your Session Is Closed');
+                localStorage.removeItem('userDetails');
+                localStorage.removeItem('expireDate');
+                window.location.reload(false);
+            }  
+            else {
                 console.log(res.data.error);
             }
         }) 

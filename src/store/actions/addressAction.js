@@ -37,6 +37,13 @@ export const getAddress = () => {
                 dispatch(saveAddress(res.data.data))
                 dispatch(addressLoadingFalse());
             }
+            else if (res.data.error !== ''){
+                console.log(res.data);
+                alert('Your Session Is Closed');
+                localStorage.removeItem('userDetails');
+                localStorage.removeItem('expireDate');
+                window.location.reload(false);
+            } 
         })
     }
 }

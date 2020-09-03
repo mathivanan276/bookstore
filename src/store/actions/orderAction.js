@@ -39,7 +39,14 @@ export const sortedOrders = (sortDate) => {
         if (res.data.response === true) {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
-        } else {
+        }else if (res.data.error !== ''){
+            console.log(res.data);
+            alert('Your Session Is Closed');
+            localStorage.removeItem('userDetails');
+            localStorage.removeItem('expireDate');
+            window.location.reload(false);
+        } 
+         else {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
         }
@@ -63,7 +70,14 @@ export const rangedOrders = (date1, date2) => {
         if (res.data.response === true) {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
-        } else {
+        }else if (res.data.error !== ''){
+          console.log(res.data);
+          alert('Your Session Is Closed');
+          localStorage.removeItem('userDetails');
+          localStorage.removeItem('expireDate');
+          window.location.reload(false);
+      } 
+         else {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
         }
@@ -83,7 +97,14 @@ export const getorders = () => {
         if (res.data.response === true) {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
-        } else {
+        }else if (res.data.error !== ''){
+          console.log(res.data);
+          alert('Your Session Is Closed');
+          localStorage.removeItem('userDetails');
+          localStorage.removeItem('expireDate');
+          window.location.reload(false);
+      } 
+         else {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
         }

@@ -33,11 +33,18 @@ export const sortedOrder = (sortKey) => {
             headers:{'HTTP_AUTHORIZATION' : token}
         })
         .then (res => {
-            // console.log(res.data);
+            console.log(res.data);
             if(res.data.response === true){
                 dispatch(saveUserOrders(res.data.data));
                 dispatch(userOrdersLoadingFalse());
-            } else{
+            }else if (res.data.error !== ''){
+                console.log(res.data);
+                alert('Your Session Is Closed');
+                localStorage.removeItem('userDetails');
+                localStorage.removeItem('expireDate');
+                window.location.reload(false);
+            } 
+            else{
                 dispatch(saveUserOrders({}));
                 dispatch(userOrdersLoadingFalse());
             }
@@ -59,11 +66,18 @@ export const searchorder = (keyword) => {
             headers:{'HTTP_AUTHORIZATION' : token}
         })
         .then (res => {
-            // console.log(res.data);
+            console.log(res.data);
             if(res.data.response === true){
                 dispatch(saveUserOrders(res.data.data));
                 dispatch(userOrdersLoadingFalse());
-            } else{
+            }else if (res.data.error !== ''){
+                console.log(res.data);
+                alert('Your Session Is Closed');
+                localStorage.removeItem('userDetails');
+                localStorage.removeItem('expireDate');
+                window.location.reload(false);
+            } 
+            else{
                 dispatch(saveUserOrders({}));
                 dispatch(userOrdersLoadingFalse());
             }
