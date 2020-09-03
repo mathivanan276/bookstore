@@ -23,7 +23,8 @@ import AddressReducer from './store/reducers/addressReducer';
 import UserOrderReducer from './store/reducers/userOrderReducer';
 import CartReducer from './store/reducers/cartReducer';
 
-axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
+// axios.defaults.baseURL = 'http://localhost:80/bookstore_mvc';
+axios.defaults.baseURL = 'https://techmathi.tk/';
 // axios.defaults.baseURL = 'https://31939113256f.ngrok.io/bookstore_mvc';
 
 const rootReducer = combineReducers(
