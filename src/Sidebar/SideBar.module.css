@@ -51,10 +51,9 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        width: 100%;
+        width: 200px;
         height: 90vh;
         top:50px;
-        z-index: 1;
     }
     .Sidebar .Section{
         position: absolute;

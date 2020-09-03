@@ -1,6 +1,7 @@
 .Section{
     min-height: 81vh;
     max-width: 100%;
+    z-index: 10;
 }
 .Section .Sidebar {
     display: none;
