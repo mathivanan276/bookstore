@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Axios from 'axios';
 
+import * as bookActionTypes from '../../../store/actions/bookAction';
 import classes from './AddBookCover.module.css';
 import Input from '../../../components/UI/form/input/Input';
 import Button from '../../../components/UI/form/button/button';
@@ -57,7 +58,8 @@ class AddBookCover extends Component {
                 ...this.state,
                 uploading:false
             })
-            alert("Cover Uploaded Successfully")
+            alert("Cover Uploaded Successfully");
+            this.props.searchBook('null');
             this.props.history.push('/admin/book');
           }
         });
@@ -121,5 +123,10 @@ const mapStateToProps = (state) => {
         loggedIn : state.loginReducer.loggedIn
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        searchBook : (keyword) => dispatch(bookActionTypes.searchbook(keyword))
+    }
+}
 
-export default connect(mapStateToProps)(AddBookCover);
+export default connect(mapStateToProps,mapDispatchToProps)(AddBookCover);

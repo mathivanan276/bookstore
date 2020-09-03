@@ -54,7 +54,7 @@
         width: 100%;
         height: 90vh;
         top:50px;
-        z-index: -1;
+        z-index: 1;
     }
     .Sidebar .Section{
         position: absolute;

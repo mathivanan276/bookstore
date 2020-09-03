@@ -83,6 +83,9 @@ export const getorders = () => {
         if (res.data.response === true) {
           dispatch(saveOrders(res.data.data));
           dispatch(ordersLoadingFalse());
+        } else {
+          dispatch(saveOrders(res.data.data));
+          dispatch(ordersLoadingFalse());
         }
       });
     }
