@@ -141,13 +141,9 @@ class UserRegister extends Component {
             }
             axios.post('/users/register', userdata)
             .then( res => {
-                if(res.data.success === true){
+                if(res.data.response === true){
                     alert('Registered Successfully');
                     this.props.history.push('/login');
-                }
-                else {
-                    alert('Something Went Wrong');
-                    console.log(res.data.error);
                 }
             })
             .catch( err => {
@@ -196,9 +192,9 @@ class UserRegister extends Component {
             <div className={classes.Container}>
                 <h1>Register</h1>
                 {error}
-                <form>
+                <form onSubmit={this.handleRegister}>
                     {form}
-                    <Button type="submit" clicked={this.handleRegister}>Register</Button> 
+                    <Button type="submit">Register</Button> 
                 </form>
                 <p>Already Have An Accont |<Link to='/login'><span className={classes.Link}> Sign In</span> </Link></p>
             </div>
